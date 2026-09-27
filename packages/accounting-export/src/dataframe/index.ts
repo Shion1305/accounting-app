@@ -70,7 +70,7 @@ export function buildUniversityDataFrame(
   const entries = [...snapshot.entries].sort(
     (a, b) =>
       compare(a.occurredOn, b.occurredOn) ||
-      Date.parse(a.recordedAt) - Date.parse(b.recordedAt) ||
+      compareInstants(a.recordedAt, b.recordedAt) ||
       compare(a.sourceKey, b.sourceKey),
   );
   const tables = definition.categories.map((category) => ({
@@ -142,6 +142,16 @@ export function buildUniversityDataFrame(
 
 function compare(a: string, b: string): number {
   return a < b ? -1 : a > b ? 1 : 0;
+}
+
+function compareInstants(a: string, b: string): number {
+  const milliseconds = Date.parse(a) - Date.parse(b);
+  if (milliseconds !== 0) return milliseconds;
+  // Date.parse truncates sub-millisecond precision accepted by the ISO schema.
+  const aFraction = a.split(".")[1]?.slice(0, -1) ?? "";
+  const bFraction = b.split(".")[1]?.slice(0, -1) ?? "";
+  const width = Math.max(aFraction.length, bFraction.length);
+  return compare(aFraction.padEnd(width, "0"), bFraction.padEnd(width, "0"));
 }
 
 function invalidDefinition(): BuildDataFrameResult {

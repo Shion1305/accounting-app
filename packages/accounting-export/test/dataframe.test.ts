@@ -224,6 +224,36 @@ test.each<UniversityReportDefinition>([
   );
 });
 
+test("登録時刻のミリ秒未満の精度も並び順に反映する", () => {
+  const result = buildUniversityDataFrame(
+    {
+      ...snapshot,
+      entries: [
+        entry({
+          sourceKey: "expense:a",
+          recordedAt: "2026-05-01T00:00:00.0009Z",
+        }),
+        entry({
+          sourceKey: "expense:z",
+          recordedAt: "2026-05-01T00:00:00.0001Z",
+        }),
+        entry({
+          sourceKey: "expense:b",
+          recordedAt: "2026-05-01T00:00:00.00010Z",
+        }),
+      ],
+    },
+    definition,
+  );
+  expect(result.ok).toBe(true);
+  if (!result.ok) throw new Error("変換が失敗しました");
+  expect(result.dataFrame.tables[0]?.rows.map((row) => row.key)).toEqual([
+    "expense:b",
+    "expense:z",
+    "expense:a",
+  ]);
+});
+
 function deepFreeze(value: unknown): void {
   if (value !== null && typeof value === "object") {
     for (const child of Object.values(value)) deepFreeze(child);
