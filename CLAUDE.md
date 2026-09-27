@@ -6,9 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 大学生サークル向けの会計アプリ (a university club accounting/reimbursement app). General members submit expense reimbursement requests (立替申請: payer, amount, receipt image, memo); club admins (代表/会計) approve or reject them and manage income/expense/accounting data.
 
-The authoritative product and stack decisions live in `note/方針.md` (product policy) and `note/技術スタック.md` (tech stack) — read these before making architectural decisions, they are not duplicated in full here.
+Read [docs/README.md](docs/README.md) before architectural changes. It maps each topic to its authoritative document: [CONTEXT.md](CONTEXT.md) for domain terms, [note/方針.md](note/方針.md) for core product policy, and `docs/design/` for design boundaries. Keep current specifications in those documents; use `docs/adr/` for the reasons behind significant decisions and `docs/plans/` for progress and open questions. Update the relevant document with an implementation change; do not copy specifications into multiple files.
 
-**Not yet implemented** (intentionally deferred, do not assume they exist): the intro/landing page copy, and real subscription billing (Square / GMOあおぞら仮想口座 — see `note/要件.md`). Until billing is built, every circle's `subscriptions` row is created with `status: "active"` at circle-creation time and nothing should gate features on payment state. Auth, the DB schema/bindings, circle onboarding, the public reimbursement submission flow, and the admin screens (approval, income/expense, summary — below) are implemented. There's no CSV/PDF export and no date-range filtering on the summary yet (explicitly out of scope for now, not an oversight).
+**Not yet implemented**: the final intro/landing page copy and real subscription billing (Square / GMOあおぞら仮想口座). Until billing is built, every circle's `subscriptions` row is created with `status: "active"` at circle-creation time and nothing should gate features on payment state. Auth, the DB schema/bindings, circle onboarding, the public reimbursement submission flow, and the admin screens (approval, income/expense, summary — below) are implemented. University Excel/PDF export is planned in [the export requirements](docs/requirements/accounting-export.md); track its implementation in [the plan](docs/plans/accounting-export.md). Do not infer completion from design documents. CSV export and summary date-range filtering are not added by that plan.
 
 ## Commands
 
@@ -39,14 +39,14 @@ There are no test scripts configured anywhere in the repo yet.
 
 ### Apps
 
-- `apps/web` — frontend. Vite + React 19 + React Router in **Declarative mode** (`BrowserRouter`/`Routes`/`Route`, not the data/framework router — see `src/main.tsx` / `src/App.tsx`) + Tailwind CSS v4 (`@tailwindcss/vite` plugin, CSS-first config in `src/index.css`, no `tailwind.config.js`) + Tanstack Query (`QueryClientProvider` in `src/main.tsx`) + shadcn ui.
-  - shadcn is configured (`components.json`, `src/lib/utils.ts` for `cn()`) but no components have been generated yet. Add them from `apps/web` with `pnpm dlx shadcn@latest add <component>`; they land in `src/components/ui`.
+- `apps/web` — frontend. Vite + React 19 + React Router in **Declarative mode** (`HashRouter`/`Routes`/`Route`, not the data/framework router — see `src/main.tsx` / `src/App.tsx`) + Tailwind CSS v4 (`@tailwindcss/vite` plugin, CSS-first config in `src/index.css`, no `tailwind.config.js`) + Tanstack Query (`QueryClientProvider` in `src/main.tsx`) + shadcn ui.
+  - shadcn components live in `src/components/ui`, with configuration in `components.json` and `src/lib/utils.ts`. Add components from `apps/web` with `pnpm dlx shadcn@latest add <component>`.
   - Path alias `@/*` → `apps/web/src/*` (set in both `tsconfig.json` and `vite.config.ts`).
   - `VITE_API_URL` (see `.env.example`) points the frontend at the Hono backend; `.env` is gitignored.
 
 - `apps/server` — backend. Hono app targeting Cloudflare Workers, deployed/dev-served via `wrangler` (`wrangler.jsonc`). Entry point `src/index.ts`, typed as `new Hono<{ Bindings: Env }>()`.
   - `wrangler.jsonc` has real Cloudflare bindings: D1 database `accounting-app-d1` bound as `env.DB`, R2 bucket `accounting-app-r2` bound as `env.R2`. `Env` bindings come from the generated (gitignored) `worker-configuration.d.ts`. Root `pnpm build` and `pnpm check-types` run `server#typegen` first; before running server's scripts directly, run `pnpm --filter server typegen`. Runtime types remain in `@cloudflare/workers-types`; `src/env.d.ts` declares the runtime secret so checks do not require `.dev.vars`.
-  - `src/db/schema.ts` — drizzle-orm (`sqlite-core`, D1 dialect) schema for the full domain model (circles, subscriptions, virtual accounts, reimbursement requests, income/expense records, etc.). `drizzle.config.ts` + `pnpm --filter server db:generate` produces migrations under `apps/server/drizzle/`. No route handler wires up a drizzle client against `env.DB` yet.
+  - `src/db/schema.ts` — drizzle-orm (`sqlite-core`, D1 dialect) schema for the application model (circles, subscriptions, virtual accounts, reimbursement requests, income/expense records, etc.). `drizzle.config.ts` + `pnpm --filter server db:generate` produces migrations under `apps/server/drizzle/`. Route handlers use `createDb(env.DB)` from `src/db/index.ts`.
   - `wrangler.jsonc`'s `compatibility_date` must not be later than the date embedded in the installed `workerd` version (check `node_modules/.pnpm/workerd@<date>...`) or `wrangler dev`/`deploy` fails with "Compatibility date is in the future".
 
 ### Authentication (better-auth)
