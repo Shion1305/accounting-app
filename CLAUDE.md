@@ -19,6 +19,7 @@ pnpm install              # install all workspace deps
 pnpm dev                  # turbo run dev — apps/web on :3000 (vite), apps/server on :8787 (wrangler dev)
 pnpm build                # turbo run build
 pnpm lint                 # turbo run lint (eslint --max-warnings 0 per package)
+pnpm test                 # turbo run test (Vitest in packages/accounting-export)
 pnpm check-types          # turbo run check-types (tsc --noEmit per package)
 pnpm format                # prettier --write "**/*.{ts,tsx,md}"
 ```
@@ -33,7 +34,7 @@ pnpm exec turbo build --filter=web
 
 Or run a package's own script directly: `pnpm --filter web add <pkg>` / `pnpm --filter server add -D <pkg>`.
 
-There are no test scripts configured anywhere in the repo yet.
+`packages/accounting-export` tests its pure Data Frame conversion with Vitest and synthetic fixtures. Run `pnpm --filter @repo/accounting-export test` for this package, or `pnpm test` for all configured test tasks. D1, file conversion, and browser tests will be added alongside those implementations.
 
 ## Architecture
 
@@ -130,6 +131,7 @@ This is the piece that ties the two apps together and is easy to break:
 
 ### Shared packages
 
+- `packages/accounting-export` — DB-independent accounting Snapshot → university Data Frame conversion. Contracts and behavior are documented in its README. Build before consuming the package exports; source and build configurations exclude Worker/DOM runtime types.
 - `packages/eslint-config` — `base.js` (generic TS/JS) and `react-internal.js` (adds React/React-hooks rules; used by `apps/web`). Exposed via `@repo/eslint-config/base` and `@repo/eslint-config/react-internal`.
 - `packages/typescript-config` — `base.json` (shared strict compiler options), `vite.json` (Bundler resolution + JSX, extended by `apps/web`), `workers.json` (Bundler resolution + `@cloudflare/workers-types`, no DOM lib, extended by `apps/server`).
 
