@@ -11,6 +11,7 @@ pnpm workspace + turborepo によるモノレポ。
 - `apps/server`: バックエンド。Hono（Cloudflare Workers上で動作）。HonoのRPC機能で `apps/web` と型を共有する
 - `packages/eslint-config`: 共通ESLint設定
 - `packages/typescript-config`: 共通tsconfig
+- `packages/accounting-export`: DBから独立した会計出力データの変換
 
 認証（better-auth）、DB（Cloudflare D1 + drizzle）、R2への画像アップロードはいずれも実装済み。
 
@@ -100,6 +101,7 @@ pnpm run deploy
 ```sh
 pnpm build        # 全パッケージのビルド
 pnpm lint         # 全パッケージのlint
+pnpm test         # テストを持つパッケージのテスト
 pnpm check-types  # 全パッケージの型チェック
 ```
 
@@ -112,4 +114,4 @@ Turboを介さずserverのコマンドを直接実行する場合は、先に`pn
 runtime型は既存の`@cloudflare/workers-types`を使い、生成対象は設定から得られるbinding型に限定する。
 
 GitHub Actionsでは`dev`・`main`向けPRと、それらのブランチへのpushで、
-型チェック・lint・buildを実行する。デプロイは行わない。
+型チェック・lint・test・buildを実行する。デプロイは行わない。
