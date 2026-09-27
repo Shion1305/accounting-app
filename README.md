@@ -61,8 +61,10 @@ pnpm dlx wrangler d1 execute accounting-app-d1 --remote --file=apps/server/drizz
 
 ## セットアップ（ローカル開発）
 
+Node.js 22.22.0以上（推奨: 24系）と、`packageManager`で指定したpnpm 9.0.0を使用する。
+
 ```sh
-pnpm install
+pnpm install --frozen-lockfile
 ```
 
 `apps/server/.dev.vars.example` をコピーして `apps/server/.dev.vars` を作り、`BETTER_AUTH_SECRET` を埋める。
@@ -100,3 +102,14 @@ pnpm build        # 全パッケージのビルド
 pnpm lint         # 全パッケージのlint
 pnpm check-types  # 全パッケージの型チェック
 ```
+
+ルートの`pnpm build`と`pnpm check-types`は、Wranglerの`Env`型を自動生成してから実行する。
+生成ファイル`apps/server/worker-configuration.d.ts`はコミットしない。
+実行時のsecretである`BETTER_AUTH_SECRET`の型は`apps/server/src/env.d.ts`で宣言しているため、
+これらの検証には`.dev.vars`やCloudflareの認証情報は不要。アプリ起動時は上記のセットアップが必要。
+
+Turboを介さずserverのコマンドを直接実行する場合は、先に`pnpm --filter server typegen`を実行する。
+runtime型は既存の`@cloudflare/workers-types`を使い、生成対象は設定から得られるbinding型に限定する。
+
+GitHub Actionsでは`dev`・`main`向けPRと、それらのブランチへのpushで、
+型チェック・lint・buildを実行する。デプロイは行わない。

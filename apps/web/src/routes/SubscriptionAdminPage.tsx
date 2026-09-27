@@ -7,10 +7,6 @@ function RequiredBadge() {
   return <span className="ml-1 text-xs text-primary">必須</span>;
 }
 
-function OptionalBadge() {
-  return <span className="ml-1 text-xs text-muted-foreground">任意</span>;
-}
-
 const SubscriptionAdminPage = () => {
   const [card, setCard] = useState("");
   const [exp,setExp]=useState("");

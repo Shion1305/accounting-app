@@ -49,9 +49,6 @@ export function DashboardSummaryPage() {
   });
   const pendingCount =
     reimbursements?.filter((r) => r.status === "pending").length ?? 0;
-  // 未精算 = 承認済みだが申請者への払い戻しが済んでいないもの
-  const unpaidCount =
-    reimbursements?.filter((r) => r.status === "approved").length ?? 0;
 
   const shareUrl = `${window.location.origin}/#/c/${circle.publicToken}`;
 

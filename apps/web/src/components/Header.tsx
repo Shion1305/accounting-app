@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import waveTop from "@/components/images/Wave_Top.avif";
-import menuIcon from "@/components/images/Menu.svg";
 import { HouseIcon, ListIcon } from "@phosphor-icons/react";
 
 export type HeaderMenuItem = {
