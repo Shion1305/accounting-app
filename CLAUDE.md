@@ -12,7 +12,7 @@ The authoritative product and stack decisions live in `note/方針.md` (product 
 
 ## Commands
 
-This is a pnpm workspace + turborepo monorepo (`pnpm@9.0.0`, Node >=18). Run commands from the repo root; turbo fans them out to each package.
+This is a pnpm workspace + turborepo monorepo (`pnpm@9.0.0`, Node >=22.22.0; Node 24 recommended). Run commands from the repo root; turbo fans them out to each package.
 
 ```sh
 pnpm install              # install all workspace deps
@@ -45,7 +45,7 @@ There are no test scripts configured anywhere in the repo yet.
   - `VITE_API_URL` (see `.env.example`) points the frontend at the Hono backend; `.env` is gitignored.
 
 - `apps/server` — backend. Hono app targeting Cloudflare Workers, deployed/dev-served via `wrangler` (`wrangler.jsonc`). Entry point `src/index.ts`, typed as `new Hono<{ Bindings: Env }>()`.
-  - `wrangler.jsonc` has real Cloudflare bindings: D1 database `accounting-app-d1` bound as `env.DB`, R2 bucket `accounting-app-r2` bound as `env.R2`. `Env` comes from the generated (gitignored) `worker-configuration.d.ts` — regenerate it with `pnpm --filter server exec wrangler types` after changing bindings in `wrangler.jsonc`.
+  - `wrangler.jsonc` has real Cloudflare bindings: D1 database `accounting-app-d1` bound as `env.DB`, R2 bucket `accounting-app-r2` bound as `env.R2`. `Env` bindings come from the generated (gitignored) `worker-configuration.d.ts`. Root `pnpm build` and `pnpm check-types` run `server#typegen` first; before running server's scripts directly, run `pnpm --filter server typegen`. Runtime types remain in `@cloudflare/workers-types`; `src/env.d.ts` declares the runtime secret so checks do not require `.dev.vars`.
   - `src/db/schema.ts` — drizzle-orm (`sqlite-core`, D1 dialect) schema for the full domain model (circles, subscriptions, virtual accounts, reimbursement requests, income/expense records, etc.). `drizzle.config.ts` + `pnpm --filter server db:generate` produces migrations under `apps/server/drizzle/`. No route handler wires up a drizzle client against `env.DB` yet.
   - `wrangler.jsonc`'s `compatibility_date` must not be later than the date embedded in the installed `workerd` version (check `node_modules/.pnpm/workerd@<date>...`) or `wrangler dev`/`deploy` fails with "Compatibility date is in the future".
 
