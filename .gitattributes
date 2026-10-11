@@ -1,7 +1,14 @@
 # Preserve exported evidence bytes, including CSV line endings.
-/experiments/llm-export/results/**/results.csv -text
+/experiments/llm-export/results/**/results.csv -text whitespace=cr-at-eol
 
 # Generated evidence remains available, but does not dominate code review.
 /experiments/llm-export/results/**/evidence.json linguist-generated=true
 /experiments/llm-export/results/**/summary.json linguist-generated=true
 /experiments/llm-export/results/**/results.csv linguist-generated=true
+
+# Editable generators and notes are reviewed alongside their rendered slides.
+/docs/reports/llm-file-editing-slides/*.svg linguist-generated=true
+/docs/reports/llm-file-editing-slides/*.png linguist-generated=true
+/docs/reports/llm-file-editing-slides/*.pdf linguist-generated=true
+/docs/reports/llm-file-editing-slides/index.html linguist-generated=true
+/docs/reports/llm-file-editing-slides/slides.json linguist-generated=true

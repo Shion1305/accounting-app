@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">実験全体の費用は、推計$2.9245</title><desc id="desc">正確な合計は$2.924513275。トークン$1.604513275と44コンテナ$1.32。コンテナは1GBの20分セッション相当$0.03を保守的に加算しており、提供元の確定請求額ではない。独立した再計算は台帳と完全一致。44コンテナとアップロード84ファイルを削除した。表の金額は丸めて表示。</desc><metadata>{&quot;date&quot;:&quot;2026-10-12&quot;,&quot;sources&quot;:[{&quot;label&quot;:&quot;検証結果&quot;,&quot;href&quot;:&quot;../llm-file-editing-poc-2026-10-12.md&quot;},{&quot;label&quot;:&quot;集計JSON&quot;,&quot;href&quot;:&quot;../../../experiments/llm-export/results/2026-10-12/summary.json&quot;}]}</metadata><style>text{font-family:'Hiragino Sans','Noto Sans CJK JP','Yu Gothic',sans-serif}</style>
+<rect x="0" y="0" width="1600" height="900" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="64" y="51" font-size="20" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="1472">LLMによる会計帳票編集  /  費用結果</text>
+<text x="64" y="122" font-size="48" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">実験全体の費用は、推計$2.9245</text>
+<text x="64" y="169" font-size="26" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">47回のResponsesを同じ台帳で計測。予算$10内で終了した</text>
+<line x1="64" y1="194" x2="1536" y2="194" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="357" font-size="100" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="680">$2.9245</text>
+<text x="68" y="410" font-size="28" font-weight="400" fill="#506176" text-anchor="start" data-max-width="680">使用量に基づく推計額</text>
+<rect x="64" y="474" width="377.4662753753443" height="64" rx="0" fill="#235BC5" stroke="none"/>
+<rect x="441.4662753753443" y="474" width="310.5337246246557" height="64" rx="0" fill="#147968" stroke="none"/>
+<text x="64" y="587" font-size="26" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="285">トークン</text>
+<text x="64" y="628" font-size="38" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="315">$1.6045</text>
+<text x="424" y="587" font-size="26" font-weight="600" fill="#147968" text-anchor="start" data-max-width="328">コンテナ44個</text>
+<text x="424" y="628" font-size="38" font-weight="600" fill="#147968" text-anchor="start" data-max-width="328">$1.3200</text>
+<text x="64" y="710" font-size="29" font-weight="500" fill="#506176" text-anchor="start" data-max-width="688">未使用の予算 $7.0755</text>
+<text x="828" y="279" font-size="28" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="700">内訳</text>
+<text x="828" y="338" font-size="28" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="470">基本比較 36応答</text>
+<text x="1536" y="338" font-size="31" font-weight="500" fill="#192C40" text-anchor="end" data-max-width="230">$2.5702</text>
+<line x1="828" y1="364" x2="1536" y2="364" stroke="#D6DFE8" stroke-width="2"/>
+<text x="828" y="416" font-size="28" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="470">保存対照 4応答</text>
+<text x="1536" y="416" font-size="31" font-weight="500" fill="#192C40" text-anchor="end" data-max-width="230">$0.1847</text>
+<line x1="828" y1="442" x2="1536" y2="442" stroke="#D6DFE8" stroke-width="2"/>
+<text x="828" y="494" font-size="28" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="470">追加条件 4応答</text>
+<text x="1536" y="494" font-size="31" font-weight="500" fill="#192C40" text-anchor="end" data-max-width="230">$0.1695</text>
+<line x1="828" y1="520" x2="1536" y2="520" stroke="#D6DFE8" stroke-width="2"/>
+<text x="828" y="572" font-size="28" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="470">接続確認 3応答</text>
+<text x="1536" y="572" font-size="31" font-weight="500" fill="#192C40" text-anchor="end" data-max-width="230">$0.0001</text>
+<line x1="828" y1="598" x2="1536" y2="598" stroke="#D6DFE8" stroke-width="2"/>
+<text x="828" y="686" font-size="29" font-weight="600" fill="#147968" text-anchor="start" data-max-width="708">未解決費用・残予約 0</text>
+<text x="64" y="780" font-size="23" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">確定請求額との照合は未実施。税・為替・人の調査や確認作業・本番運用費は含まない。</text>
+<line x1="64" y1="822" x2="1536" y2="822" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="858" font-size="18" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">2026-10-12  /  会計帳票の直接編集 PoC</text>
+<text x="1536" y="858" font-size="21" font-weight="600" fill="#506176" text-anchor="end" data-max-width="90">12 / 14</text>
+</svg>

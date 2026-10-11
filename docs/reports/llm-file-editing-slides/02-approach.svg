@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">方針転換で変えたこと</title><desc id="desc">従来の大学別Data Frameやセル配置の事前実装を止め、LLMによる実行時の調査・編集を検証した。入力と正しさの基準まで捨てたわけではなく、独立した評価側に保持する。</desc><metadata>{&quot;date&quot;:&quot;2026-10-12&quot;,&quot;sources&quot;:[{&quot;label&quot;:&quot;検証結果&quot;,&quot;href&quot;:&quot;../llm-file-editing-poc-2026-10-12.md&quot;},{&quot;label&quot;:&quot;集計JSON&quot;,&quot;href&quot;:&quot;../../../experiments/llm-export/results/2026-10-12/summary.json&quot;}]}</metadata><style>text{font-family:'Hiragino Sans','Noto Sans CJK JP','Yu Gothic',sans-serif}</style>
+<rect x="0" y="0" width="1600" height="900" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="64" y="51" font-size="20" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="1472">LLMによる会計帳票編集  /  方針</text>
+<text x="64" y="122" font-size="48" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">方針転換で変えたこと</text>
+<text x="64" y="169" font-size="26" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">帳票ごとの判断と編集コードを、実行時のAIに任せる</text>
+<line x1="64" y1="194" x2="1536" y2="194" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="260" font-size="28" font-weight="600" fill="#506176" text-anchor="start" data-max-width="1472">これまでの想定</text>
+<rect x="64" y="292" width="350" height="154" rx="8" fill="#F2F5F8" stroke="none"/>
+<text x="88" y="337" font-size="30" font-weight="600" fill="#506176" text-anchor="start" data-max-width="302">会計データ</text>
+<text x="88" y="387" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="302">規定のデータを用意</text>
+<line x1="430" y1="369" x2="478" y2="369" stroke="#506176" stroke-width="3"/>
+<path d="M467.5861698438682 374.96256165412484 L478 369 L467.5861698438682 363.03743834587516" fill="none" stroke="#506176" stroke-width="3"/>
+<rect x="496" y="292" width="610" height="154" rx="8" fill="#F2F5F8" stroke="none"/>
+<text x="520" y="337" font-size="30" font-weight="600" fill="#506176" text-anchor="start" data-max-width="562">大学別の変換・配置ロジック</text>
+<text x="520" y="387" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="562">開発者が分類・集計・セル対応を実装</text>
+<line x1="1122" y1="369" x2="1170" y2="369" stroke="#506176" stroke-width="3"/>
+<path d="M1159.5861698438682 374.96256165412484 L1170 369 L1159.5861698438682 363.03743834587516" fill="none" stroke="#506176" stroke-width="3"/>
+<rect x="1186" y="292" width="350" height="154" rx="8" fill="#F2F5F8" stroke="none"/>
+<text x="1210" y="337" font-size="30" font-weight="600" fill="#506176" text-anchor="start" data-max-width="302">出力ファイル</text>
+<text x="1210" y="387" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="302">実装した規則で生成</text>
+<text x="64" y="508" font-size="28" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="1472">今回のPoC</text>
+<rect x="64" y="542" width="350" height="164" rx="8" fill="#EDF3FD" stroke="none"/>
+<text x="88" y="587" font-size="30" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="302">Excelと取引JSON</text>
+<text x="88" y="637" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="302">書式と事実を渡す</text>
+<line x1="430" y1="624" x2="478" y2="624" stroke="#235BC5" stroke-width="3"/>
+<path d="M467.5861698438682 629.9625616541248 L478 624 L467.5861698438682 618.0374383458752" fill="none" stroke="#235BC5" stroke-width="3"/>
+<rect x="496" y="542" width="610" height="164" rx="8" fill="#EDF3FD" stroke="none"/>
+<text x="520" y="587" font-size="30" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="562">AIが調べて、その場で編集</text>
+<text x="520" y="637" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="562">意味・記入位置・手法を判断し、コードを実行</text>
+<line x1="1122" y1="624" x2="1170" y2="624" stroke="#235BC5" stroke-width="3"/>
+<path d="M1159.5861698438682 629.9625616541248 L1170 624 L1159.5861698438682 618.0374383458752" fill="none" stroke="#235BC5" stroke-width="3"/>
+<rect x="1186" y="542" width="350" height="164" rx="8" fill="#ECF6F2" stroke="none"/>
+<text x="1210" y="587" font-size="30" font-weight="600" fill="#147968" text-anchor="start" data-max-width="302">編集済みExcel</text>
+<text x="1210" y="637" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="302">別の評価器で検査</text>
+<text x="64" y="780" font-size="23" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">正しさの基準は評価側に残す。モデルには採点用の正解やセル対応を渡していない。</text>
+<line x1="64" y1="822" x2="1536" y2="822" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="858" font-size="18" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">2026-10-12  /  会計帳票の直接編集 PoC</text>
+<text x="1536" y="858" font-size="21" font-weight="600" fill="#506176" text-anchor="end" data-max-width="90">02 / 14</text>
+</svg>

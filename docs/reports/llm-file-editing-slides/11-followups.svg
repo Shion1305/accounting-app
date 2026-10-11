@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">追加条件でも、課題が残った</title><desc id="desc">出力上限を増やす条件と、大学・セル・正解を含まない一般的なXML保持指示を加える条件を分けた。法政の追加試行ではmc:Ignorableが未宣言の名前空間接頭辞を参照していた。OOXML適合性の不備だが、この成果物の実Excel修復は観察していない。早稲田はH2の意味が未確定なのに、別の報告日を複写した。</desc><metadata>{&quot;date&quot;:&quot;2026-10-12&quot;,&quot;sources&quot;:[{&quot;label&quot;:&quot;検証結果&quot;,&quot;href&quot;:&quot;../llm-file-editing-poc-2026-10-12.md&quot;},{&quot;label&quot;:&quot;集計JSON&quot;,&quot;href&quot;:&quot;../../../experiments/llm-export/results/2026-10-12/summary.json&quot;}]}</metadata><style>text{font-family:'Hiragino Sans','Noto Sans CJK JP','Yu Gothic',sans-serif}</style>
+<rect x="0" y="0" width="1600" height="900" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="64" y="51" font-size="20" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="1472">LLMによる会計帳票編集  /  追加調査</text>
+<text x="64" y="122" font-size="48" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">追加条件でも、課題が残った</text>
+<text x="64" y="169" font-size="26" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">失敗ケースに対する新規試行を4回。前回の成果物や履歴は渡していない</text>
+<line x1="64" y1="194" x2="1536" y2="194" stroke="#D6DFE8" stroke-width="2"/>
+<rect x="64" y="247" width="1472" height="65" rx="0" fill="#192C40" stroke="none"/>
+<text x="88" y="290" font-size="25" font-weight="600" fill="#FFFFFF" text-anchor="start" data-max-width="420">変更した条件</text>
+<text x="527" y="290" font-size="25" font-weight="600" fill="#FFFFFF" text-anchor="start" data-max-width="175">対象</text>
+<text x="735" y="290" font-size="25" font-weight="600" fill="#FFFFFF" text-anchor="start" data-max-width="775">観察した結果</text>
+<rect x="64" y="312" width="1472" height="97" rx="0" fill="#FFFFFF" stroke="none"/>
+<line x1="64" y1="409" x2="1536" y2="409" stroke="#D6DFE8" stroke-width="2"/>
+<text x="88" y="367" font-size="27" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="420">6 Luna：上限12,000</text>
+<text x="527" y="367" font-size="27" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="175">学習院</text>
+<text x="735" y="367" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="775">上限到達。ダウンロード可能な成果物なし。</text>
+<rect x="64" y="409" width="1472" height="97" rx="0" fill="#F2F5F8" stroke="none"/>
+<line x1="64" y1="506" x2="1536" y2="506" stroke="#D6DFE8" stroke-width="2"/>
+<text x="88" y="464" font-size="27" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="420">6 Luna：上限12,000</text>
+<text x="527" y="464" font-size="27" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="175">早稲田</text>
+<text x="735" y="464" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="775">成果物は静的合格。最終回答は上限で途中終了。</text>
+<rect x="64" y="506" width="1472" height="97" rx="0" fill="#FFFFFF" stroke="none"/>
+<line x1="64" y1="603" x2="1536" y2="603" stroke="#D6DFE8" stroke-width="2"/>
+<text x="88" y="561" font-size="27" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="420">5.6 Luna：保持指示</text>
+<text x="527" y="561" font-size="27" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="175">法政</text>
+<text x="735" y="544" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="775">金額・数式・22図形は保持。</text>
+<text x="735" y="580" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="775">接頭辞の宣言が欠け、構造検査で不合格。</text>
+<rect x="64" y="603" width="1472" height="97" rx="0" fill="#F2F5F8" stroke="none"/>
+<line x1="64" y1="700" x2="1536" y2="700" stroke="#D6DFE8" stroke-width="2"/>
+<text x="88" y="658" font-size="27" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="420">5.6 Luna：保持指示</text>
+<text x="527" y="658" font-size="27" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="175">早稲田</text>
+<text x="735" y="641" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="775">式・パーツは保持。</text>
+<text x="735" y="677" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="775">意味が未確定の日付欄を埋めてしまい不合格。</text>
+<text x="64" y="751" font-size="32" font-weight="600" fill="#975B11" text-anchor="start" data-max-width="1472">4回とも「合格・完了」の全条件には到達しなかった</text>
+<text x="64" y="780" font-size="23" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">各条件・各書式1回だけの観察。主比較の成功率へ混ぜず、改善率の推定にも使わない。</text>
+<line x1="64" y1="822" x2="1536" y2="822" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="858" font-size="18" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">2026-10-12  /  会計帳票の直接編集 PoC</text>
+<text x="1536" y="858" font-size="21" font-weight="600" fill="#506176" text-anchor="end" data-max-width="90">11 / 14</text>
+</svg>

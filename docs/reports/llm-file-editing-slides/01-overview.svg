@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">AIに帳票の解釈と編集を任せる</title><desc id="desc">今回のPoCは、AI自身がExcelを調べ、コード実行を繰り返して成果物を生成する方式の検証。Solは固定条件の12試行すべてで静的合格かつ応答完了。未見データ・本番の自動提出の信頼性を保証する結果ではない。</desc><metadata>{&quot;date&quot;:&quot;2026-10-12&quot;,&quot;sources&quot;:[{&quot;label&quot;:&quot;検証結果&quot;,&quot;href&quot;:&quot;../llm-file-editing-poc-2026-10-12.md&quot;},{&quot;label&quot;:&quot;集計JSON&quot;,&quot;href&quot;:&quot;../../../experiments/llm-export/results/2026-10-12/summary.json&quot;}]}</metadata><style>text{font-family:'Hiragino Sans','Noto Sans CJK JP','Yu Gothic',sans-serif}</style>
+<rect x="0" y="0" width="1600" height="900" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="64" y="51" font-size="20" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="1472">LLMによる会計帳票編集  /  実験の概要</text>
+<text x="64" y="122" font-size="48" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">AIに帳票の解釈と編集を任せる</text>
+<text x="64" y="169" font-size="26" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">実装した反復処理と、3モデルを使った検証結果</text>
+<line x1="64" y1="194" x2="1536" y2="194" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="318" font-size="52" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">書式を読む。コードを実行する。</text>
+<text x="64" y="394" font-size="52" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">結果を見て、編集を進める。</text>
+<text x="64" y="463" font-size="29" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">大学別のセル対応表を渡さず、既存のExcelを記入した。</text>
+<line x1="64" y1="510" x2="1536" y2="510" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="555" font-size="25" font-weight="600" fill="#147968" text-anchor="start" data-max-width="600">Solの完了・静的合格</text>
+<text x="64" y="670" font-size="92" font-weight="600" fill="#147968" text-anchor="start" data-max-width="600">12 / 12</text>
+<text x="720" y="555" font-size="25" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="750">実験全体の費用推計</text>
+<text x="720" y="670" font-size="92" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="750">$2.9245</text>
+<text x="64" y="780" font-size="23" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">同じ4つの基本ケースを反復。費用はusageによる推計で、確定請求額との照合は未実施。</text>
+<line x1="64" y1="822" x2="1536" y2="822" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="858" font-size="18" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">2026-10-12  /  会計帳票の直接編集 PoC</text>
+<text x="1536" y="858" font-size="21" font-weight="600" fill="#506176" text-anchor="end" data-max-width="90">01 / 14</text>
+</svg>

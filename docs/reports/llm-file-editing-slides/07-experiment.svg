@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">比較した条件</title><desc id="desc">4つとも匿名化した研究用参照コピーと合成取引の基本ケース。正式提出書式や未見データの網羅的な評価ではない。早稲田は会計報告シートのみを編集対象とし他4シートは保持。法政にもともとある参照切れ数式6セルは修正対象外。思考トークンも8,000の出力上限に含む。</desc><metadata>{&quot;date&quot;:&quot;2026-10-12&quot;,&quot;sources&quot;:[{&quot;label&quot;:&quot;検証結果&quot;,&quot;href&quot;:&quot;../llm-file-editing-poc-2026-10-12.md&quot;},{&quot;label&quot;:&quot;集計JSON&quot;,&quot;href&quot;:&quot;../../../experiments/llm-export/results/2026-10-12/summary.json&quot;}]}</metadata><style>text{font-family:'Hiragino Sans','Noto Sans CJK JP','Yu Gothic',sans-serif}</style>
+<rect x="0" y="0" width="1600" height="900" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="64" y="51" font-size="20" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="1472">LLMによる会計帳票編集  /  実験設計</text>
+<text x="64" y="122" font-size="48" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">比較した条件</text>
+<text x="64" y="169" font-size="26" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">モデル以外の条件を揃え、同じ基本ケースを3回ずつ実行した</text>
+<line x1="64" y1="194" x2="1536" y2="194" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="323" font-size="70" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="360">4書式</text>
+<text x="425" y="323" font-size="58" font-weight="400" fill="#506176" text-anchor="start" data-max-width="70">×</text>
+<text x="530" y="323" font-size="70" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="390">3モデル</text>
+<text x="941" y="323" font-size="58" font-weight="400" fill="#506176" text-anchor="start" data-max-width="70">×</text>
+<text x="1045" y="323" font-size="70" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="245">3回</text>
+<text x="1310" y="323" font-size="70" font-weight="600" fill="#147968" text-anchor="start" data-max-width="226">= 36</text>
+<text x="64" y="381" font-size="26" font-weight="400" fill="#506176" text-anchor="start" data-max-width="680">立命館・学習院・法政・早稲田</text>
+<text x="64" y="476" font-size="28" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">モデル</text>
+<text x="64" y="526" font-size="31" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="590">gpt-6.1-sol</text>
+<text x="64" y="574" font-size="31" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="590">gpt-6-luna</text>
+<text x="64" y="622" font-size="31" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="590">gpt-5.6-luna</text>
+<text x="760" y="476" font-size="28" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">共通条件</text>
+<text x="760" y="526" font-size="27" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="776">出力上限8,000トークン・reasoning medium</text>
+<text x="760" y="574" font-size="27" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="776">1試行1応答・新しい専用1GBコンテナ</text>
+<text x="760" y="622" font-size="27" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="776">直列実行・自動リトライなし</text>
+<rect x="64" y="701" width="1472" height="80" rx="6" fill="#F2F5F8" stroke="none"/>
+<text x="88" y="749" font-size="28" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1424">別枠：保存対照4応答 ＋ 追加条件4応答 ＋ 接続確認3応答　　合計47応答</text>
+<line x1="64" y1="822" x2="1536" y2="822" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="858" font-size="18" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">2026-10-12  /  会計帳票の直接編集 PoC</text>
+<text x="1536" y="858" font-size="21" font-weight="600" fill="#506176" text-anchor="end" data-max-width="90">07 / 14</text>
+</svg>

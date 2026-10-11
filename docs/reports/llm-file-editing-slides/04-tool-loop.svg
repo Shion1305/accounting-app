@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">AIとツールのやり取り</title><desc id="desc">図は概念的な反復。ツールの実行順や回数はモデルが決める。今回ローカル側で複数のResponsesをつないだ対話ループは実装していない。1つのResponsesの内部でCode Interpreter呼出しが反復される。ローカル評価器はファイル取得後に動作する。</desc><metadata>{&quot;date&quot;:&quot;2026-10-12&quot;,&quot;sources&quot;:[{&quot;label&quot;:&quot;ランナー&quot;,&quot;href&quot;:&quot;../../../experiments/llm-export/run.ts&quot;},{&quot;label&quot;:&quot;共通の指示&quot;,&quot;href&quot;:&quot;../../../experiments/llm-export/prompt.md&quot;}]}</metadata><style>text{font-family:'Hiragino Sans','Noto Sans CJK JP','Yu Gothic',sans-serif}</style>
+<rect x="0" y="0" width="1600" height="900" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="64" y="51" font-size="20" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="1472">LLMによる会計帳票編集  /  反復処理</text>
+<text x="64" y="122" font-size="48" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">AIとツールのやり取り</text>
+<text x="64" y="169" font-size="26" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">1試行につき1回のResponses API呼出し。その内部で実行と確認を繰り返す</text>
+<line x1="64" y1="194" x2="1536" y2="194" stroke="#D6DFE8" stroke-width="2"/>
+<text x="222" y="260" font-size="31" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="410">AIの判断</text>
+<text x="962" y="260" font-size="31" font-weight="600" fill="#147968" text-anchor="start" data-max-width="500">Code Interpreter</text>
+<line x1="402" y1="287" x2="402" y2="705" stroke="#D6DFE8" stroke-width="3"/>
+<line x1="1130" y1="287" x2="1130" y2="705" stroke="#D6DFE8" stroke-width="3"/>
+<circle cx="402" cy="328" r="7" fill="#235BC5"/>
+<line x1="418" y1="328" x2="1114" y2="328" stroke="#235BC5" stroke-width="3"/>
+<path d="M1103.5861698438682 333.96256165412484 L1114 328 L1103.5861698438682 322.03743834587516" fill="none" stroke="#235BC5" stroke-width="3"/>
+<rect x="530" y="296" width="496" height="27" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="778" y="316" font-size="23" font-weight="400" fill="#192C40" text-anchor="middle" data-max-width="655">書式と入力を調べるコード</text>
+<circle cx="1130" cy="400" r="7" fill="#147968"/>
+<line x1="1114" y1="400" x2="418" y2="400" stroke="#147968" stroke-width="3"/>
+<path d="M428.4138301561318 394.03743834587516 L418 400 L428.4138301561318 405.96256165412484" fill="none" stroke="#147968" stroke-width="3"/>
+<rect x="530" y="368" width="496" height="27" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="778" y="388" font-size="23" font-weight="400" fill="#192C40" text-anchor="middle" data-max-width="655">セル・数式・結合範囲などの実行結果</text>
+<circle cx="402" cy="472" r="7" fill="#235BC5"/>
+<line x1="418" y1="472" x2="1114" y2="472" stroke="#235BC5" stroke-width="3"/>
+<path d="M1103.5861698438682 477.96256165412484 L1114 472 L1103.5861698438682 466.03743834587516" fill="none" stroke="#235BC5" stroke-width="3"/>
+<rect x="530" y="440" width="496" height="27" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="778" y="460" font-size="23" font-weight="400" fill="#192C40" text-anchor="middle" data-max-width="655">結果を踏まえて編集するコード</text>
+<circle cx="1130" cy="544" r="7" fill="#147968"/>
+<line x1="1114" y1="544" x2="418" y2="544" stroke="#147968" stroke-width="3"/>
+<path d="M428.4138301561318 538.0374383458751 L418 544 L428.4138301561318 549.9625616541248" fill="none" stroke="#147968" stroke-width="3"/>
+<rect x="530" y="512" width="496" height="27" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="778" y="532" font-size="23" font-weight="400" fill="#192C40" text-anchor="middle" data-max-width="655">保存した値・警告・エラー</text>
+<circle cx="402" cy="616" r="7" fill="#235BC5"/>
+<line x1="418" y1="616" x2="1114" y2="616" stroke="#235BC5" stroke-width="3"/>
+<path d="M1103.5861698438682 621.9625616541248 L1114 616 L1103.5861698438682 610.0374383458752" fill="none" stroke="#235BC5" stroke-width="3"/>
+<rect x="530" y="584" width="496" height="27" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="778" y="604" font-size="23" font-weight="400" fill="#192C40" text-anchor="middle" data-max-width="655">必要に応じて修正し、再読込するコード</text>
+<circle cx="1130" cy="688" r="7" fill="#147968"/>
+<line x1="1114" y1="688" x2="418" y2="688" stroke="#147968" stroke-width="3"/>
+<path d="M428.4138301561318 682.0374383458751 L418 688 L428.4138301561318 693.9625616541248" fill="none" stroke="#147968" stroke-width="3"/>
+<rect x="530" y="656" width="496" height="27" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="778" y="676" font-size="23" font-weight="400" fill="#192C40" text-anchor="middle" data-max-width="655">確認結果と完成ファイル</text>
+<text x="64" y="746" font-size="30" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="1472">実行結果を次の判断に使うことが、今回のinteractiveな編集</text>
+<text x="64" y="780" font-size="23" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">独立評価器の結果をAIへ自動で戻すループや、利用者向けの会話画面はまだない。</text>
+<line x1="64" y1="822" x2="1536" y2="822" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="858" font-size="18" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">2026-10-12  /  会計帳票の直接編集 PoC</text>
+<text x="1536" y="858" font-size="21" font-weight="600" fill="#506176" text-anchor="end" data-max-width="90">04 / 14</text>
+</svg>
