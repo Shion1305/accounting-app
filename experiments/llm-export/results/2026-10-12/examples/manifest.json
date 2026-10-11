@@ -1,0 +1,54 @@
+[
+  {
+    "file": "gakushuin-sol-r1.xlsx",
+    "runId": "gakushuin-gpt-6-1-sol-58cd8541-8072-4d3c-aaae-0be03ad34a4b",
+    "sha256": "ec43f259b206e723353df4293af4933891a2c77d7da959989dc35a01bcad3dde",
+    "kind": "original_model_output",
+    "staticStatus": "pass",
+    "nativeQuality": "See per-run native-check scope; this is not a submission-ready deliverable."
+  },
+  {
+    "file": "hosei-sol-r1.xlsx",
+    "runId": "hosei-gpt-6-1-sol-c991d852-bb36-42cb-baa2-5ab4544957cc",
+    "sha256": "aa7d998ed4fe3fd1d0d1ebe4409a2ddd505d299a0a05bd7c2f24d0506e784c83",
+    "kind": "original_model_output",
+    "staticStatus": "pass",
+    "nativeQuality": "See per-run native-check scope; this is not a submission-ready deliverable."
+  },
+  {
+    "file": "ritsumeikan-sol-r1.xlsx",
+    "runId": "ritsumeikan-gpt-6-1-sol-9f369259-1fe2-47d2-bacb-f264eda7b64c",
+    "sha256": "3847dfe68c0b32e780f02affebb2ab1854396aa26b19a89c896b02b313123c8b",
+    "kind": "original_model_output",
+    "staticStatus": "pass",
+    "nativeQuality": "See per-run native-check scope; this is not a submission-ready deliverable."
+  },
+  {
+    "file": "waseda-5-6-luna-r1-invalid.xlsx",
+    "runId": "waseda-gpt-5-6-luna-af74c583-d84f-4ab0-b133-a686ab868ed5",
+    "sha256": "a64c2cf994f48a97f815793a8fc83f7c611fbc6eeb9ef77f659426b1c08a866a",
+    "kind": "original_model_output",
+    "staticStatus": "fail",
+    "nativeQuality": "See per-run native-check scope; this is not a submission-ready deliverable."
+  },
+  {
+    "file": "waseda-sol-r1.xlsx",
+    "runId": "waseda-gpt-6-1-sol-f043da67-5597-41ab-bb39-5e1aa53d4fae",
+    "sha256": "11e3939ed332e6fe959bd8a64983e8812777d309ee3064375df5d73aab809714",
+    "kind": "original_model_output",
+    "staticStatus": "pass",
+    "nativeQuality": "See per-run native-check scope; this is not a submission-ready deliverable."
+  },
+  {
+    "file": "ritsumeikan-sol-r1.pdf",
+    "sha256": "91b1a84df229f8fb8e486f76cb79e34ee1dba282ecf0ca2091a58e8c0d097a02",
+    "kind": "native_excel_print_proof",
+    "source": "Disposable native-check workbook with probe values restored; model original XLSX unchanged."
+  },
+  {
+    "file": "gakushuin-sol-r1.pdf",
+    "sha256": "7ddb59771cc116bedb60d882a6289b73186e5b38d6d1fefc0916928f19e2bc57",
+    "kind": "native_excel_print_proof",
+    "source": "Disposable native-check workbook with probe values restored; model original XLSX unchanged."
+  }
+]

@@ -1,0 +1,7 @@
+# Preserve exported evidence bytes, including CSV line endings.
+/experiments/llm-export/results/**/results.csv -text
+
+# Generated evidence remains available, but does not dominate code review.
+/experiments/llm-export/results/**/evidence.json linguist-generated=true
+/experiments/llm-export/results/**/summary.json linguist-generated=true
+/experiments/llm-export/results/**/results.csv linguist-generated=true
