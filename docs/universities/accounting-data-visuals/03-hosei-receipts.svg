@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200" role="img" aria-labelledby="title desc"><title id="title">法政の支出明細と領収書の対応</title><desc id="desc">架空の500円の印刷代を例に、支出明細と領収書を紐付け、既に提出された制度に対応した番号を帳票へ記入する。画像の全件必須化や分割ルールは未確定。</desc><style>text { font-family: 'Hiragino Sans', 'Noto Sans CJK JP', sans-serif; }</style><rect x="0" y="0" width="1800" height="1200" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="72" y="65" font-size="21" font-weight="600" fill="#235BC5" data-max-width="1656">会計データの管理項目  /  03</text>
+<text x="72" y="143" font-size="53" font-weight="600" fill="#192C40" data-max-width="1656">法政：支出明細と領収書を対応づける</text>
+<text x="72" y="193" font-size="26" font-weight="400" fill="#506176" data-max-width="1656">NO.欄は領収書との対応番号。画像の保存と、提出区分・番号の管理を分ける</text>
+<line x1="72" y1="220" x2="1728" y2="220" stroke="#D6DFE8" stroke-width="2"/>
+<rect x="72" y="267" width="455" height="354" rx="9" fill="#EDF3FD" stroke="none"/>
+<text x="98" y="315" font-size="29" font-weight="600" fill="#192C40" data-max-width="403">支出明細</text>
+<rect x="371" y="280" width="130" height="38" rx="4" fill="#FFFFFF" stroke="none"/>
+<text x="384" y="306" font-size="20" font-weight="600" fill="#506176" data-max-width="104">架空の例</text>
+<text x="100" y="368" font-size="26" font-weight="400" fill="#192C40" data-max-width="399">費目　　印刷製本費</text>
+<text x="100" y="415" font-size="26" font-weight="400" fill="#192C40" data-max-width="399">金額　　500円</text>
+<text x="100" y="462" font-size="26" font-weight="400" fill="#192C40" data-max-width="399">購入日　2025/04/02</text>
+<text x="100" y="509" font-size="26" font-weight="400" fill="#192C40" data-max-width="399">内訳　　サンプル印刷</text>
+<text x="100" y="556" font-size="26" font-weight="400" fill="#192C40" data-max-width="399">用途　　架空の発表会</text>
+<rect x="673" y="267" width="430" height="354" rx="9" fill="#F2F5F8" stroke="none"/>
+<text x="699" y="315" font-size="29" font-weight="600" fill="#192C40" data-max-width="378">領収書 A</text>
+<rect x="791" y="348" width="194" height="187" rx="4" fill="#FFFFFF" stroke="#D6DFE8"/>
+<text x="828" y="390" font-size="27" font-weight="600" fill="#192C40" data-max-width="150">領収書</text>
+<text x="832" y="449" font-size="33" font-weight="600" fill="#192C40" data-max-width="142">500円</text>
+<line x1="813" y1="467" x2="963" y2="467" stroke="#D6DFE8" stroke-width="2"/>
+<text x="816" y="508" font-size="19" font-weight="400" fill="#506176" data-max-width="160">架空の記入例</text>
+<text x="702" y="584" font-size="25" font-weight="400" fill="#192C40" data-max-width="370">登録済み画像を参照／追加</text>
+<line x1="548" y1="445" x2="650" y2="445" stroke="#235BC5" stroke-width="3"/>
+<path d="M 638 438 L 650 445 L 638 452" fill="none" stroke="#235BC5" stroke-width="3"/>
+<text x="544" y="423" font-size="20" font-weight="400" fill="#506176" data-max-width="127">紐付ける</text>
+<rect x="1240" y="267" width="488" height="354" rx="9" fill="#ECF6F2" stroke="none"/>
+<text x="1266" y="315" font-size="29" font-weight="600" fill="#192C40" data-max-width="436">帳票の明細</text>
+<rect x="1266" y="347" width="436" height="47" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="1280" y="379" font-size="22" font-weight="600" fill="#506176" data-max-width="97">NO.</text>
+<text x="1396" y="379" font-size="22" font-weight="600" fill="#506176" data-max-width="84">金額</text>
+<text x="1510" y="379" font-size="22" font-weight="600" fill="#506176" data-max-width="185">内訳</text>
+<text x="1280" y="427" font-size="25" font-weight="600" fill="#235BC5" data-max-width="100">規模1</text>
+<text x="1396" y="427" font-size="25" font-weight="400" fill="#192C40" data-max-width="84">500</text>
+<text x="1510" y="427" font-size="23" font-weight="400" fill="#192C40" data-max-width="185">サンプル印刷</text>
+<line x1="1266" y1="446" x2="1702" y2="446" stroke="#D6DFE8" stroke-width="2"/>
+<text x="1268" y="492" font-size="23" font-weight="400" fill="#192C40" data-max-width="434">提出区分：活動規模の申請で提出済み</text>
+<text x="1268" y="539" font-size="23" font-weight="400" fill="#192C40" data-max-width="434">既にある番号との対応を保持</text>
+<line x1="1123" y1="445" x2="1216" y2="445" stroke="#235BC5" stroke-width="3"/>
+<path d="M 1204 438 L 1216 445 L 1204 452" fill="none" stroke="#235BC5" stroke-width="3"/>
+<text x="1119" y="423" font-size="20" font-weight="400" fill="#506176" data-max-width="118">番号を対応</text>
+<rect x="72" y="669" width="804" height="360" rx="9" fill="#F2F5F8" stroke="none"/>
+<text x="98" y="717" font-size="29" font-weight="600" fill="#192C40" data-max-width="752">管理機能として検討すること</text>
+<text x="102" y="770" font-size="27" font-weight="400" fill="#192C40" data-max-width="744">登録済みの領収書を明細に紐付ける</text>
+<text x="102" y="826" font-size="27" font-weight="400" fill="#192C40" data-max-width="744">画像アップロードは既存機能を活用・拡張</text>
+<text x="102" y="882" font-size="27" font-weight="400" fill="#192C40" data-max-width="744">承認後の支出からも元の領収書を参照する</text>
+<text x="102" y="938" font-size="27" font-weight="400" fill="#192C40" data-max-width="744">提出区分・帳票番号は画像と別に管理する</text>
+<rect x="908" y="669" width="820" height="360" rx="9" fill="#EDF3FD" stroke="none"/>
+<text x="934" y="717" font-size="29" font-weight="600" fill="#192C40" data-max-width="768">書式の番号例</text>
+<text x="938" y="766" font-size="25" font-weight="400" fill="#192C40" data-max-width="555">決算で提出</text>
+<text x="1530" y="766" font-size="26" font-weight="600" fill="#235BC5" data-max-width="170">1</text>
+<line x1="938" y1="781" x2="1698" y2="781" stroke="#D6DFE8" stroke-width="2"/>
+<text x="938" y="815" font-size="25" font-weight="400" fill="#192C40" data-max-width="555">活動規模の申請で提出済み</text>
+<text x="1530" y="815" font-size="26" font-weight="600" fill="#235BC5" data-max-width="170">規模1</text>
+<line x1="938" y1="830" x2="1698" y2="830" stroke="#D6DFE8" stroke-width="2"/>
+<text x="938" y="864" font-size="25" font-weight="400" fill="#192C40" data-max-width="555">正課外の申請で提出済み</text>
+<text x="1530" y="864" font-size="26" font-weight="600" fill="#235BC5" data-max-width="170">正課外1</text>
+<line x1="938" y1="879" x2="1698" y2="879" stroke="#D6DFE8" stroke-width="2"/>
+<text x="938" y="913" font-size="25" font-weight="400" fill="#192C40" data-max-width="555">活動実態の申請で提出済み</text>
+<text x="1530" y="913" font-size="26" font-weight="600" fill="#235BC5" data-max-width="170">実態1</text>
+<text x="937" y="1000" font-size="23" font-weight="400" fill="#506176" data-max-width="760">採番・分割ルールと画像の必須化は要確認</text>
+<text x="72" y="1082" font-size="25" font-weight="400" fill="#506176" data-max-width="1656">今回の必須機能には含めない：画像のExcel／PDF貼付、紙の原本整理・提出</text>
+<line x1="72" y1="1120" x2="1728" y2="1120" stroke="#D6DFE8" stroke-width="2"/>
+<text x="72" y="1157" font-size="19" font-weight="400" fill="#506176" data-max-width="1656">明細・金額・日付・領収書は説明用の合成例。図は単純な対応例であり、1対1の制約を確定するものではない。</text>
+<text x="72" y="1186" font-size="17" font-weight="400" fill="#506176" data-max-width="1656">出典：大学別の会計データ管理項目一覧  ·  2026-09-27</text>
+<text x="1655" y="1172" font-size="23" font-weight="600" fill="#506176" data-max-width="75">3 / 4</text></svg>

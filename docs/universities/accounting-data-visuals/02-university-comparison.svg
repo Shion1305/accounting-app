@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200" role="img" aria-labelledby="title desc"><title id="title">大学別に追加で管理する項目の比較</title><desc id="desc">法政、横浜国立、明治を初期対象として示す。学習院、早稲田、立命館は比較調査として、会計欄に必要な追加情報を整理する。</desc><style>text { font-family: 'Hiragino Sans', 'Noto Sans CJK JP', sans-serif; }</style><rect x="0" y="0" width="1800" height="1200" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="72" y="65" font-size="21" font-weight="600" fill="#235BC5" data-max-width="1656">会計データの管理項目  /  02</text>
+<text x="72" y="143" font-size="53" font-weight="600" fill="#192C40" data-max-width="1656">大学ごとに、追加で管理する情報が異なる</text>
+<text x="72" y="193" font-size="26" font-weight="400" fill="#506176" data-max-width="1656">金額・日付・費目だけで埋まる欄と、それ以外の情報が必要な欄を分ける</text>
+<line x1="72" y1="220" x2="1728" y2="220" stroke="#D6DFE8" stroke-width="2"/>
+<rect x="72" y="244" width="1656" height="61" rx="6" fill="#EDF3FD" stroke="none"/>
+<text x="95" y="284" font-size="26" font-weight="400" fill="#192C40" data-max-width="1610">共通項目　団体名 / 対象期間 / 取引日 / 金額 / 収支区分 / 費目・内訳</text>
+<rect x="72" y="330" width="1656" height="65" rx="0" fill="#192C40" stroke="none"/>
+<text x="92" y="371" font-size="24" font-weight="600" fill="#FFFFFF" data-max-width="170">大学・範囲</text>
+<text x="302" y="371" font-size="24" font-weight="600" fill="#FFFFFF" data-max-width="410">金額欄に記入する内容</text>
+<text x="752" y="371" font-size="24" font-weight="600" fill="#FFFFFF" data-max-width="580">共通項目に加えて管理する情報</text>
+<text x="1372" y="371" font-size="24" font-weight="600" fill="#FFFFFF" data-max-width="336">確認が必要な点</text>
+<rect x="72" y="395" width="1656" height="115" rx="0" fill="#F2F5F8" stroke="none"/>
+<line x1="72" y1="510" x2="1728" y2="510" stroke="#D6DFE8" stroke-width="2"/>
+<text x="92" y="437" font-size="30" font-weight="600" fill="#192C40" data-max-width="170">法政</text>
+<rect x="92" y="451" width="127" height="38" rx="4" fill="#EDF3FD" stroke="none"/>
+<text x="105" y="477" font-size="20" font-weight="600" fill="#235BC5" data-max-width="101">初期対象</text>
+<text x="302" y="440" font-size="23" font-weight="400" fill="#192C40" data-max-width="410">費目ごとの全支出明細</text>
+<text x="302" y="478" font-size="23" font-weight="400" fill="#192C40" data-max-width="410">費目小計・支出総合計</text>
+<text x="752" y="440" font-size="24" font-weight="400" fill="#192C40" data-max-width="580">用途・明細と領収書の対応</text>
+<text x="752" y="478" font-size="24" font-weight="400" fill="#192C40" data-max-width="580">NO.欄まで埋める場合：提出区分・番号</text>
+<text x="1372" y="440" font-size="23" font-weight="400" fill="#192C40" data-max-width="336">採番・分割の規則</text>
+<text x="1372" y="478" font-size="23" font-weight="400" fill="#192C40" data-max-width="336">画像を必須にするか</text>
+<rect x="72" y="510" width="1656" height="115" rx="0" fill="#FFFFFF" stroke="none"/>
+<line x1="72" y1="625" x2="1728" y2="625" stroke="#D6DFE8" stroke-width="2"/>
+<text x="92" y="552" font-size="30" font-weight="600" fill="#192C40" data-max-width="170">横浜国立</text>
+<rect x="92" y="566" width="127" height="38" rx="4" fill="#EDF3FD" stroke="none"/>
+<text x="105" y="592" font-size="20" font-weight="600" fill="#235BC5" data-max-width="101">初期対象</text>
+<text x="302" y="555" font-size="23" font-weight="400" fill="#192C40" data-max-width="410">書式未入手</text>
+<text x="302" y="593" font-size="23" font-weight="400" fill="#192C40" data-max-width="410">出力する項目は未確定</text>
+<text x="752" y="555" font-size="24" font-weight="400" fill="#192C40" data-max-width="580">追加項目の有無を、資料取得後に確認</text>
+<text x="1372" y="555" font-size="23" font-weight="400" fill="#192C40" data-max-width="336">費目・繰越・継続方法</text>
+<rect x="72" y="625" width="1656" height="115" rx="0" fill="#F2F5F8" stroke="none"/>
+<line x1="72" y1="740" x2="1728" y2="740" stroke="#D6DFE8" stroke-width="2"/>
+<text x="92" y="667" font-size="30" font-weight="600" fill="#192C40" data-max-width="170">明治</text>
+<rect x="92" y="681" width="127" height="38" rx="4" fill="#EDF3FD" stroke="none"/>
+<text x="105" y="707" font-size="20" font-weight="600" fill="#235BC5" data-max-width="101">初期対象</text>
+<text x="302" y="670" font-size="23" font-weight="400" fill="#192C40" data-max-width="410">書式未入手</text>
+<text x="302" y="708" font-size="23" font-weight="400" fill="#192C40" data-max-width="410">出力する項目は未確定</text>
+<text x="752" y="670" font-size="24" font-weight="400" fill="#192C40" data-max-width="580">追加項目の有無を、資料取得後に確認</text>
+<text x="1372" y="670" font-size="23" font-weight="400" fill="#192C40" data-max-width="336">費目・繰越・継続方法</text>
+<rect x="72" y="740" width="1656" height="115" rx="0" fill="#FFFFFF" stroke="none"/>
+<line x1="72" y1="855" x2="1728" y2="855" stroke="#D6DFE8" stroke-width="2"/>
+<text x="92" y="782" font-size="30" font-weight="600" fill="#192C40" data-max-width="170">学習院</text>
+<rect x="92" y="796" width="127" height="38" rx="4" fill="#F2F5F8" stroke="none"/>
+<text x="105" y="822" font-size="20" font-weight="600" fill="#506176" data-max-width="101">比較調査</text>
+<text x="302" y="785" font-size="23" font-weight="400" fill="#192C40" data-max-width="410">費目・内訳別の収支</text>
+<text x="302" y="823" font-size="23" font-weight="400" fill="#192C40" data-max-width="410">前年度・次年度の繰越</text>
+<text x="752" y="785" font-size="24" font-weight="400" fill="#192C40" data-max-width="580">助成金の種類・徴収月・大会／合宿名</text>
+<text x="752" y="823" font-size="24" font-weight="400" fill="#192C40" data-max-width="580">備考に記入する場合：単価・人数・資金源</text>
+<text x="1372" y="785" font-size="23" font-weight="400" fill="#192C40" data-max-width="336">詳細分類との対応</text>
+<text x="1372" y="823" font-size="23" font-weight="400" fill="#192C40" data-max-width="336">備考の入力範囲</text>
+<rect x="72" y="855" width="1656" height="115" rx="0" fill="#F2F5F8" stroke="none"/>
+<line x1="72" y1="970" x2="1728" y2="970" stroke="#D6DFE8" stroke-width="2"/>
+<text x="92" y="897" font-size="30" font-weight="600" fill="#192C40" data-max-width="170">早稲田</text>
+<rect x="92" y="911" width="127" height="38" rx="4" fill="#F2F5F8" stroke="none"/>
+<text x="105" y="937" font-size="20" font-weight="600" fill="#506176" data-max-width="101">比較調査</text>
+<text x="302" y="900" font-size="23" font-weight="400" fill="#192C40" data-max-width="410">会計報告シートの年度収支</text>
+<text x="302" y="938" font-size="23" font-weight="400" fill="#192C40" data-max-width="410">前年度・次年度の繰越</text>
+<text x="752" y="900" font-size="24" font-weight="400" fill="#192C40" data-max-width="580">「その他」の収支に対応する内訳名</text>
+<text x="752" y="938" font-size="24" font-weight="400" fill="#192C40" data-max-width="580">領収書提出済みの支出も年間会計に含む</text>
+<text x="1372" y="900" font-size="23" font-weight="400" fill="#192C40" data-max-width="336">その他は各10行</text>
+<text x="1372" y="938" font-size="23" font-weight="400" fill="#192C40" data-max-width="336">超過時の継続方法</text>
+<rect x="72" y="970" width="1656" height="115" rx="0" fill="#FFFFFF" stroke="none"/>
+<line x1="72" y1="1085" x2="1728" y2="1085" stroke="#D6DFE8" stroke-width="2"/>
+<text x="92" y="1012" font-size="30" font-weight="600" fill="#192C40" data-max-width="170">立命館</text>
+<rect x="92" y="1026" width="127" height="38" rx="4" fill="#F2F5F8" stroke="none"/>
+<text x="105" y="1052" font-size="20" font-weight="600" fill="#506176" data-max-width="101">比較調査</text>
+<text x="302" y="1015" font-size="23" font-weight="400" fill="#192C40" data-max-width="410">項目別の収支</text>
+<text x="302" y="1053" font-size="23" font-weight="400" fill="#192C40" data-max-width="410">現金・預金別の次期繰越</text>
+<text x="752" y="1015" font-size="24" font-weight="400" fill="#192C40" data-max-width="580">現金・預金の確認残高と基準日</text>
+<text x="752" y="1053" font-size="24" font-weight="400" fill="#192C40" data-max-width="580">帳簿の期末残高との照合</text>
+<text x="1372" y="1015" font-size="23" font-weight="400" fill="#192C40" data-max-width="336">現金・預金の内訳</text>
+<text x="1372" y="1053" font-size="23" font-weight="400" fill="#192C40" data-max-width="336">帳簿と差がある場合</text>
+<line x1="72" y1="1120" x2="1728" y2="1120" stroke="#D6DFE8" stroke-width="2"/>
+<text x="72" y="1157" font-size="19" font-weight="400" fill="#506176" data-max-width="1656">「比較調査」の3大学は初期対応への追加を意味しない。早稲田の活動実績・補助金状況の別シートは今回の対象外。</text>
+<text x="72" y="1186" font-size="17" font-weight="400" fill="#506176" data-max-width="1656">出典：大学別の会計データ管理項目一覧  ·  2026-09-27</text>
+<text x="1655" y="1172" font-size="23" font-weight="600" fill="#506176" data-max-width="75">2 / 4</text></svg>
