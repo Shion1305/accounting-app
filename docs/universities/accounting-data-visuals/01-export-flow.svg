@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200" role="img" aria-labelledby="title desc"><title id="title">会計データから大学書式の電子データへ</title><desc id="desc">保存、取得、大学別の出力データ生成、ExcelとPDF生成の4段階。事実として保存する項目と自動計算する項目を区別する。</desc><style>text { font-family: 'Hiragino Sans', 'Noto Sans CJK JP', sans-serif; }</style><rect x="0" y="0" width="1800" height="1200" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="72" y="65" font-size="21" font-weight="600" fill="#235BC5" data-max-width="1656">会計データの管理項目  /  01</text>
+<text x="72" y="143" font-size="53" font-weight="600" fill="#192C40" data-max-width="1656">会計データから、大学書式の電子データへ</text>
+<text x="72" y="193" font-size="26" font-weight="400" fill="#506176" data-max-width="1656">今回の完成条件：金額明細・小計・合計が入ったExcel／PDFを生成する</text>
+<line x1="72" y1="220" x2="1728" y2="220" stroke="#D6DFE8" stroke-width="2"/>
+<rect x="72" y="288" width="378" height="310" rx="10" fill="#EDF3FD" stroke="none"/>
+<text x="96" y="332" font-size="22" font-weight="600" fill="#235BC5" data-max-width="330">01  保存する</text>
+<text x="96" y="389" font-size="31" font-weight="600" fill="#192C40" data-max-width="330">会計データ</text>
+<text x="96" y="453" font-size="24" font-weight="400" fill="#192C40" data-max-width="330">日付・金額・収支区分</text>
+<text x="96" y="496" font-size="24" font-weight="400" fill="#192C40" data-max-width="330">費目・内訳・用途</text>
+<text x="96" y="539" font-size="24" font-weight="400" fill="#192C40" data-max-width="330">領収書の対応や確認残高</text>
+<line x1="457" y1="444" x2="489" y2="444" stroke="#235BC5" stroke-width="3"/>
+<path d="M 477 437 L 489 444 L 477 451" fill="none" stroke="#235BC5" stroke-width="3"/>
+<rect x="498" y="288" width="378" height="310" rx="10" fill="#EDF3FD" stroke="none"/>
+<text x="522" y="332" font-size="22" font-weight="600" fill="#235BC5" data-max-width="330">02  取得する</text>
+<text x="522" y="389" font-size="31" font-weight="600" fill="#192C40" data-max-width="330">対象データ</text>
+<text x="522" y="453" font-size="24" font-weight="400" fill="#192C40" data-max-width="330">団体・年度・期間で抽出</text>
+<text x="522" y="496" font-size="24" font-weight="400" fill="#192C40" data-max-width="330">必要な追加情報を取得</text>
+<text x="522" y="539" font-size="24" font-weight="400" fill="#192C40" data-max-width="330">不足する項目を確認</text>
+<line x1="883" y1="444" x2="915" y2="444" stroke="#235BC5" stroke-width="3"/>
+<path d="M 903 437 L 915 444 L 903 451" fill="none" stroke="#235BC5" stroke-width="3"/>
+<rect x="924" y="288" width="378" height="310" rx="10" fill="#EDF3FD" stroke="none"/>
+<text x="948" y="332" font-size="22" font-weight="600" fill="#235BC5" data-max-width="330">03  整える</text>
+<text x="948" y="389" font-size="31" font-weight="600" fill="#192C40" data-max-width="330">大学別の出力データ</text>
+<text x="948" y="453" font-size="24" font-weight="400" fill="#192C40" data-max-width="330">費目・内訳ごとに整理</text>
+<text x="948" y="496" font-size="24" font-weight="400" fill="#192C40" data-max-width="330">小計・繰越を計算</text>
+<text x="948" y="539" font-size="24" font-weight="400" fill="#192C40" data-max-width="330">大学ごとの入力を検証</text>
+<line x1="1309" y1="444" x2="1341" y2="444" stroke="#235BC5" stroke-width="3"/>
+<path d="M 1329 437 L 1341 444 L 1329 451" fill="none" stroke="#235BC5" stroke-width="3"/>
+<rect x="1350" y="288" width="378" height="310" rx="10" fill="#ECF6F2" stroke="none"/>
+<text x="1374" y="332" font-size="22" font-weight="600" fill="#147968" data-max-width="330">04  ファイルを生成</text>
+<text x="1374" y="389" font-size="31" font-weight="600" fill="#192C40" data-max-width="330">Excel / PDF</text>
+<text x="1374" y="453" font-size="24" font-weight="400" fill="#192C40" data-max-width="330">ExcelにはSUM関数</text>
+<text x="1374" y="496" font-size="24" font-weight="400" fill="#192C40" data-max-width="330">複数シートでも漏れなく</text>
+<text x="1374" y="539" font-size="24" font-weight="400" fill="#192C40" data-max-width="330">明細と金額の対応を保持</text>
+<rect x="72" y="656" width="804" height="281" rx="9" fill="#F2F5F8" stroke="none"/>
+<text x="98" y="704" font-size="29" font-weight="600" fill="#192C40" data-max-width="752">保存しておく事実</text>
+<text x="101" y="754" font-size="28" font-weight="400" fill="#192C40" data-max-width="744">取引日・金額・費目・内訳・用途</text>
+<text x="101" y="812" font-size="28" font-weight="400" fill="#192C40" data-max-width="744">団体・対象期間・確認済みの開始残高</text>
+<text x="101" y="870" font-size="28" font-weight="400" fill="#192C40" data-max-width="744">必要な大学では、領収書の対応・残高内訳</text>
+<rect x="908" y="656" width="820" height="281" rx="9" fill="#ECF6F2" stroke="none"/>
+<text x="934" y="704" font-size="29" font-weight="600" fill="#192C40" data-max-width="768">データから計算・生成するもの</text>
+<text x="937" y="754" font-size="27" font-weight="400" fill="#192C40" data-max-width="758">費目別の小計・収入合計・支出合計</text>
+<text x="937" y="812" font-size="27" font-weight="400" fill="#192C40" data-max-width="758">期末残高 ＝ 開始残高 ＋ 収入 − 支出</text>
+<text x="937" y="870" font-size="27" font-weight="400" fill="#192C40" data-max-width="758">帳票の配置・集計式・ページ／シートの継続</text>
+<text x="72" y="1006" font-size="25" font-weight="600" fill="#235BC5" data-max-width="1656">初期対象</text>
+<text x="218" y="1006" font-size="28" font-weight="400" fill="#192C40" data-max-width="1656">法政・横浜国立・明治</text>
+<text x="72" y="1065" font-size="25" font-weight="600" fill="#506176" data-max-width="1656">今回の対象外</text>
+<text x="268" y="1065" font-size="27" font-weight="400" fill="#192C40" data-max-width="1656">印刷・自署・捺印・大学への提出作業</text>
+<line x1="72" y1="1120" x2="1728" y2="1120" stroke="#D6DFE8" stroke-width="2"/>
+<text x="72" y="1157" font-size="19" font-weight="400" fill="#506176" data-max-width="1656">構成は設計方針。大学ごとの不足情報を補完してから、電子データを生成する。</text>
+<text x="72" y="1186" font-size="17" font-weight="400" fill="#506176" data-max-width="1656">出典：大学別の会計データ管理項目一覧  ·  2026-09-27</text>
+<text x="1655" y="1172" font-size="23" font-weight="600" fill="#506176" data-max-width="75">1 / 4</text></svg>
