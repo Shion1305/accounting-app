@@ -12,6 +12,7 @@ pnpm workspace + turborepo によるモノレポ。
 - `apps/server`: バックエンド。Hono（Cloudflare Workers上で動作）。HonoのRPC機能で `apps/web` と型を共有する
 - `packages/eslint-config`: 共通ESLint設定
 - `packages/typescript-config`: 共通tsconfig
+- `experiments/llm-export`: [LLMによる帳票編集の検証](experiments/llm-export/README.md)。Node.js 26以上で動く独立した実験コード
 
 認証（better-auth）、DB（Cloudflare D1 + drizzle）、R2への画像アップロードはいずれも実装済み。
 
@@ -113,4 +114,4 @@ Turboを介さずserverのコマンドを直接実行する場合は、先に`pn
 runtime型は既存の`@cloudflare/workers-types`を使い、生成対象は設定から得られるbinding型に限定する。
 
 GitHub Actionsでは`dev`・`main`向けPRと、それらのブランチへのpushで、
-型チェック・lint・buildを実行する。デプロイは行わない。
+型チェック・lint・buildを実行する。LLM編集の検証コードは、別のNode.js 26・Python 3.12ジョブで `pnpm check:llm-export` を実行する。実API呼出し・デプロイは行わない。

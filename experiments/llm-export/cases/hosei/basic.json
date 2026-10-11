@@ -1,0 +1,16 @@
+{
+  "case_id": "hosei-basic-v1",
+  "synthetic": true,
+  "university": "hosei",
+  "editable_sheets": ["費目詳細"],
+  "task": "添付した参照ブックの費目詳細を、この合成事例の支出明細に置き換えてください。既存の記入例の取引は今回の取引ではありません。団体名、費目別明細、既知の領収書番号、購入日、内訳、用途、小計・総計を反映してください。既存の数式、書式、図形、非表示列、その他のシートを保持してください。非表示の対象金額・対象外金額・備考は今回の入力対象外です。既存の数式エラーは修正しないでください。",
+  "organization": {"name": "合成会計検証会"},
+  "fiscal_year": 2025,
+  "entries": [
+    {"id": "h-01", "direction": "expense", "date": "2025-04-10", "category": "消耗品費", "amount_yen": 1200, "description": "ホワイトボードマーカー", "purpose": "新入生向け勉強会", "receipt_number": "1", "receipt_submission_class": "決算書で提出"},
+    {"id": "h-02", "direction": "expense", "date": "2025-04-11", "category": "消耗品費", "amount_yen": 800, "description": "付箋", "purpose": "研究発表の準備", "receipt_number": "2", "receipt_submission_class": "決算書で提出"},
+    {"id": "h-03", "direction": "expense", "date": "2025-05-12", "category": "印刷製本費", "amount_yen": 2500, "description": "活動報告冊子の印刷", "purpose": "学内成果報告会", "receipt_number": "規模1", "receipt_submission_class": "活動規模で提出済み"},
+    {"id": "h-04", "direction": "expense", "date": "2025-06-13", "category": "機材用具費(購入･修理)", "amount_yen": 5000, "description": "外付けキーボード", "purpose": "プログラミング演習", "receipt_number": "正課外1", "receipt_submission_class": "正課外で提出済み"}
+  ],
+  "completeness": "今回の対象支出は上記4件のみ。記載のない費目に支出はありません。"
+}

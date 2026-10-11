@@ -1,0 +1,289 @@
+{
+  "schema_version": 1,
+  "kind": "static_corpus_preflight",
+  "limitations": [
+    "This is static ZIP/XML inspection, not an LLM trial, spreadsheet edit, or Excel recalculation.",
+    "No rendering, formula evaluation, repair-warning check, or submission-readiness check was performed.",
+    "Formula counts include shared-formula follower cells; explicit #REF! locations include only stored formula text containing that token.",
+    "Data-validation counts include namespace extensions detectable in worksheet XML, not a validation of their behavior.",
+    "Environment availability reports presence only; office executables are not launched and operational compatibility is unverified.",
+    "The corpus contains sanitized research references, not verified current official submission templates."
+  ],
+  "environment": {
+    "python": {
+      "available": true,
+      "running_version": "3.14.7"
+    },
+    "node": {
+      "on_path": true
+    },
+    "libreoffice": {
+      "on_path": false,
+      "macos_app_present": false
+    }
+  },
+  "files": [
+    {
+      "path": "docs/references/hosei.synthetic.reference.xlsx",
+      "sha256_before": "e8c8dd5737df85b981e1cc38ce505ce08924f719cad36acf02a72570d1ec0327",
+      "zip_crc_errors": [],
+      "xml_parse_errors": [],
+      "structure_errors": [],
+      "sheet_count": 2,
+      "sheets": [
+        {
+          "name": "入力例",
+          "state": "visible",
+          "xml_part": "xl/worksheets/sheet1.xml",
+          "formula_cell_count": 36,
+          "explicit_ref_error_formula_cells": [
+            "J44",
+            "K44",
+            "J51",
+            "K51"
+          ],
+          "merged_range_count": 3,
+          "drawing_reference_count": 1,
+          "legacy_drawing_reference_count": 0,
+          "standard_data_validation_count": 0,
+          "extended_data_validation_count": 0,
+          "extension_uris": []
+        },
+        {
+          "name": "費目詳細",
+          "state": "visible",
+          "xml_part": "xl/worksheets/sheet2.xml",
+          "formula_cell_count": 56,
+          "explicit_ref_error_formula_cells": [
+            "I108",
+            "J108"
+          ],
+          "merged_range_count": 2,
+          "drawing_reference_count": 0,
+          "legacy_drawing_reference_count": 0,
+          "standard_data_validation_count": 0,
+          "extended_data_validation_count": 0,
+          "extension_uris": []
+        }
+      ],
+      "formula_cell_count": 92,
+      "explicit_ref_error_formula_cells": [
+        {
+          "sheet": "入力例",
+          "cell": "J44"
+        },
+        {
+          "sheet": "入力例",
+          "cell": "K44"
+        },
+        {
+          "sheet": "入力例",
+          "cell": "J51"
+        },
+        {
+          "sheet": "入力例",
+          "cell": "K51"
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "I108"
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "J108"
+        }
+      ],
+      "zip_entry_count": 17,
+      "parsed_xml_part_count": 16,
+      "drawing_xml_parts": [
+        "xl/drawings/drawing1.xml"
+      ],
+      "vml_drawing_parts": [],
+      "sha256_after": "e8c8dd5737df85b981e1cc38ce505ce08924f719cad36acf02a72570d1ec0327",
+      "source_unchanged": true
+    },
+    {
+      "path": "docs/references/gakushuin.reference.xlsx",
+      "sha256_before": "3fb01155de0a664361fb5cbef213aec3e82da59126056e19d353931c7318a1c9",
+      "zip_crc_errors": [],
+      "xml_parse_errors": [],
+      "structure_errors": [],
+      "sheet_count": 2,
+      "sheets": [
+        {
+          "name": "書式",
+          "state": "visible",
+          "xml_part": "xl/worksheets/sheet1.xml",
+          "formula_cell_count": 3,
+          "explicit_ref_error_formula_cells": [],
+          "merged_range_count": 6,
+          "drawing_reference_count": 1,
+          "legacy_drawing_reference_count": 0,
+          "standard_data_validation_count": 0,
+          "extended_data_validation_count": 0,
+          "extension_uris": []
+        },
+        {
+          "name": "見本",
+          "state": "visible",
+          "xml_part": "xl/worksheets/sheet2.xml",
+          "formula_cell_count": 9,
+          "explicit_ref_error_formula_cells": [],
+          "merged_range_count": 6,
+          "drawing_reference_count": 1,
+          "legacy_drawing_reference_count": 0,
+          "standard_data_validation_count": 0,
+          "extended_data_validation_count": 0,
+          "extension_uris": []
+        }
+      ],
+      "formula_cell_count": 12,
+      "explicit_ref_error_formula_cells": [],
+      "zip_entry_count": 16,
+      "parsed_xml_part_count": 16,
+      "drawing_xml_parts": [
+        "xl/drawings/drawing1.xml",
+        "xl/drawings/drawing2.xml"
+      ],
+      "vml_drawing_parts": [],
+      "sha256_after": "3fb01155de0a664361fb5cbef213aec3e82da59126056e19d353931c7318a1c9",
+      "source_unchanged": true
+    },
+    {
+      "path": "docs/references/waseda-2025.reference.xlsx",
+      "sha256_before": "6c37a1b31d19a403839bfffacbe76f0af8b21c938e1a092208205cb281efc5a7",
+      "zip_crc_errors": [],
+      "xml_parse_errors": [],
+      "structure_errors": [],
+      "sheet_count": 5,
+      "sheets": [
+        {
+          "name": "会計報告書（必須）",
+          "state": "visible",
+          "xml_part": "xl/worksheets/sheet1.xml",
+          "formula_cell_count": 3,
+          "explicit_ref_error_formula_cells": [],
+          "merged_range_count": 135,
+          "drawing_reference_count": 0,
+          "legacy_drawing_reference_count": 0,
+          "standard_data_validation_count": 0,
+          "extended_data_validation_count": 2,
+          "extension_uris": [
+            "{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}"
+          ]
+        },
+        {
+          "name": "活動実績・記録用紙（必須）",
+          "state": "visible",
+          "xml_part": "xl/worksheets/sheet2.xml",
+          "formula_cell_count": 0,
+          "explicit_ref_error_formula_cells": [],
+          "merged_range_count": 105,
+          "drawing_reference_count": 0,
+          "legacy_drawing_reference_count": 0,
+          "standard_data_validation_count": 0,
+          "extended_data_validation_count": 0,
+          "extension_uris": []
+        },
+        {
+          "name": "課外活動補助金申請・給付状況（必須）",
+          "state": "visible",
+          "xml_part": "xl/worksheets/sheet3.xml",
+          "formula_cell_count": 0,
+          "explicit_ref_error_formula_cells": [],
+          "merged_range_count": 50,
+          "drawing_reference_count": 0,
+          "legacy_drawing_reference_count": 0,
+          "standard_data_validation_count": 0,
+          "extended_data_validation_count": 1,
+          "extension_uris": [
+            "{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}"
+          ]
+        },
+        {
+          "name": "領収書貼付用紙",
+          "state": "visible",
+          "xml_part": "xl/worksheets/sheet4.xml",
+          "formula_cell_count": 1,
+          "explicit_ref_error_formula_cells": [],
+          "merged_range_count": 14,
+          "drawing_reference_count": 1,
+          "legacy_drawing_reference_count": 1,
+          "standard_data_validation_count": 0,
+          "extended_data_validation_count": 1,
+          "extension_uris": [
+            "{CCE6A557-97BC-4b89-ADB6-D9C93CAAB3DF}"
+          ]
+        },
+        {
+          "name": "リスト",
+          "state": "visible",
+          "xml_part": "xl/worksheets/sheet5.xml",
+          "formula_cell_count": 0,
+          "explicit_ref_error_formula_cells": [],
+          "merged_range_count": 0,
+          "drawing_reference_count": 0,
+          "legacy_drawing_reference_count": 0,
+          "standard_data_validation_count": 0,
+          "extended_data_validation_count": 0,
+          "extension_uris": []
+        }
+      ],
+      "formula_cell_count": 4,
+      "explicit_ref_error_formula_cells": [],
+      "zip_entry_count": 23,
+      "parsed_xml_part_count": 23,
+      "drawing_xml_parts": [
+        "xl/drawings/drawing1.xml"
+      ],
+      "vml_drawing_parts": [
+        "xl/drawings/vmlDrawing1.vml"
+      ],
+      "sha256_after": "6c37a1b31d19a403839bfffacbe76f0af8b21c938e1a092208205cb281efc5a7",
+      "source_unchanged": true
+    },
+    {
+      "path": "docs/references/ritsumeikan.reference.xlsx",
+      "sha256_before": "0a4ea89e617db76496d9dda82fb74e02e34c64e9e9809f52379a166844fcfa47",
+      "zip_crc_errors": [],
+      "xml_parse_errors": [],
+      "structure_errors": [],
+      "sheet_count": 1,
+      "sheets": [
+        {
+          "name": "Sheet1",
+          "state": "visible",
+          "xml_part": "xl/worksheets/sheet1.xml",
+          "formula_cell_count": 2,
+          "explicit_ref_error_formula_cells": [],
+          "merged_range_count": 85,
+          "drawing_reference_count": 0,
+          "legacy_drawing_reference_count": 1,
+          "standard_data_validation_count": 0,
+          "extended_data_validation_count": 0,
+          "extension_uris": []
+        }
+      ],
+      "formula_cell_count": 2,
+      "explicit_ref_error_formula_cells": [],
+      "zip_entry_count": 14,
+      "parsed_xml_part_count": 14,
+      "drawing_xml_parts": [],
+      "vml_drawing_parts": [
+        "xl/drawings/vmlDrawing1.vml"
+      ],
+      "sha256_after": "0a4ea89e617db76496d9dda82fb74e02e34c64e9e9809f52379a166844fcfa47",
+      "source_unchanged": true
+    }
+  ],
+  "summary": {
+    "file_count": 4,
+    "sheet_count": 10,
+    "formula_cell_count": 110,
+    "explicit_ref_error_formula_cell_count": 6,
+    "zip_crc_error_count": 0,
+    "xml_parse_error_count": 0,
+    "structure_error_count": 0,
+    "all_sources_unchanged": true
+  }
+}
