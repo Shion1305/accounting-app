@@ -9,6 +9,7 @@ import { DatabaseSync } from "node:sqlite";
 import { Ledger } from "./gateway/ledger.ts";
 import { startGateway } from "./gateway/server.ts";
 import { createGatewayClient } from "./gateway/client.ts";
+import { composePrompt, selectPromptVariant } from "./prompt.ts";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, "../..");
@@ -39,6 +40,7 @@ const { values } = parseArgs({
     "max-output-tokens": { type: "string", default: "8000" },
     phase: { type: "string", default: "comparison" },
     "repair-guidance": { type: "string" },
+    "prompt-variant": { type: "string" },
     repeat: { type: "string", default: "1" },
   },
 });
@@ -49,6 +51,12 @@ async function main() {
     throw new Error("Mode must be inventory, smoke, evaluate or summary.");
   }
   const repairGuidance = values["repair-guidance"];
+  const promptVariant = selectPromptVariant({
+    variant: values["prompt-variant"],
+    mode,
+    phase: values.phase!,
+    repairGuidance,
+  });
   if (
     repairGuidance !== undefined &&
     (mode !== "evaluate" ||
@@ -200,6 +208,19 @@ async function main() {
       repairGuidance === "preserve-ooxml"
         ? await readFile(join(here, "prompts/preserve-ooxml.md"), "utf8")
         : null;
+    const variantDocument =
+      promptVariant === "avoid-editing-pitfalls"
+        ? await readFile(
+            join(here, "prompts/avoid-editing-pitfalls.md"),
+            "utf8",
+          )
+        : undefined;
+    const { prompt, variantGuidanceSha256 } = composePrompt({
+      commonPrompt,
+      variant: promptVariant,
+      variantDocument,
+      repairGuidance: guidancePrompt ?? undefined,
+    });
     for (const university of names) {
       const runId = `${university}-${model.replaceAll(".", "-")}-${randomUUID()}`;
       const runDir = join(outputDir, runId);
@@ -208,11 +229,6 @@ async function main() {
       const inputPath = join(here, "cases", university, "basic.json");
       const template = await readFile(sourcePath);
       const input = await readFile(inputPath);
-      const baselinePrompt = `${commonPrompt}\n対象データ: input.json。元の書式: template.xlsx。\n`;
-      const prompt =
-        guidancePrompt === null
-          ? baselinePrompt
-          : `${baselinePrompt}\n${guidancePrompt}`;
       const started = Date.now();
       const fileIds: string[] = [];
       const containerIds = new Set<string>();
@@ -223,6 +239,8 @@ async function main() {
         university,
         model,
         maxOutputTokens: maxTokens,
+        promptVariant,
+        promptVariantGuidanceSha256: variantGuidanceSha256,
         repairGuidance: repairGuidance ?? null,
         repairGuidanceSha256:
           guidancePrompt === null ? null : hash(guidancePrompt),

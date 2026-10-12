@@ -138,7 +138,19 @@ python3 experiments/llm-export/reproduce-editing-pitfalls.py
 
 再現スクリプトは合成XML/ZIPだけで、正規表現による行境界消失、名前空間宣言の欠落、ZipInfoの変更を再現し、各回避方法をassertで確認する。Python標準ライブラリのみを使い、元ファイル・APIには触れない。過去の例外を完全再現するものでも、本番の編集ユーティリティでもない。
 
-[新しい追加指示案](prompts/avoid-editing-pitfalls.md)は未検証で、現行CLIからは選択できない。既存の `prompt.md` と検証済み条件の記録は変更していない。
+[追加指示案](prompts/avoid-editing-pitfalls.md)は `--mode evaluate --phase comparison --prompt-variant avoid-editing-pitfalls` で選択できる。省略時は従来とバイト単位で同じ共通プロンプトを使う。明示的な `--prompt-variant baseline` も比較専用で、`--repair-guidance` とは併用できない。manifestへ条件名・追加本文・送信プロンプトのハッシュを記録する。
+
+Solの各条件12試行を別台帳で比較した手順は[比較計画](../../docs/plans/llm-prompt-improvement-comparison.md)、結果は[追加指示の比較結果](../../docs/reports/llm-prompt-improvement-comparison-2026-10-12.md)を参照する。候補ファイルの区切り線より前は作成時点の状態説明であり、APIへ送らない。実行時ハッシュの再検証を可能にするため、その説明を含むファイルを凍結している。現在の実装・検証状態はこのREADMEと比較結果を正本とする。
+
+新しい比較の公開集計は、保存済みの各台帳・要求・応答・成果物・評価・削除記録を照合して作成する。APIを呼ばず、過去の履歴も変更しない。
+
+```sh
+node experiments/llm-export/report.ts --experiment sol-prompt-baseline-2026-10-12
+node experiments/llm-export/report.ts --experiment sol-prompt-improved-2026-10-12
+python3 experiments/llm-export/compare-prompts.py --repeats 3 --output /tmp/sol-prompt-comparison.json
+```
+
+出力先は未作成のパスにする。公開集計には生ログ・提供元ID・ローカルパスを含めない。初回8応答時点の監査記録と、全24応答の比較記録を別々に残す。以下の初回47応答専用の料金監査は、この追加比較には流用しない。
 
 ## 対照実験で確認できたこと
 

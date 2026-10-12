@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "createdBeforeDispatchUtc": "2026-10-12T00:33:35.329756+00:00",
+  "model": "gpt-6.1-sol",
+  "maxOutputTokens": 8000,
+  "reasoningEffort": "medium",
+  "serviceTier": "default",
+  "memoryLimit": "1g",
+  "network": "disabled",
+  "priorEstimatedNanoUsd": 2924513275,
+  "budgetPerArmUsd": 3.5,
+  "combinedLocalBudgetUsd": 7,
+  "providerInvoiceReconciled": false,
+  "priceSource": "https://developers.openai.com/api/docs/pricing",
+  "arms": {
+    "baseline": {
+      "experiment": "sol-prompt-baseline-2026-10-12",
+      "promptVariant": "baseline",
+      "promptSha256": "5a300fe7c7591aac6d7cbf333bd742f69596d6cb091358e4a4f908002ec51c2f"
+    },
+    "improved": {
+      "experiment": "sol-prompt-improved-2026-10-12",
+      "promptVariant": "avoid-editing-pitfalls",
+      "promptSha256": "b2876ecfc1414b1858dfde37b747ee6e3e6d1d1964b33d5b6cad8ae443cd134c",
+      "guidanceBodySha256": "422d1c57211fb26bc532eb44ec75c6b54d7a0c2411ccae6e8eb6fdf827530298"
+    }
+  },
+  "frozenFiles": {
+    "experiments/llm-export/run.ts": "d2a2113ecf87946ec77838f49781430461bd613ff06bbbd98747d0d5d7ed5203",
+    "experiments/llm-export/prompt.ts": "6822f042dd3a3c41f9024f884fe7f11128d2304d4c3a472a118709d86a12554a",
+    "experiments/llm-export/prompt.md": "fcb057270a08db51cfd196891fe3feaa05106b8f36d7e4bbee18e524ef844274",
+    "experiments/llm-export/prompts/avoid-editing-pitfalls.md": "a9e80231a10cdb10ad967520f7a81b3d24f50fd9283fdf31d8d63ab2e7876b41",
+    "experiments/llm-export/evaluator.py": "5c1481835d015f44f445b7d03a06fed0be37f0d5dcd287fae4f7a2409dbe1e95",
+    "experiments/llm-export/gateway/pricing.ts": "fd930bb61e6f4ab66deb1c6a428d8bbc6798e1062f66245cfcb880d88655f31b",
+    "experiments/llm-export/gateway/server.ts": "958ca3163b45690e26442fcf2420b8f941ddae49eda9df5afd7c4d0849ccd9da",
+    "experiments/llm-export/gateway/ledger.ts": "090fbd1204732bbe22282f405e7c901c5709756a4cdefea89e85dd76bc62ab33",
+    "experiments/llm-export/gateway/client.ts": "bb81a1219a31321dac876c35ede329b398fc67c5b6e368a3f2df75cb6e712eeb",
+    "experiments/llm-export/evaluator/expected.json": "87b71befe3b1d634c706976bd838fa99b1a72081c572bd9408bc7489e68c4053",
+    "experiments/llm-export/cases/gakushuin/basic.json": "0281fcbc6f57ffe4b4405f5960ff78c2d660a22342c259a88a9f5b0754e42fe5",
+    "experiments/llm-export/cases/hosei/basic.json": "851f118043324410d8b32d2fa296abbd2694c7d77e0d0916b7d09c98d3c5e7d3",
+    "experiments/llm-export/cases/ritsumeikan/basic.json": "36e75bc296f2334a6a078ce48d64400e857acc4addc540ca22429a93d3f75874",
+    "experiments/llm-export/cases/waseda/basic.json": "484d56e2ddb622b1f6396c5c749b520b5975f8108e83bfe484b894d61745835e",
+    "docs/references/gakushuin.reference.xlsx": "3fb01155de0a664361fb5cbef213aec3e82da59126056e19d353931c7318a1c9",
+    "docs/references/hosei.synthetic.reference.xlsx": "e8c8dd5737df85b981e1cc38ce505ce08924f719cad36acf02a72570d1ec0327",
+    "docs/references/ritsumeikan.reference.xlsx": "0a4ea89e617db76496d9dda82fb74e02e34c64e9e9809f52379a166844fcfa47",
+    "docs/references/waseda-2025.reference.xlsx": "6c37a1b31d19a403839bfffacbe76f0af8b21c938e1a092208205cb281efc5a7"
+  },
+  "schedule": [
+    {
+      "ordinal": 1,
+      "arm": "baseline",
+      "university": "ritsumeikan",
+      "repeat": 1
+    },
+    {
+      "ordinal": 2,
+      "arm": "improved",
+      "university": "ritsumeikan",
+      "repeat": 1
+    },
+    {
+      "ordinal": 3,
+      "arm": "improved",
+      "university": "gakushuin",
+      "repeat": 1
+    },
+    {
+      "ordinal": 4,
+      "arm": "baseline",
+      "university": "gakushuin",
+      "repeat": 1
+    },
+    {
+      "ordinal": 5,
+      "arm": "baseline",
+      "university": "hosei",
+      "repeat": 1
+    },
+    {
+      "ordinal": 6,
+      "arm": "improved",
+      "university": "hosei",
+      "repeat": 1
+    },
+    {
+      "ordinal": 7,
+      "arm": "improved",
+      "university": "waseda",
+      "repeat": 1
+    },
+    {
+      "ordinal": 8,
+      "arm": "baseline",
+      "university": "waseda",
+      "repeat": 1
+    },
+    {
+      "ordinal": 9,
+      "arm": "improved",
+      "university": "ritsumeikan",
+      "repeat": 2
+    },
+    {
+      "ordinal": 10,
+      "arm": "baseline",
+      "university": "ritsumeikan",
+      "repeat": 2
+    },
+    {
+      "ordinal": 11,
+      "arm": "baseline",
+      "university": "gakushuin",
+      "repeat": 2
+    },
+    {
+      "ordinal": 12,
+      "arm": "improved",
+      "university": "gakushuin",
+      "repeat": 2
+    },
+    {
+      "ordinal": 13,
+      "arm": "improved",
+      "university": "hosei",
+      "repeat": 2
+    },
+    {
+      "ordinal": 14,
+      "arm": "baseline",
+      "university": "hosei",
+      "repeat": 2
+    },
+    {
+      "ordinal": 15,
+      "arm": "baseline",
+      "university": "waseda",
+      "repeat": 2
+    },
+    {
+      "ordinal": 16,
+      "arm": "improved",
+      "university": "waseda",
+      "repeat": 2
+    },
+    {
+      "ordinal": 17,
+      "arm": "baseline",
+      "university": "ritsumeikan",
+      "repeat": 3
+    },
+    {
+      "ordinal": 18,
+      "arm": "improved",
+      "university": "ritsumeikan",
+      "repeat": 3
+    },
+    {
+      "ordinal": 19,
+      "arm": "improved",
+      "university": "gakushuin",
+      "repeat": 3
+    },
+    {
+      "ordinal": 20,
+      "arm": "baseline",
+      "university": "gakushuin",
+      "repeat": 3
+    },
+    {
+      "ordinal": 21,
+      "arm": "baseline",
+      "university": "hosei",
+      "repeat": 3
+    },
+    {
+      "ordinal": 22,
+      "arm": "improved",
+      "university": "hosei",
+      "repeat": 3
+    },
+    {
+      "ordinal": 23,
+      "arm": "improved",
+      "university": "waseda",
+      "repeat": 3
+    },
+    {
+      "ordinal": 24,
+      "arm": "baseline",
+      "university": "waseda",
+      "repeat": 3
+    }
+  ],
+  "metrics": [
+    "complete_and_static_pass",
+    "facts_pass",
+    "preservation_pass",
+    "tool_calls",
+    "observed_recovery_operations",
+    "calculation_and_validation_coverage",
+    "input_output_cached_cachewrite_reasoning_tokens",
+    "duration_seconds",
+    "usage_based_nano_usd",
+    "cost_per_completed_static_pass"
+  ],
+  "stopConditions": [
+    "After first 8 scheduled slots review feasibility, costs, and outcomes before remaining 16.",
+    "Stop on ambiguous paid request, unresolved costs, cleanup failure, mismatched frozen bytes, or insufficient per-arm reservation.",
+    "No automatic retries or selective replacements. Static failures remain part of the matrix."
+  ],
+  "limits": [
+    "Known templates and basic cases; not unseen generalization.",
+    "The bundled instructions do not isolate individual advice effects.",
+    "No independent native Excel or visual recheck is included in this comparison.",
+    "Local dispatch budget and usage estimates are not a provider invoice cap."
+  ]
+}

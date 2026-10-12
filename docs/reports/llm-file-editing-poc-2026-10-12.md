@@ -12,7 +12,9 @@
 
 [説明スライド（全14枚・SVG／PDF／HTML）](llm-file-editing-slides/README.md): 実装構成、AIとツールの反復、実行例、モデル比較、費用と限界を図解。
 
-[編集の失敗・手戻りの原因分析](llm-file-editing-failure-analysis-2026-10-12.md): Solの成功過程も含めた保存ログの調査、具体的な生成コードの問題、最小再現、未検証のプロンプト改善案。追加API呼出しなし。
+[編集の失敗・手戻りの原因分析](llm-file-editing-failure-analysis-2026-10-12.md): Solの成功過程も含めた保存ログの調査、具体的な生成コードの問題、最小再現、プロンプト改善案。この保存ログ分析による追加API呼出しはない。
+
+[Solの追加指示の比較結果](llm-prompt-improvement-comparison-2026-10-12.md): 原因分析を受けた別台帳での24応答の有料追試。本稿の47応答・費用・分母には含めない。
 
 ## 方法
 

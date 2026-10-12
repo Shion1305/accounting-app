@@ -16,7 +16,7 @@
 
 仕組みと結果を図で確認する場合は、[説明スライド（SVG・PDF・HTML）](reports/llm-file-editing-slides/README.md)を参照する。
 
-生成コードの失敗と、成功したSolの手戻りは[原因分析](reports/llm-file-editing-failure-analysis-2026-10-12.md)へまとめた。保存済み44応答の調査であり、追加プロンプト案の改善効果は未検証。
+生成コードの失敗と、成功したSolの手戻りは[原因分析](reports/llm-file-editing-failure-analysis-2026-10-12.md)へまとめた。その後の[追加指示のA/B比較](reports/llm-prompt-improvement-comparison-2026-10-12.md)は24応答を実行し、完了・静的合格は現行版12/12、追加指示版9/12だった。手戻りは減ったが時間・完了1件あたりの費用が増えたため、標準指示への採用は見送る。追加費用推計は$3.3532108、初回PoCを含む累計は$6.277724075。
 
 ## 内容の管理先
 

@@ -6,6 +6,8 @@
 /experiments/llm-export/results/**/summary.json linguist-generated=true
 /experiments/llm-export/results/**/results.csv linguist-generated=true
 /experiments/llm-export/diagnostics/**/trace-summary.json linguist-generated=true
+/experiments/llm-export/diagnostics/**/first-eight.json linguist-generated=true
+/experiments/llm-export/diagnostics/**/comparison.json linguist-generated=true
 
 # Editable generators and notes are reviewed alongside their rendered slides.
 /docs/reports/llm-file-editing-slides/*.svg linguist-generated=true

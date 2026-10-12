@@ -1,0 +1,1791 @@
+{
+  "schema_version": 1,
+  "status": "complete_twenty_four_reviewed",
+  "source_scope": "Saved visible code, tool logs and independent static outcomes; hidden reasoning content not inspected.",
+  "classification_notes": [
+    "A saved recovery sequence can be an attempted/unresolved repair, not necessarily a successful recovery.",
+    "Empty outputs are not counted as errors.",
+    "code_inferred events describe visible code changes without inventing absent exception messages.",
+    "Environment preflight reports of unavailable optional packages are discovery, not editing failure events.",
+    "Repeated calls for the same mechanism are coalesced as one event per run.",
+    "No provider IDs, raw source paths or full code/logs are included.",
+    "Optional-documentation events remain separate; editing/validation-only run counts exclude them.",
+    "Environment-setup syntax recoveries are retained separately and excluded from the editing/validation primary metric; local ast.parse reproduction is not a captured API exception."
+  ],
+  "runs": [
+    {
+      "label": "baseline/gakushuin/r1",
+      "arm": "baseline",
+      "university": "gakushuin",
+      "repeat": 1,
+      "tool_item_count": 11,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "optional_documentation_path",
+          "before_call_ordinals": [
+            1
+          ],
+          "after_call_ordinals": [
+            2
+          ],
+          "evidence": "code_inferred",
+          "description": "Unguarded optional-document read has empty output; the next call resumes file and workbook inspection. Exact exception is not saved.",
+          "outcome": "recovered",
+          "scope": "optional_documentation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "xml_cell_regex",
+          "before_call_ordinals": [
+            4,
+            5
+          ],
+          "after_call_ordinals": [
+            6
+          ],
+          "evidence": "code_inferred",
+          "description": "Restarts from original XML with separate self-closing and ordinary-cell matching after the prior greedy edit stops; the exact exception is not recorded.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "zip_metadata_reuse",
+          "before_call_ordinals": [
+            6,
+            7,
+            9
+          ],
+          "after_call_ordinals": [
+            8,
+            10,
+            11
+          ],
+          "evidence": "code_inferred",
+          "description": "Repeated verification resumes after reopening the source ZIP; final writer explicitly copies metadata. No historical BadZipFile traceback is saved.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "verification_style_representation",
+          "before_call_ordinals": [
+            7,
+            8
+          ],
+          "after_call_ordinals": [
+            9
+          ],
+          "evidence": "code_inferred",
+          "description": "Changes from all library cell-object style equality to original XML-cell style IDs while retaining formula and non-target value checks. The specific original style failure is not logged.",
+          "outcome": "verification_adjusted",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "stale_formula_caches_generated_fallback",
+          "before_call_ordinals": [
+            10
+          ],
+          "after_call_ordinals": [
+            11
+          ],
+          "evidence": "observed",
+          "description": "Stored aggregate caches are visibly zero despite correct subtotals. A generated SUM/arithmetic evaluator replaces them with total 30000, carryover 25000 and total 30000; final readback succeeds.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_verified_target_formula_count": null,
+          "generated_evaluator_used": true,
+          "generated_target_formula_count": 9,
+          "target_results": {
+            "C17": 20000,
+            "G6": 1200,
+            "C26": 30000,
+            "G25": 25000,
+            "G26": 30000
+          },
+          "evidence_call_ordinals": [
+            10,
+            11
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "not applied to all existing target formulas before initial conversion"
+        },
+        "limitations": [
+          "LibreOffice was invoked, but its output retained stale aggregate caches.",
+          "Final corrected caches come from generated formula evaluation and are not subsequently rechecked by the external engine.",
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "improved/gakushuin/r1",
+      "arm": "improved",
+      "university": "gakushuin",
+      "repeat": 1,
+      "tool_item_count": 8,
+      "incomplete_tool_call_ordinals": [
+        8
+      ],
+      "response_completed": false,
+      "artifact_delivery": "not_returned",
+      "independent_static_status": "unverified",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "verification_default_style_and_wrong_row_assumption",
+          "before_call_ordinals": [
+            5
+          ],
+          "after_call_ordinals": [
+            6,
+            7
+          ],
+          "evidence": "observed",
+          "description": "Final library-style comparison reaches a difference for a newly explicit cell versus an implicit blank. A printed diagnosis incorrectly proposes row-style inheritance; actual row attributes contain no style. Further inspection identifies default-style representation, but the corrected verification code is truncated.",
+          "outcome": "unresolved_at_output_limit",
+          "unexecuted_or_incomplete_after_call_ordinals": [
+            8
+          ],
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false,
+          "evidence_detail": "Model-authored diagnostic print plus actual logged style arrays and row attributes; not a captured original Python exception."
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_and_generated_evaluator_agreement_count": 16,
+          "target_results": {
+            "C17": 20000,
+            "G6": 1200,
+            "C26": 30000,
+            "G25": 25000,
+            "G26": 30000
+          },
+          "evidence_call_ordinals": [
+            4,
+            5
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "before conversion",
+          "remote_output_reopened_and_package_compared": true
+        },
+        "limitations": [
+          "The model-authored diagnosis is not a saved original exception traceback.",
+          "Call 8 is incomplete and has no output; its proposed correction cannot be credited as executed.",
+          "Remote draft existed but was not returned; no independent static evaluation is possible.",
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "baseline/hosei/r1",
+      "arm": "baseline",
+      "university": "hosei",
+      "repeat": 1,
+      "tool_item_count": 5,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "optional_documentation_path",
+          "before_call_ordinals": [
+            1
+          ],
+          "after_call_ordinals": [
+            2
+          ],
+          "evidence": "code_inferred",
+          "description": "Unguarded optional-document read has empty output; next call resumes actual inspection. Exact exception is not saved.",
+          "outcome": "recovered",
+          "scope": "optional_documentation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "source_zip_verification_reopen",
+          "before_call_ordinals": [
+            4
+          ],
+          "after_call_ordinals": [
+            5
+          ],
+          "evidence": "code_inferred",
+          "description": "After writing with original metadata, reopens the source ZIP and resumes unchanged-part verification. No original exception is recorded.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": false,
+        "engine": null,
+        "verified_formula_coverage": {
+          "generated_evaluator_used": true,
+          "generated_visible_amount_formula_count": 22,
+          "target_results": {
+            "E6": 2000,
+            "E9": 2500,
+            "E15": 5000,
+            "E107": 9500
+          },
+          "evidence_call_ordinals": [
+            4,
+            5
+          ],
+          "disposable_copy": null,
+          "cache_invalidation": null
+        },
+        "limitations": [
+          "Formula values are computed and reloaded by generated code; no external-engine or native Excel recalculation occurs in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "improved/hosei/r1",
+      "arm": "improved",
+      "university": "hosei",
+      "repeat": 1,
+      "tool_item_count": 5,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": false,
+      "recovery_events": [],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_and_generated_evaluator_agreement_count": 92,
+          "formula_counts_by_sheet_role": {
+            "example": 36,
+            "editable": 56
+          },
+          "target_results": {
+            "E6": 2000,
+            "E9": 2500,
+            "E15": 5000,
+            "E107": 9500
+          },
+          "pre_existing_error_cell_count_preserved": 6,
+          "evidence_call_ordinals": [
+            4,
+            5
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "all formula caches in disposable workbook before conversion"
+        },
+        "limitations": [
+          "No native Excel validation in this response.",
+          "More extensive witnessed calculation coverage than the paired baseline."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": false,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "baseline/ritsumeikan/r1",
+      "arm": "baseline",
+      "university": "ritsumeikan",
+      "repeat": 1,
+      "tool_item_count": 11,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "optional_documentation_path",
+          "before_call_ordinals": [
+            1
+          ],
+          "after_call_ordinals": [
+            2,
+            5,
+            6
+          ],
+          "evidence": "code_inferred",
+          "description": "Unguarded lowercase optional-document read has empty output; later lists available files and reads the uppercase document. Original exception is not saved.",
+          "outcome": "recovered",
+          "scope": "optional_documentation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "formula_cache_refresh",
+          "before_call_ordinals": [
+            7,
+            8
+          ],
+          "after_call_ordinals": [
+            9,
+            10
+          ],
+          "evidence": "code_inferred",
+          "description": "After a successful conversion, a cache assertion call has empty output; subsequent code invalidates formula caches and forces calculation. The corrected two totals are observed, but original cached values are not.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "zip_metadata_reuse",
+          "before_call_ordinals": [
+            7,
+            9
+          ],
+          "after_call_ordinals": [
+            10,
+            11
+          ],
+          "evidence": "code_inferred",
+          "description": "Reopens source ZIP and switches output writes to copied metadata before rerunning calculation and final verification; no original exception text is saved.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_verified_target_formula_count": 2,
+          "target_results": {
+            "C27": 35000,
+            "J27": 35000
+          },
+          "evidence_call_ordinals": [
+            10,
+            11
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "applied during recovery"
+        },
+        "limitations": [
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "improved/ritsumeikan/r1",
+      "arm": "improved",
+      "university": "ritsumeikan",
+      "repeat": 1,
+      "tool_item_count": 7,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "external_engine_display_configuration",
+          "before_call_ordinals": [
+            5
+          ],
+          "after_call_ordinals": [
+            6
+          ],
+          "evidence": "observed",
+          "description": "First conversion returns zero but reports an X11 display error and produces no file. Switching from the generic GUI backend to the headless backend and clearing DISPLAY produces the file and verified totals.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_verified_target_formula_count": 2,
+          "target_results": {
+            "C27": 35000,
+            "J27": 35000
+          },
+          "evidence_call_ordinals": [
+            6,
+            7
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "before first conversion"
+        },
+        "limitations": [
+          "No native Excel validation in this response.",
+          "The library-availability exception in preflight is handled discovery, not an editing recovery event."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "baseline/waseda/r1",
+      "arm": "baseline",
+      "university": "waseda",
+      "repeat": 1,
+      "tool_item_count": 15,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "optional_documentation_path",
+          "before_call_ordinals": [
+            1
+          ],
+          "after_call_ordinals": [
+            2,
+            5,
+            6,
+            7
+          ],
+          "evidence": "code_inferred",
+          "description": "Empty-output lowercase optional-document attempt is followed by directory discovery and successful uppercase-document reading; exact original exception is not saved.",
+          "outcome": "recovered",
+          "scope": "optional_documentation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "source_zip_verification_reopen",
+          "before_call_ordinals": [
+            8,
+            11,
+            14
+          ],
+          "after_call_ordinals": [
+            12,
+            15
+          ],
+          "evidence": "code_inferred",
+          "description": "After writes using original metadata, original ZIP comparisons resume only after reopening the source. No original exception traceback is saved.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "xml_cell_regex_and_merged_border_loss",
+          "before_call_ordinals": [
+            8,
+            10,
+            11,
+            13
+          ],
+          "after_call_ordinals": [
+            14,
+            15
+          ],
+          "evidence": "observed",
+          "description": "Intermediate XML contains 184 of 349 original cells; missing merged-tail cells accompany border differences. Rebuilds from original with non-greedy one-cell matching, then verifies all 349 cells and recalculates corrected final values.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_verified_target_formula_count": 4,
+          "numeric_target_results": {
+            "C45": 35000,
+            "G44": 28300,
+            "G45": 35000
+          },
+          "lookup_result_verified": true,
+          "evidence_call_ordinals": [
+            9,
+            15
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "force-calculation flags set; caches also independently compared",
+          "corrected_final_copy_reconverted": true
+        },
+        "limitations": [
+          "Only four affected formula results are directly checked against expected values.",
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "improved/waseda/r1",
+      "arm": "improved",
+      "university": "waseda",
+      "repeat": 1,
+      "tool_item_count": 5,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": false,
+      "recovery_events": [],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_verified_target_formula_count": 4,
+          "numeric_target_results": {
+            "C45": 35000,
+            "G44": 28300,
+            "G45": 35000
+          },
+          "lookup_result_verified": true,
+          "evidence_call_ordinals": [
+            4,
+            5
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "affected target formula caches cleared before conversion",
+          "baseline_copy_also_converted": true
+        },
+        "limitations": [
+          "Generated final log claims all workbook formulas recalculated, but only four affected results are directly checked and target caches explicitly invalidated.",
+          "Baseline copy conversion does not explicitly invalidate its original caches.",
+          "Unaffected receipt formula cache remains unchanged.",
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": false,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "baseline/gakushuin/r2",
+      "arm": "baseline",
+      "university": "gakushuin",
+      "repeat": 2,
+      "tool_item_count": 9,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "optional_documentation_path",
+          "before_call_ordinals": [
+            1
+          ],
+          "after_call_ordinals": [
+            2
+          ],
+          "evidence": "code_inferred",
+          "description": "Unguarded optional-document read has empty output; next call resumes input inspection. Original exception is not saved.",
+          "outcome": "recovered",
+          "scope": "optional_documentation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "source_zip_verification_reopen",
+          "before_call_ordinals": [
+            4,
+            5,
+            7
+          ],
+          "after_call_ordinals": [
+            8
+          ],
+          "evidence": "code_inferred",
+          "description": "Writer reuses source ZIP metadata; later source read stops after style diagnostics. Reopens source ZIP and resumes verification; original exception is not saved.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "verification_implicit_blank_styles",
+          "before_call_ordinals": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "after_call_ordinals": [
+            8,
+            9
+          ],
+          "evidence": "observed",
+          "description": "Logs implicit-blank versus explicit-cell style arrays. Initially excludes two new cells, then limits style equality to cells actually present in original XML; final raw-style, formula and preservation checks complete.",
+          "outcome": "verification_adjusted",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_target_formula_values_observed_count": 9,
+          "sample_formula_cached_values_match_engine_count": 9,
+          "target_results": {
+            "C26": 30000,
+            "G25": 25000,
+            "G26": 30000
+          },
+          "evidence_call_ordinals": [
+            5,
+            9
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "existing three dependent aggregate caches removed; six new formulas start without caches"
+        },
+        "limitations": [
+          "Sample comparison shows stored original caches match converted output; no separate sample cache invalidation is shown.",
+          "Adds six formulas, whereas paired improved run adds four; raw formula counts are not identical coverage units.",
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "improved/gakushuin/r2",
+      "arm": "improved",
+      "university": "gakushuin",
+      "repeat": 2,
+      "tool_item_count": 7,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": false,
+      "artifact_delivery": "downloaded_despite_incomplete_response",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "verification_new_cell_and_inspection_materialized_styles",
+          "before_call_ordinals": [
+            5,
+            6
+          ],
+          "after_call_ordinals": [
+            6,
+            7
+          ],
+          "evidence": "observed",
+          "description": "Separates intentionally styled new cells from original-cell style equality, then finds another compared blank exists in neither original nor output XML. Reopening pristine workbooks removes inspection-materialized style state and checks pass.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false,
+          "evidence_detail": "Model-authored AssertionError diagnoses plus raw XML absence/style observations and final pass; not a captured original Python exception."
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_and_generated_evaluator_agreement_count": 16,
+          "editable_formula_count": 7,
+          "sample_formula_count": 9,
+          "target_results": {
+            "C17": 20000,
+            "G6": 1200,
+            "C26": 30000,
+            "G25": 25000,
+            "G26": 30000
+          },
+          "evidence_call_ordinals": [
+            4,
+            5,
+            7
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "both sheets formula caches cleared before conversion"
+        },
+        "limitations": [
+          "Artifact passes independent static checks, but final explanatory message is truncated by max_output_tokens.",
+          "All seven tool calls finish; no incomplete tool item.",
+          "Adds four formulas, whereas paired baseline adds six.",
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "termination_stage": "final_message_incomplete",
+      "final_message_status": "incomplete",
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "baseline/hosei/r2",
+      "arm": "baseline",
+      "university": "hosei",
+      "repeat": 2,
+      "tool_item_count": 7,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "optional_documentation_path",
+          "before_call_ordinals": [
+            1
+          ],
+          "after_call_ordinals": [
+            2
+          ],
+          "evidence": "code_inferred",
+          "description": "Unguarded optional-document read has empty output; next call resumes actual inspection. Exact exception is not saved.",
+          "outcome": "recovered",
+          "scope": "optional_documentation",
+          "captured_python_exception_traceback": false
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "generated_evaluator_used": true,
+          "generated_visible_amount_formula_count": 22,
+          "engine_and_generated_evaluator_agreement_count": 22,
+          "target_results": {
+            "E6": 2000,
+            "E9": 2500,
+            "E15": 5000,
+            "E88": 0,
+            "E106": 0,
+            "E107": 9500
+          },
+          "observed_original_error_cells": [
+            "I108",
+            "J108"
+          ],
+          "evidence_call_ordinals": [
+            6,
+            7
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "none in saved conversion code; final workbook already contains generated values"
+        },
+        "limitations": [
+          "Engine output matches the 22 visible amount-formula caches; saved conversion code does not clear those caches first, so the trace alone cannot establish fresh calculation of every formula.",
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": false,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "improved/hosei/r2",
+      "arm": "improved",
+      "university": "hosei",
+      "repeat": 2,
+      "tool_item_count": 8,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "verification_noop_edit_accounting",
+          "before_call_ordinals": [
+            6
+          ],
+          "after_call_ordinals": [
+            7,
+            8
+          ],
+          "evidence": "observed",
+          "description": "Call 6 requires every planned write to have changed XML. Call 7 reports D7 is byte-identical, with no unexpected edits; call 8 checks its original and final XML and intended value are identical, then finishes all verification.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false,
+          "evidence_detail": "Observed diagnosis and before/after verification code; original assertion traceback is not captured."
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_and_generated_evaluator_agreement_count": 92,
+          "formula_counts_by_sheet_role": {
+            "example": 36,
+            "editable": 56
+          },
+          "target_results": {
+            "E6": 2000,
+            "E9": 2500,
+            "E15": 5000,
+            "E107": 9500
+          },
+          "pre_existing_error_cell_count_preserved": 6,
+          "evidence_call_ordinals": [
+            5,
+            6,
+            8
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "all formula caches in disposable workbook before conversion"
+        },
+        "limitations": [
+          "No native Excel validation in this response.",
+          "All 92 formulas are checked against freshly recalculated disposable-workbook values and final caches; six original error cells remain preserved."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "verification_limitations": [
+        {
+          "type": "vacuous_source_hash_assertion",
+          "call_ordinal": 8,
+          "evidence": "observed_code",
+          "description": "The only final source-hash assertion uses a conditional with a constant false condition and true else branch, so it always passes. No source hash baseline comparison is witnessed in this response; independent runner hashes are a separate evidence source."
+        }
+      ],
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "baseline/ritsumeikan/r2",
+      "arm": "baseline",
+      "university": "ritsumeikan",
+      "repeat": 2,
+      "tool_item_count": 10,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "optional_documentation_path",
+          "before_call_ordinals": [
+            1
+          ],
+          "after_call_ordinals": [
+            2
+          ],
+          "evidence": "code_inferred",
+          "description": "Unguarded optional-document read has empty output; next call resumes input inspection. Original exception is not saved.",
+          "outcome": "recovered",
+          "scope": "optional_documentation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "xml_cell_regex",
+          "before_call_ordinals": [
+            5,
+            6,
+            7
+          ],
+          "after_call_ordinals": [
+            8,
+            9
+          ],
+          "evidence": "observed",
+          "description": "After greedy whole-cell edits, converted aggregate cells are logged as None. Regenerates from original with a matcher limited to self-closing blank cells; original aggregate formula becomes visible again. The exact intermediate XML damage is not retained.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "zip_metadata_reuse",
+          "before_call_ordinals": [
+            5,
+            8
+          ],
+          "after_call_ordinals": [
+            9
+          ],
+          "evidence": "code_inferred",
+          "description": "Source ZIP is reopened and metadata copied before rewriting the regenerated sheet and rerunning verification. The original exception is not saved.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "formula_cache_refresh",
+          "before_call_ordinals": [
+            9
+          ],
+          "after_call_ordinals": [
+            10
+          ],
+          "evidence": "observed",
+          "description": "After formulas are restored, successful conversion still yields two zero aggregate caches. Clears caches on a disposable copy and forces calculation; both become35000 and final checks complete.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_verified_target_formula_count": 2,
+          "target_results": {
+            "C27": 35000,
+            "J27": 35000
+          },
+          "evidence_call_ordinals": [
+            9,
+            10
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "applied after observed zero caches"
+        },
+        "limitations": [
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "improved/ritsumeikan/r2",
+      "arm": "improved",
+      "university": "ritsumeikan",
+      "repeat": 2,
+      "tool_item_count": 5,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": false,
+      "recovery_events": [],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_verified_target_formula_count": 2,
+          "target_results": {
+            "C27": 35000,
+            "J27": 35000
+          },
+          "evidence_call_ordinals": [
+            4,
+            5
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "before first conversion"
+        },
+        "limitations": [
+          "No native Excel validation in this response.",
+          "Saved log volume exceeds its paired baseline despite the bounded-inspection instruction."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": false,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "baseline/waseda/r2",
+      "arm": "baseline",
+      "university": "waseda",
+      "repeat": 2,
+      "tool_item_count": 8,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "optional_documentation_path",
+          "before_call_ordinals": [
+            1
+          ],
+          "after_call_ordinals": [
+            2
+          ],
+          "evidence": "code_inferred",
+          "description": "Unguarded optional-document read has empty output; next call resumes actual inspection. Exact exception is not saved.",
+          "outcome": "recovered",
+          "scope": "optional_documentation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "inspection_materialized_default_style",
+          "before_call_ordinals": [
+            6
+          ],
+          "after_call_ordinals": [
+            7
+          ],
+          "evidence": "observed",
+          "description": "Call 7 prints the inspected original A2 as a zero StyleArray and the final A2 style as None, then reloads the original before comparing. Call 4 had accessed style_id and number_format for that row.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false,
+          "evidence_detail": "Style mismatch itself is logged; no captured Python exception traceback. Fresh-original comparison is followed by package verification that finishes in call 8."
+        },
+        {
+          "type": "source_zip_verification_reopen",
+          "before_call_ordinals": [
+            6,
+            7
+          ],
+          "after_call_ordinals": [
+            8
+          ],
+          "evidence": "code_inferred",
+          "description": "Original ZipInfo objects are reused during call 6 write. After subsequent package verification does not finish, call 8 reopens the source ZIP and completes unchanged-part and source-hash checks. No original exception is saved.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "affected_target_formula_count": 4,
+          "engine_asserted_numeric_formula_count": 3,
+          "engine_logged_lookup_formula_count": 1,
+          "target_results": {
+            "C45": 35000,
+            "G44": 28300,
+            "G45": 35000
+          },
+          "evidence_call_ordinals": [
+            6,
+            8
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "forceFullCalc/fullCalcOnLoad enabled in final workbook; generated caches retained before disposable conversion"
+        },
+        "limitations": [
+          "Four affected formula values are logged, but only three numeric values are asserted against engine output; B7 was separately checked against its generated cache.",
+          "The unrelated receipt-sheet formula is not explicitly verified in engine output.",
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "verification_limitations": [
+        {
+          "type": "regex_inspection_overmatch",
+          "call_ordinal": 5,
+          "evidence": "observed",
+          "description": "Inspection regex returns adjacent cells and row markup for several self-closing cells. The write in call 6 uses a different, bounded nongreedy pattern and checks cell inventory before editing; no resulting corruption or repair is observed."
+        }
+      ],
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "improved/waseda/r2",
+      "arm": "improved",
+      "university": "waseda",
+      "repeat": 2,
+      "tool_item_count": 6,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": false,
+      "recovery_events": [],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "affected_target_formula_count": 4,
+          "additional_unchanged_sheet_lookup_formula_count": 1,
+          "engine_checked_total_formula_count": 5,
+          "target_results": {
+            "C45": 35000,
+            "G44": 28300,
+            "G45": 35000
+          },
+          "evidence_call_ordinals": [
+            5,
+            6
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "all worksheet formula caches cleared in disposable copy, with forceFullCalc/fullCalcOnLoad/auto"
+        },
+        "limitations": [
+          "Four affected formula caches are copied into the final original-format workbook and checked; the fifth unrelated-sheet formula is recalculated and checked only in the disposable copy, while its original final-sheet bytes are preserved.",
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": false,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "baseline/gakushuin/r3",
+      "arm": "baseline",
+      "university": "gakushuin",
+      "repeat": 3,
+      "tool_item_count": 11,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "optional_documentation_path",
+          "before_call_ordinals": [
+            1
+          ],
+          "after_call_ordinals": [
+            2
+          ],
+          "evidence": "code_inferred",
+          "description": "Unguarded optional-document read has empty output; next call resumes input inspection. Original exception is not saved.",
+          "outcome": "recovered",
+          "scope": "optional_documentation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "verification_implicit_blank_default_style",
+          "before_call_ordinals": [
+            7
+          ],
+          "after_call_ordinals": [
+            8,
+            9,
+            11
+          ],
+          "evidence": "observed",
+          "description": "Call 8 logs zero StyleArray versus None on original/final A28, then normalizes implicit blank defaults for comparison. Remaining new-cell style difference is inspected and handled separately before final verification completes.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false,
+          "evidence_detail": "Actual style-array representations logged; original assertion traceback is not captured."
+        },
+        {
+          "type": "new_cell_inherited_column_style",
+          "before_call_ordinals": [
+            8,
+            9
+          ],
+          "after_call_ordinals": [
+            11
+          ],
+          "evidence": "observed",
+          "description": "Original absent E28/H28 materialize with default style0 in the output. Call 11 explicitly assigns existing column style1 to both new cells and verifies them against worksheet column defaults, preserving original styles for all existing XML cells.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false,
+          "evidence_detail": "Before/after visible code, logged style arrays and final PASS. Native Excel rendering remains unverified."
+        },
+        {
+          "type": "workbook_versus_worksheet_attribute",
+          "before_call_ordinals": [
+            10
+          ],
+          "after_call_ordinals": [
+            11
+          ],
+          "evidence": "code_inferred",
+          "description": "Inspection accesses column_dimensions on the Workbook object and stops after its preceding print. Next call accesses column dimensions through the worksheet during successful verification. Exact exception text is not saved.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "generated_original_formula_audit_count": 12,
+          "engine_and_generated_evaluator_agreement_count": 9,
+          "final_target_formula_count": 9,
+          "target_results": {
+            "C17": 20000,
+            "G6": 1200,
+            "C26": 30000,
+            "G25": 25000,
+            "G26": 30000
+          },
+          "evidence_call_ordinals": [
+            5,
+            6,
+            7,
+            11
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "forceFullCalc/fullCalcOnLoad/auto enabled; generated formula caches retained before conversion"
+        },
+        "limitations": [
+          "Original twelve formulas are audited by generated evaluator; nine final target formulas match engine output and final reloads.",
+          "Conversion uses generated caches without explicitly clearing them first.",
+          "Final new-cell style1 adjustment occurs after calculation check; no native Excel style equivalence is established.",
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "verification_limitations": [
+        {
+          "type": "implicit_blank_native_style_unverified",
+          "call_ordinals": [
+            8,
+            9,
+            11
+          ],
+          "evidence": "observed_code_and_logs",
+          "description": "Default-style normalization and explicit inherited-column style assignment resolve response-side comparison; independent static pass does not establish native Excel rendering equivalence for formerly absent cells."
+        }
+      ],
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "improved/gakushuin/r3",
+      "arm": "improved",
+      "university": "gakushuin",
+      "repeat": 3,
+      "tool_item_count": 10,
+      "incomplete_tool_call_ordinals": [
+        10
+      ],
+      "response_completed": false,
+      "artifact_delivery": "downloaded_despite_incomplete_response",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "verification_new_cell_default_and_inherited_style",
+          "before_call_ordinals": [
+            6
+          ],
+          "after_call_ordinals": [
+            7,
+            8,
+            9
+          ],
+          "evidence": "observed",
+          "description": "After writing and checking target caches, broad style-array verification encounters newly explicit E28/H28 versus absent original cells. Diagnosis inspects default and column styles; proposed inherited-style rewrite is truncated before execution. Downloaded new cells still lack an explicit style attribute.",
+          "outcome": "unresolved_at_output_limit",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false,
+          "unexecuted_or_incomplete_after_call_ordinals": [
+            10
+          ],
+          "evidence_detail": "Model-authored AssertionError diagnosis; actual XML/default-style inspection and openpyxl alignment representations are logged, but no captured original traceback. Direct style-proxy comparisons also report properties whose printed representations are identical."
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_checked_target_formula_count": 9,
+          "baseline_original_formula_count_logged": 12,
+          "baseline_original_formula_cache_mismatches": 0,
+          "target_results": {
+            "C17": 20000,
+            "G6": 1200,
+            "C26": 30000,
+            "G25": 25000,
+            "G26": 30000
+          },
+          "evidence_call_ordinals": [
+            5,
+            6
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "all formula caches removed in both original-baseline and edited disposable copies",
+          "remote_output_reopened_and_package_compared": true
+        },
+        "limitations": [
+          "All nine target formula values are checked against engine output and final reloaded caches before the style-verification issue. The twelve original formulas are logged against a separately recalculated baseline, with no cache mismatches.",
+          "Call 10 is incomplete and its proposed inherited-column-style repair is not executed; downloaded new-cell XML confirms no explicit style was added.",
+          "Final all-checks-passed and response-side source-hash verification are not witnessed after the unresolved style check.",
+          "Openpyxl style representations do not establish native Excel rendering for formerly absent cells.",
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "termination_stage": "tool_code",
+      "final_message_status": "no_final_file_annotation_in_saved_messages",
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "baseline/hosei/r3",
+      "arm": "baseline",
+      "university": "hosei",
+      "repeat": 3,
+      "tool_item_count": 8,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "preflight_python_indentation",
+          "before_call_ordinals": [
+            1
+          ],
+          "after_call_ordinals": [
+            2
+          ],
+          "evidence": "code_inferred",
+          "description": "A stray indented assignment at module level prevents the first preflight block from parsing. The next block removes that line. Both first blocks have empty API outputs, so no API exception is captured.",
+          "outcome": "recovered",
+          "scope": "environment_setup",
+          "captured_python_exception_traceback": false,
+          "local_static_reproduction": {
+            "method": "stdlib ast.parse only; generated code not executed",
+            "exception_class": "IndentationError",
+            "message": "unexpected indent",
+            "code_line": 5
+          }
+        },
+        {
+          "type": "optional_documentation_path",
+          "before_call_ordinals": [
+            2
+          ],
+          "after_call_ordinals": [
+            3
+          ],
+          "evidence": "code_inferred",
+          "description": "Unguarded optional-document read has empty output; next call resumes actual inspection. Exact exception is not saved.",
+          "outcome": "recovered",
+          "scope": "optional_documentation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "source_zip_verification_reopen",
+          "before_call_ordinals": [
+            6,
+            7
+          ],
+          "after_call_ordinals": [
+            8
+          ],
+          "evidence": "code_inferred",
+          "description": "After writing with original metadata, reopens the source ZIP and resumes unchanged-part verification. No original exception is recorded.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": false,
+        "engine": null,
+        "verified_formula_coverage": {
+          "generated_evaluator_used": true,
+          "generated_visible_amount_formula_count": 22,
+          "target_results": {
+            "E6": 2000,
+            "E9": 2500,
+            "E15": 5000,
+            "E107": 9500
+          },
+          "evidence_call_ordinals": [
+            6,
+            7,
+            8
+          ],
+          "disposable_copy": null,
+          "cache_invalidation": null
+        },
+        "limitations": [
+          "Formula values are computed and reloaded by generated code; no external-engine or native Excel recalculation occurs in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "saved_environment_setup_recovery_sequence": true
+    },
+    {
+      "label": "improved/hosei/r3",
+      "arm": "improved",
+      "university": "hosei",
+      "repeat": 3,
+      "tool_item_count": 6,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "preflight_python_indentation",
+          "before_call_ordinals": [
+            1
+          ],
+          "after_call_ordinals": [
+            2
+          ],
+          "evidence": "code_inferred",
+          "description": "A stray indented assignment at module level prevents the first preflight block from parsing. The next block removes that line. Both first blocks have empty API outputs, so no API exception is captured.",
+          "outcome": "recovered",
+          "scope": "environment_setup",
+          "captured_python_exception_traceback": false,
+          "local_static_reproduction": {
+            "method": "stdlib ast.parse only; generated code not executed",
+            "exception_class": "IndentationError",
+            "message": "unexpected indent",
+            "code_line": 12
+          }
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_and_generated_evaluator_agreement_count": 92,
+          "formula_counts_by_sheet_role": {
+            "example": 36,
+            "editable": 56
+          },
+          "target_results": {
+            "E6": 2000,
+            "E9": 2500,
+            "E15": 5000,
+            "E107": 9500
+          },
+          "pre_existing_error_cell_count_preserved": 6,
+          "evidence_call_ordinals": [
+            5,
+            6
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "all formula caches in disposable workbook before conversion",
+          "final_explicit_reloaded_visible_formula_count": 22
+        },
+        "limitations": [
+          "All 92 formulas agree with the generated evaluator in the freshly recalculated disposable workbook. Final delivery explicitly reloads/checks the 22 visible amount formulas and all six original errors; untouched hidden/sample caches remain original bytes.",
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": false,
+      "saved_environment_setup_recovery_sequence": true
+    },
+    {
+      "label": "baseline/ritsumeikan/r3",
+      "arm": "baseline",
+      "university": "ritsumeikan",
+      "repeat": 3,
+      "tool_item_count": 10,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "optional_documentation_path",
+          "before_call_ordinals": [
+            1
+          ],
+          "after_call_ordinals": [
+            2
+          ],
+          "evidence": "code_inferred",
+          "description": "Unguarded optional-document read has empty output; next call resumes input inspection. Original exception is not saved.",
+          "outcome": "recovered",
+          "scope": "optional_documentation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "xml_cell_regex",
+          "before_call_ordinals": [
+            5
+          ],
+          "after_call_ordinals": [
+            6
+          ],
+          "evidence": "code_inferred",
+          "description": "Rebuilds edits from original XML after replacing the greedy whole-cell matcher with a nongreedy matcher. Call 5 stops after its input-map print; no exact exception or intermediate damaged XML is retained.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "formula_cache_refresh",
+          "before_call_ordinals": [
+            6,
+            7
+          ],
+          "after_call_ordinals": [
+            8
+          ],
+          "evidence": "observed",
+          "description": "First successful LibreOffice conversion yields two zero aggregates. Clears both caches and requests force recalculation on a disposable copy; next conversion logs 35000 for both totals.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "zip_metadata_reuse",
+          "before_call_ordinals": [
+            9
+          ],
+          "after_call_ordinals": [
+            10
+          ],
+          "evidence": "code_inferred",
+          "description": "After final verification produces no output, reopens source ZIP and copies each ZipInfo before writing, then reexecutes the previous final verification and logs success. Original exception is not saved.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_verified_target_formula_count": 2,
+          "target_results": {
+            "C27": 35000,
+            "J27": 35000
+          },
+          "evidence_call_ordinals": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "applied after observed zero caches"
+        },
+        "limitations": [
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "improved/ritsumeikan/r3",
+      "arm": "improved",
+      "university": "ritsumeikan",
+      "repeat": 3,
+      "tool_item_count": 6,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "verification_namespace_absent_attribute_count",
+          "before_call_ordinals": [
+            5
+          ],
+          "after_call_ordinals": [
+            6
+          ],
+          "evidence": "observed",
+          "description": "Verifier compares a list of namespace-reference values for every XML element, including absent values. Legitimate new value elements change the list length. Next call filters to actual reference-bearing elements, checks their paths, values and namespace maps, then completes all checks.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false,
+          "evidence_detail": "Model-authored AssertionError self-diagnosis and visible verifier replacement; no captured original Python exception traceback."
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_verified_target_formula_count": 2,
+          "target_results": {
+            "C27": 35000,
+            "J27": 35000
+          },
+          "evidence_call_ordinals": [
+            4,
+            6
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "before first conversion"
+        },
+        "limitations": [
+          "No native Excel validation in this response.",
+          "One extra verification call repairs a false positive caused by legal XML content additions."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "baseline/waseda/r3",
+      "arm": "baseline",
+      "university": "waseda",
+      "repeat": 3,
+      "tool_item_count": 8,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "optional_documentation_path",
+          "before_call_ordinals": [
+            1
+          ],
+          "after_call_ordinals": [
+            2
+          ],
+          "evidence": "code_inferred",
+          "description": "Unguarded optional-document read has empty output; next call resumes actual inspection. Exact exception is not saved.",
+          "outcome": "recovered",
+          "scope": "optional_documentation",
+          "captured_python_exception_traceback": false
+        },
+        {
+          "type": "formula_cache_refresh_via_intermediate",
+          "before_call_ordinals": [
+            5
+          ],
+          "after_call_ordinals": [
+            6,
+            7
+          ],
+          "evidence": "observed",
+          "description": "Conversion of the original-format edited workbook logs stale lookup and zero aggregates, with carry -6700. Converting the openpyxl staging workbook produces correct lookup and totals 35000/28300/35000; those caches are copied to the preserved-format final workbook.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false,
+          "evidence_detail": "Wrong and corrected values are directly logged. The staging conversion workaround is visible; native Excel recalculation is not performed."
+        },
+        {
+          "type": "transplanted_cell_style_ids",
+          "before_call_ordinals": [
+            4,
+            7
+          ],
+          "after_call_ordinals": [
+            8
+          ],
+          "evidence": "code_inferred",
+          "description": "After transplanting cells from an openpyxl staging save, final verification does not finish. Next call restores the original style IDs on edited cells and completes all style/formula/value/package checks.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false,
+          "evidence_detail": "Code comment attributes the change to merged-cell boundary style IDs. Original mismatch values and exception traceback are not saved, so that precise cause remains model diagnosis supported by the corrective code."
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "affected_target_formula_count": 4,
+          "engine_logged_target_formula_count": 4,
+          "final_explicitly_asserted_numeric_cache_count": 3,
+          "target_results": {
+            "C45": 35000,
+            "G44": 28300,
+            "G45": 35000
+          },
+          "evidence_call_ordinals": [
+            5,
+            6,
+            7,
+            8
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "first original-format conversion retains stale caches; workaround converts an openpyxl staging save and imports its correct affected caches"
+        },
+        "limitations": [
+          "Four affected engine values are logged and transferred; final checks explicitly assert three numeric caches, not the lookup cache text.",
+          "Unrelated receipt-sheet formula is not explicitly verified in engine output.",
+          "Original style IDs are restored after calculation check; no native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "saved_environment_setup_recovery_sequence": false
+    },
+    {
+      "label": "improved/waseda/r3",
+      "arm": "improved",
+      "university": "waseda",
+      "repeat": 3,
+      "tool_item_count": 7,
+      "incomplete_tool_call_ordinals": [],
+      "response_completed": true,
+      "artifact_delivery": "returned",
+      "independent_static_status": "pass",
+      "saved_recovery_sequence": true,
+      "recovery_events": [
+        {
+          "type": "libreoffice_gui_backend",
+          "before_call_ordinals": [
+            5
+          ],
+          "after_call_ordinals": [
+            6
+          ],
+          "evidence": "observed",
+          "description": "First conversion forces GUI backend gen, returns exit0 with X11 display error and no output. Switching to svp produces a new workbook with correct affected formula values; final checks complete in call 7.",
+          "outcome": "recovered",
+          "scope": "editing_or_validation",
+          "captured_python_exception_traceback": false,
+          "evidence_detail": "Process stderr and missing-output check are directly observed. The later AssertionError diagnostic is model-authored text, not a captured Python traceback."
+        }
+      ],
+      "calculation": {
+        "external_engine_invoked": true,
+        "engine": "LibreOffice",
+        "verified_formula_coverage": {
+          "engine_checked_target_formula_count": 4,
+          "additional_unchanged_sheet_lookup_formula_count_logged": 1,
+          "target_results": {
+            "C45": 35000,
+            "G44": 28300,
+            "G45": 35000
+          },
+          "evidence_call_ordinals": [
+            5,
+            6,
+            7
+          ],
+          "disposable_copy": true,
+          "cache_invalidation": "all worksheet formula caches cleared in disposable copy; forceFullCalc/fullCalcOnLoad/auto enabled"
+        },
+        "limitations": [
+          "Fifth receipt-sheet formula is recalculated and logged, and engine errors are scanned, but its expected lookup text is not explicitly asserted in this run.",
+          "Final workbook copies back only the four affected caches and preserves unrelated-sheet original bytes.",
+          "No native Excel validation in this response."
+        ]
+      },
+      "saved_editing_or_validation_recovery_sequence": true,
+      "saved_environment_setup_recovery_sequence": false
+    }
+  ],
+  "summary": {
+    "baseline": {
+      "run_count": 12,
+      "runs_with_saved_editing_or_validation_recovery_sequence": 11,
+      "runs_with_saved_environment_setup_recovery_sequence": 1,
+      "runs_with_optional_documentation_recovery_sequence": 12,
+      "runs_with_any_saved_recovery_sequence": 12,
+      "runs_with_unresolved_editing_or_validation_sequence_at_output_limit": 0,
+      "runs_with_observed_editing_or_validation_sequence": 8,
+      "runs_with_code_inferred_editing_or_validation_sequence": 11,
+      "response_completed": 12,
+      "static_pass": 12,
+      "external_engine_invoked": 10,
+      "tool_items": 113
+    },
+    "improved": {
+      "run_count": 12,
+      "runs_with_saved_editing_or_validation_recovery_sequence": 7,
+      "runs_with_saved_environment_setup_recovery_sequence": 1,
+      "runs_with_optional_documentation_recovery_sequence": 0,
+      "runs_with_any_saved_recovery_sequence": 8,
+      "runs_with_unresolved_editing_or_validation_sequence_at_output_limit": 2,
+      "runs_with_observed_editing_or_validation_sequence": 7,
+      "runs_with_code_inferred_editing_or_validation_sequence": 0,
+      "response_completed": 9,
+      "static_pass": 11,
+      "external_engine_invoked": 12,
+      "tool_items": 80
+    }
+  },
+  "review_method": "Manual review of saved visible code and logs; counts are recorded repair sequences, not automatically captured exception totals.",
+  "comparison_sha256": "3b63fc58dfdd3929d789473d3d292259e5e1c47a97f76e8a7d67aa082ac432bd"
+}
