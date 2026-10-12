@@ -125,6 +125,21 @@ python3 experiments/llm-export/snapshot.py --experiment initial-evaluation --out
 
 提供元が `completed` を返しても最終メッセージや成果物がない場合があるため、提供元状態・メッセージの存在・ダウンロード・静的合否を別々に記録する。完了指標はこの4条件を要求するが、最終説明の全要件を自動採点するものではない。
 
+## 保存トレースの原因分析（API不要）
+
+[失敗・手戻りの分析](../../docs/reports/llm-file-editing-failure-analysis-2026-10-12.md)では、44応答・796ツール呼出しと取得済み成果物を照合した。Solの成功途中の修正も対象に含める。
+
+```sh
+python3 experiments/llm-export/analyze-traces.py --experiment initial-evaluation --output /tmp/llm-trace-summary.json
+python3 experiments/llm-export/reproduce-editing-pitfalls.py
+```
+
+集計にはgit管理外の `runs/<experiment>/results.csv`、各試行のmanifest/response、接続確認を含める場合はcost-summaryが必要。出力先は新規ファイルに限定し、runs内への書込み・既存ファイルの上書きを拒否する。生コード・全文ログ・提供元ID・パスを除いた[公開集計](diagnostics/2026-10-12/trace-summary.json)は元ログなしでも読める。記録済みの要求ハッシュと合否を引き継ぐ集計であり、入力ファイルの再ハッシュや成果物の再採点は行わない。空出力をエラー件数、ログ文字数を課金トークン数として扱わない。
+
+再現スクリプトは合成XML/ZIPだけで、正規表現による行境界消失、名前空間宣言の欠落、ZipInfoの変更を再現し、各回避方法をassertで確認する。Python標準ライブラリのみを使い、元ファイル・APIには触れない。過去の例外を完全再現するものでも、本番の編集ユーティリティでもない。
+
+[新しい追加指示案](prompts/avoid-editing-pitfalls.md)は未検証で、現行CLIからは選択できない。既存の `prompt.md` と検証済み条件の記録は変更していない。
+
 ## 対照実験で確認できたこと
 
 4大学のopenpyxl対照では、無変更保存のセル値と数式の意味、および1セル変更時の指定セル以外の値が保持された。法政の共有SUM数式は個別の式へ展開されており、独立した参照の展開で同値を確認した。これは再計算の確認ではない。

@@ -16,6 +16,8 @@
 
 仕組みと結果を図で確認する場合は、[説明スライド（SVG・PDF・HTML）](reports/llm-file-editing-slides/README.md)を参照する。
 
+生成コードの失敗と、成功したSolの手戻りは[原因分析](reports/llm-file-editing-failure-analysis-2026-10-12.md)へまとめた。保存済み44応答の調査であり、追加プロンプト案の改善効果は未検証。
+
 ## 内容の管理先
 
 | 変更・確認したいこと                           | 正本                                                                                                                  |
