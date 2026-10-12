@@ -1,35 +1,36 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "accounting-app-server",
+  "name": "accounting-app-local",
+  "account_id": "0350bf22d3fd4ab2fd9283c6ce8b91dd",
   "main": "src/index.ts",
   "compatibility_date": "2026-07-21",
   "compatibility_flags": ["nodejs_compat"],
   "observability": {
-    "enabled": true
+    "enabled": true,
   },
   "vars": {
     "WEB_ORIGIN": "http://localhost:3000",
     "BETTER_AUTH_URL": "http://localhost:8787",
-    "EMAIL_FROM_ADDRESS": "no-reply@koki-tominaga.cc"
+    "EMAIL_FROM_ADDRESS": "no-reply@example.com",
   },
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "accounting-app-d1",
-      "database_id": "11ee53d7-ae23-4061-bad7-ba4e2a09c8de",
-      "migrations_dir": "./drizzle"
-    }
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "./drizzle",
+    },
   ],
   "r2_buckets": [
     {
       "binding": "R2",
-      "bucket_name": "accounting-app-r2"
-    }
+      "bucket_name": "accounting-app-r2",
+    },
   ],
   "send_email": [
     {
-      "name":"EMAIL",
-      "remote": true
-    }
-  ]
+      "name": "EMAIL",
+      "remote": false,
+    },
+  ],
 }

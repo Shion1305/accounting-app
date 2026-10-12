@@ -10,12 +10,14 @@
   },
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy",
+    "deploy": "wrangler deploy --config wrangler.generated.json",
+    "typegen": "wrangler types --include-runtime false --strict-vars false",
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint --max-warnings 0",
     "check-types": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:apply-local": "node scripts/apply-local-migrations.mjs",
+    "test:migrations": "node --test scripts/test-migrations.mjs",
     "auth:generate-schema": "better-auth generate --config auth-schema-gen.config.ts --output src/db/auth-schema.ts -y"
   },
   "dependencies": {

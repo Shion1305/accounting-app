@@ -1,4 +1,4 @@
-import { Link, Route, Routes, HashRouter } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import { RequireAuth } from "@/components/RequireAuth";
 import { AdminLayout } from "@/routes/AdminLayout";
 import { DashboardSummaryPage } from "@/routes/DashboardSummaryPage";
