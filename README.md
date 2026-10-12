@@ -65,5 +65,5 @@ PR では lint・型チェック・ビルド・デプロイ設定・ローカル
 デプロイ時は同じ検証を通したコミットに対して、Terraform plan/apply → D1マイグレーション → Workerとフロントの配信 → 疎通確認を実行する。
 環境の選択と各コマンドの実行は GitHub Actions に記述し、独自の運用スクリプトは Terraform 出力から Wrangler 設定を生成する `scripts/deployment-config.mjs` に集約している。
 
-初回設定、必要な Secrets / Variables、リリースと復旧手順は [デプロイガイド](docs/deployment.md) を参照。
-Terraformの所有範囲、state、既存リソースの import は [infra/README.md](infra/README.md) を参照。
+環境ごとのトリガー、使用する Secrets / Variables、デプロイフローは [デプロイ構成](docs/deployment.md) を参照。
+Terraform の管理対象、リソース名、state の構成は [インフラ構成](infra/README.md) を参照。
