@@ -2,8 +2,6 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import ts from "typescript";
 
-const accountId = "0350bf22d3fd4ab2fd9283c6ce8b91dd";
-
 export function readBaseConfiguration() {
   const filename = fileURLToPath(
     new URL("../apps/server/wrangler.jsonc", import.meta.url),
@@ -18,25 +16,28 @@ export function readBaseConfiguration() {
 }
 
 export function deploymentConfig(base, infrastructure, settings) {
-  const environment = infrastructure.environment;
-  if (!["dev", "stg", "prd"].includes(environment))
-    throw new Error("Invalid deployment environment");
-  if (infrastructure.account_id !== accountId)
-    throw new Error("Unexpected Cloudflare account");
-  const workerName = `accounting-app-${environment}`;
+  const {
+    environment,
+    account_id,
+    worker_name,
+    database_name,
+    database_id,
+    bucket_name,
+  } = infrastructure;
   if (
-    infrastructure.worker_name !== workerName ||
-    infrastructure.database_name !== `${workerName}-d1` ||
-    infrastructure.bucket_name !== `${workerName}-r2`
+    !["dev", "stg", "prd"].includes(environment) ||
+    environment !== settings.TF_VAR_environment
   )
     throw new Error(
-      "Infrastructure resources do not belong to the target environment",
+      "Terraform output does not match the deployment environment",
     );
-  if (
-    !/^[\da-f]{8}(?:-[\da-f]{4}){3}-[\da-f]{12}$/i.test(
-      infrastructure.database_id ?? "",
-    )
-  ) {
+  if (!account_id || account_id !== base.account_id)
+    throw new Error("Unexpected Cloudflare account");
+  for (const key of ["worker_name", "database_name", "bucket_name"]) {
+    if (typeof infrastructure[key] !== "string" || !infrastructure[key].trim())
+      throw new Error(`Missing Terraform resource: ${key}`);
+  }
+  if (!/^[\da-f]{8}(?:-[\da-f]{4}){3}-[\da-f]{12}$/i.test(database_id ?? "")) {
     throw new Error("Invalid D1 database ID");
   }
   const origin = new URL(settings.APP_ORIGIN);
@@ -47,17 +48,17 @@ export function deploymentConfig(base, infrastructure, settings) {
   }
   if (
     origin.hostname.endsWith(".workers.dev") &&
-    !origin.hostname.startsWith(`${workerName}.`)
+    !origin.hostname.startsWith(`${worker_name}.`)
   ) {
     throw new Error("APP_ORIGIN points to a different Worker environment");
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(settings.EMAIL_FROM_ADDRESS ?? "")) {
-    throw new Error("EMAIL_FROM_ADDRESS must be a verified sender address");
+    throw new Error("EMAIL_FROM_ADDRESS must be a valid sender address");
   }
   return {
     $schema: base.$schema,
-    name: workerName,
-    account_id: accountId,
+    name: worker_name,
+    account_id,
     main: base.main,
     compatibility_date: base.compatibility_date,
     compatibility_flags: base.compatibility_flags,
@@ -83,12 +84,12 @@ export function deploymentConfig(base, infrastructure, settings) {
     d1_databases: [
       {
         binding: "DB",
-        database_name: infrastructure.database_name,
-        database_id: infrastructure.database_id,
+        database_name,
+        database_id,
         migrations_dir: "./drizzle",
       },
     ],
-    r2_buckets: [{ binding: "R2", bucket_name: infrastructure.bucket_name }],
+    r2_buckets: [{ binding: "R2", bucket_name }],
     send_email: [{ name: "EMAIL" }],
   };
 }

@@ -8,13 +8,15 @@ Account: `0350bf22d3fd4ab2fd9283c6ce8b91dd`.
 | Publish a prerelease                             | `stg`              | `accounting-app-stg` | `accounting-app-stg-d1` | `accounting-app-stg-r2` |
 | Publish a stable release or promote a prerelease | `prd`              | `accounting-app-prd` | `accounting-app-prd-d1` | `accounting-app-prd-r2` |
 
-`ci.yml` runs on PRs targeting `main`/`dev`, pushes to `dev`, and as a reusable workflow before every deployment. It checks types, lint, application builds, deployment event/configuration tests, repeatable local D1 migrations, Wrangler bundles for all three environments, and Terraform validation/mock tests. It uses no cloud credentials.
+`ci.yml` runs on PRs targeting `main`/`dev`, pushes to `dev`, and as a reusable workflow before every deployment. It checks types, lint, application builds, deployment configuration tests, repeatable local D1 migrations, one representative Wrangler bundle, and Terraform validation/mock tests. It uses no cloud credentials. The bundle check uses the committed, non-secret `scripts/fixtures/deployment.json` fixture; real deployments always use Terraform outputs.
 
-`deploy.yml` checks out the event's commit SHA. For releases this is the tagged commit; it does not build the current `main`. It listens to `published` for prereleases (including drafts being published), and `released` for stable releases (including promotion). The stable `published` event is ignored to avoid duplicate production deploys. Drafts, release-note edits, and tag pushes alone do not deploy. See [GitHub workflow events](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#release).
+`deploy.yml` uses native GitHub Actions conditions to select the environment and checks out the event's commit SHA. For releases this is the tagged commit; it does not build the current `main`. It listens to `published` for prereleases (including drafts being published), and `released` for stable releases (including promotion). The stable `published` event is ignored to avoid duplicate production deploys. Drafts, release-note edits, and tag pushes alone do not deploy. See [GitHub workflow events](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#release).
 
 ## Ownership
 
 Terraform manages durable infrastructure: one D1 and one private R2 receipt bucket per environment, plus the bootstrap state bucket. Each environment has independent remote state. Worker code, bindings, static assets, custom-domain routes, and application secrets are deployed by Wrangler. The generated Wrangler configuration consumes Terraform outputs, so database IDs are never copied into committed configuration. Do not also create Terraform Worker resources or enable a second Cloudflare Git deployment pipeline for the same Workers.
+
+`scripts/deployment-config.mjs` is the only custom deployment script. It uses resource names and IDs from Terraform verbatim, checks that the output environment matches `TF_VAR_environment` and that its account matches the base Wrangler config, then writes `apps/server/wrangler.generated.json`. Event selection, required-setting checks, bundle validation, and smoke checks are defined directly in the workflows. Configuration tests remain in `scripts/deployment.test.mjs`; local D1 integration tests remain in `apps/server/scripts/test-migrations.mjs`.
 
 The Worker serves both API and frontend. Production builds use the current browser origin for API requests and authentication. `/api/*` and `/auth/*` always reach the Worker; other navigation routes can serve the SPA. The local Wrangler config is deliberately separate and its `deploy` package script requires a generated deployment config.
 
@@ -44,12 +46,12 @@ Use GitHub's Secrets UI or `gh secret set NAME --env dev` (interactive input) to
 
 1. Run CI against the exact source commit.
 2. Acquire the environment's GitHub concurrency slot. Active deployments are not cancelled partway through migrations or Terraform apply. A superseded Dev commit is rejected instead of replacing the latest `main`.
-3. Validate required secrets and settings, and build the application.
+3. Check required secrets and variables in the workflow's shell step, and build the application.
 4. Initialize the matching remote state, save a Terraform plan, then apply that exact plan. D1 and R2 have `prevent_destroy`.
-5. Generate `apps/server/wrangler.generated.json` from `terraform output -json deployment`, then validate the Worker bundle with `wrangler deploy --dry-run`.
+5. Generate `apps/server/wrangler.generated.json` from `terraform output -json deployment`, then validate the Worker bundle with `wrangler deploy --dry-run`. URL, sender-format, and resource checks happen here, after infrastructure apply but before migrations or Worker deployment.
 6. Run `wrangler d1 migrations apply DB --remote`. Wrangler records applied filenames in `d1_migrations`; repeat deployments skip them. The Drizzle SQL files in `apps/server/drizzle/` are used directly.
 7. Deploy Worker code, frontend assets, and `BETTER_AUTH_SECRET` together using `--secrets-file`. The temporary secret file is removed even on failure. Application secrets are not put in Terraform state. See [Cloudflare deployment secrets](https://developers.cloudflare.com/workers/configuration/secrets/#upload-secrets-alongside-code).
-8. Retry API health and frontend HTML checks while deployment propagates.
+8. Use `curl` to retry HTTP and connection failures while deployment propagates. `jq` verifies the API status and `grep` checks the frontend response; an unexpected successful response fails the check immediately.
 
 On first deployment, Terraform creates the environment's resources and Wrangler creates its Worker. Production is not created or updated by a normal `main` push.
 
@@ -72,7 +74,11 @@ pnpm lint
 pnpm test:deployment
 pnpm test:migrations
 pnpm build
-node scripts/check-deployment-bundles.mjs
+TF_VAR_environment=dev \
+  APP_ORIGIN=https://accounting-app-dev.example.workers.dev \
+  EMAIL_FROM_ADDRESS=no-reply@example.com \
+  node scripts/deployment-config.mjs scripts/fixtures/deployment.json
+pnpm --filter server exec wrangler deploy --config wrangler.generated.json --dry-run
 ```
 
 See [infrastructure checks](../infra/README.md#local-validation) for the Terraform commands. The bundle checks and local migrations do not deploy to Cloudflare. These checks cannot validate real token permissions, remote R2 state locking, DNS, or email delivery; those are verified during initial environment setup and deployment.

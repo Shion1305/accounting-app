@@ -27,6 +27,7 @@ pnpm --filter server db:apply-local
 フロントの開発用 API 接続先は `apps/web/.env.development` に設定済み。
 `apps/server/wrangler.jsonc` はローカル専用で、メール送信もローカルモックを使う。
 実メールの確認には検証済み送信元と Cloudflare 認証を用意し、ローカル設定の `send_email.remote` を変更する。
+`db:apply-local` は `wrangler d1 migrations apply DB --local` を直接実行し、未適用の SQL だけを適用する。
 
 ## 開発
 
@@ -45,7 +46,7 @@ pnpm dev
 pnpm build        # 全パッケージのビルド
 pnpm lint         # 全パッケージのlint
 pnpm check-types  # 全パッケージの型チェック
-pnpm test:deployment # 環境選択・デプロイ設定の検証
+pnpm test:deployment # Terraform出力から生成するデプロイ設定の検証
 pnpm test:migrations # ローカルD1でマイグレーションを2回適用して検証
 ```
 
@@ -61,6 +62,7 @@ pnpm test:migrations # ローカルD1でマイグレーションを2回適用し
 
 PR では lint・型チェック・ビルド・デプロイ設定・ローカルDB・Terraformを検証する。
 デプロイ時は同じ検証を通したコミットに対して、Terraform plan/apply → D1マイグレーション → Workerとフロントの配信 → 疎通確認を実行する。
+環境の選択と各コマンドの実行は GitHub Actions に記述し、独自の運用スクリプトは Terraform 出力から Wrangler 設定を生成する `scripts/deployment-config.mjs` に集約している。
 
 初回設定、必要な Secrets / Variables、リリースと復旧手順は [デプロイガイド](docs/deployment.md) を参照。
 Terraformの所有範囲、state、既存リソースの import は [infra/README.md](infra/README.md) を参照。

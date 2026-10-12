@@ -82,7 +82,9 @@ Use the matching environment's bucket and retain `TF_VAR_environment` and `TF_DA
 }
 ```
 
-`database_id` comes from the managed D1 resource. Consumers should use this output instead of copying identifiers into committed Wrangler configuration. No credentials or application secrets are stored in this output.
+`database_id` comes from the managed D1 resource. `scripts/deployment-config.mjs` uses this output's resource names and identifiers verbatim instead of duplicating Terraform's naming rules. It checks the output's `environment` against `TF_VAR_environment` and its `account_id` against the base Wrangler config before writing the deployment config. No credentials or application secrets are stored in this output.
+
+The non-secret `scripts/fixtures/deployment.json` is only for CI and local bundle validation. Actual deployments generate a fresh output from the selected environment's Terraform state.
 
 ## Local validation
 

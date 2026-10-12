@@ -16,7 +16,7 @@
     "lint": "eslint --max-warnings 0",
     "check-types": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
-    "db:apply-local": "node scripts/apply-local-migrations.mjs",
+    "db:apply-local": "wrangler d1 migrations apply DB --local",
     "test:migrations": "node --test scripts/test-migrations.mjs",
     "auth:generate-schema": "better-auth generate --config auth-schema-gen.config.ts --output src/db/auth-schema.ts -y"
   },

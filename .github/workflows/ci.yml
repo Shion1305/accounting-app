@@ -32,8 +32,14 @@ jobs:
       - run: pnpm test:deployment
       - run: pnpm test:migrations
       - run: pnpm build
-      - name: Validate the deployment bundle for every environment
-        run: node scripts/check-deployment-bundles.mjs
+      - name: Validate a representative deployment bundle
+        env:
+          TF_VAR_environment: dev
+          APP_ORIGIN: https://accounting-app-dev.example.workers.dev
+          EMAIL_FROM_ADDRESS: no-reply@example.com
+        run: |
+          node scripts/deployment-config.mjs scripts/fixtures/deployment.json
+          pnpm --filter server exec wrangler deploy --config wrangler.generated.json --dry-run
 
   infrastructure:
     runs-on: ubuntu-latest

@@ -11,16 +11,20 @@ permissions:
 
 jobs:
   target:
+    if: >-
+      (github.event_name == 'push' && github.ref == 'refs/heads/main' && !github.event.deleted) ||
+      (github.event_name == 'release' && !github.event.release.draft &&
+        ((github.event.action == 'published' && github.event.release.prerelease) ||
+         (github.event.action == 'released' && !github.event.release.prerelease)))
     runs-on: ubuntu-latest
     timeout-minutes: 5
     outputs:
       environment: ${{ steps.target.outputs.environment }}
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
-        with:
-          persist-credentials: false
       - id: target
-        run: node scripts/deployment-target.mjs
+        env:
+          TARGET_ENV: ${{ github.event_name == 'push' && 'dev' || github.event.release.prerelease && 'stg' || 'prd' }}
+        run: echo "environment=$TARGET_ENV" >> "$GITHUB_OUTPUT"
 
   validate:
     needs: target
@@ -74,10 +78,20 @@ jobs:
           terraform_version: 1.14.9
           terraform_wrapper: false
       - run: pnpm install --frozen-lockfile
-      - name: Validate deployment settings before changing infrastructure
+      - name: Check required settings before changing infrastructure
         env:
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
-        run: node scripts/deployment-preflight.mjs
+        run: |
+          : "${CLOUDFLARE_API_TOKEN:?Set CLOUDFLARE_API_TOKEN}"
+          : "${AWS_ACCESS_KEY_ID:?Set TF_STATE_ACCESS_KEY_ID}"
+          : "${AWS_SECRET_ACCESS_KEY:?Set TF_STATE_SECRET_ACCESS_KEY}"
+          : "${APP_ORIGIN:?Set APP_ORIGIN}"
+          : "${EMAIL_FROM_ADDRESS:?Set EMAIL_FROM_ADDRESS}"
+          : "${BETTER_AUTH_SECRET:?Set BETTER_AUTH_SECRET}"
+          if [ "${#BETTER_AUTH_SECRET}" -lt 32 ]; then
+            echo "BETTER_AUTH_SECRET must be at least 32 characters"
+            exit 1
+          fi
       - run: pnpm build
       - name: Initialize the environment state
         run: >-
@@ -99,17 +113,20 @@ jobs:
         env:
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
         run: |
-          node --input-type=module <<'NODE'
-          import { writeFileSync } from 'node:fs';
-          writeFileSync(`${process.env.RUNNER_TEMP}/worker-secrets.json`,
-            JSON.stringify({ BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET }), { mode: 0o600 });
-          NODE
+          umask 077
+          jq -n '{BETTER_AUTH_SECRET: env.BETTER_AUTH_SECRET}' > "$RUNNER_TEMP/worker-secrets.json"
       - name: Deploy Worker and frontend with secrets
         run: >-
           pnpm --filter server exec wrangler deploy --config wrangler.generated.json
           --secrets-file "$RUNNER_TEMP/worker-secrets.json"
       - name: Smoke test API and frontend
-        run: node scripts/smoke-deployment.mjs
+        run: |
+          curl_options=(--fail --silent --show-error --retry 11 --retry-all-errors --retry-delay 5 --max-time 10)
+          curl "${curl_options[@]}" "$APP_ORIGIN/api/health" --output "$RUNNER_TEMP/health.json"
+          jq -e '.status == "ok"' "$RUNNER_TEMP/health.json"
+          curl "${curl_options[@]}" "$APP_ORIGIN" --output "$RUNNER_TEMP/frontend.html" --dump-header "$RUNNER_TEMP/frontend.headers"
+          grep -qi '^content-type: text/html' "$RUNNER_TEMP/frontend.headers"
+          grep -q 'id="root"' "$RUNNER_TEMP/frontend.html"
       - name: Remove temporary secrets and plans
         if: always()
         run: rm -f "$RUNNER_TEMP/worker-secrets.json" "$RUNNER_TEMP/deployment.json" infra/cloudflare/deploy.tfplan
