@@ -2,8 +2,12 @@
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
   "tasks": {
+    "typegen": {
+      "cache": false
+    },
     "build": {
-      "dependsOn": ["^build"],
+      "env": ["VITE_API_URL"],
+      "dependsOn": ["^build", "typegen"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": ["dist/**"]
     },
@@ -11,7 +15,7 @@
       "dependsOn": ["^lint"]
     },
     "check-types": {
-      "dependsOn": ["^build", "^check-types"]
+      "dependsOn": ["^build", "^check-types", "typegen"]
     },
     "dev": {
       "cache": false,

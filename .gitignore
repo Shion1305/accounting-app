@@ -2,6 +2,7 @@
 
 # Dependencies
 node_modules
+.pnpm-store/
 .pnp
 .pnp.js
 
@@ -41,3 +42,18 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+# Terraform: commit provider lockfiles, never state or credentials.
+.terraform/
+.terraform-data*/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+!*.tfvars.json.example
+crash.log
+
+# Generated deployment configuration (Terraform outputs + environment settings).
+apps/server/wrangler.generated.json
