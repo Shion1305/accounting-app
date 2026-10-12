@@ -61,6 +61,7 @@ pnpm test:migrations # ローカルD1でマイグレーションを2回適用し
 | GitHub release の公開、または prerelease から正式版への昇格 | Production (`prd`) |
 
 PR では lint・型チェック・ビルド・デプロイ設定・ローカルDB・Terraformを検証する。
+インフラ変更を含むリポジトリ内の PR では、3 環境の Terraform plan を実行し、tfcmt が環境ごとの PR コメントを更新する。
 デプロイ時は同じ検証を通したコミットに対して、Terraform plan/apply → D1マイグレーション → Workerとフロントの配信 → 疎通確認を実行する。
 環境の選択と各コマンドの実行は GitHub Actions に記述し、独自の運用スクリプトは Terraform 出力から Wrangler 設定を生成する `scripts/deployment-config.mjs` に集約している。
 

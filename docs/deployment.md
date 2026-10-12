@@ -10,6 +10,10 @@ Account: `0350bf22d3fd4ab2fd9283c6ce8b91dd`.
 
 `ci.yml` runs on PRs targeting `main`/`dev`, pushes to `dev`, and as a reusable workflow before every deployment. It checks types, lint, application builds, deployment configuration tests, repeatable local D1 migrations, one representative Wrangler bundle, and Terraform validation/mock tests. It uses no cloud credentials. The bundle check uses the committed, non-secret `scripts/fixtures/deployment.json` fixture; real deployments always use Terraform outputs.
 
+`terraform-plan.yml` runs when a PR targeting `main`/`dev` changes `infra/**` or the plan workflow. It plans the application infrastructure against the remote state for `dev`, `stg`, and `prd`, and uses [tfcmt](https://suzuki-shunsuke.github.io/tfcmt/plan-patch/) to update one PR comment per environment. Plans with no changes and plan failures are also reported. It does not apply changes or save plan artifacts; deployment creates its own fresh plan. The local-state bootstrap root is validated by CI and planned manually during setup.
+
+PR plans run only for branches in this repository, excluding Dependabot, because they use Cloudflare and R2 credentials. Fork and Dependabot PRs still receive credential-free CI. The plan job grants its GitHub token `pull-requests: write`, disables tfcmt labels, and masks the injected credentials in comments as well as logs. Terraform uses the same backend lock as deployment. A newer PR commit cancels the older plan run, without cancelling deployment runs. Require CI's `application` and `infrastructure` checks; the path-filtered plan workflow does not run on application-only changes.
+
 `deploy.yml` uses native GitHub Actions conditions to select the environment and checks out the event's commit SHA. For releases this is the tagged commit; it does not build the current `main`. It listens to `published` for prereleases (including drafts being published), and `released` for stable releases (including promotion). The stable `published` event is ignored to avoid duplicate production deploys. Drafts, release-note edits, and tag pushes alone do not deploy. See [GitHub workflow events](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#release).
 
 ## Ownership
@@ -31,9 +35,9 @@ The Worker serves both API and frontend. Production builds use the current brows
 
 | Type     | Name                         | Value                                                                                                 |
 | -------- | ---------------------------- | ----------------------------------------------------------------------------------------------------- |
-| Secret   | `CLOUDFLARE_API_TOKEN`       | Account-scoped Cloudflare API token above; can be a repository secret                                 |
-| Secret   | `TF_STATE_ACCESS_KEY_ID`     | R2 S3 access key for the state bucket; can be a repository secret                                     |
-| Secret   | `TF_STATE_SECRET_ACCESS_KEY` | R2 S3 secret key for the state bucket; can be a repository secret                                     |
+| Secret   | `CLOUDFLARE_API_TOKEN`       | Repository secret: account-scoped Cloudflare API token above, shared by PR plans and deployments       |
+| Secret   | `TF_STATE_ACCESS_KEY_ID`     | Repository secret: R2 S3 access key for the state bucket                                               |
+| Secret   | `TF_STATE_SECRET_ACCESS_KEY` | Repository secret: R2 S3 secret key for the state bucket                                               |
 | Secret   | `BETTER_AUTH_SECRET`         | Different random value of at least 32 characters for each environment; keep stable across deployments |
 | Variable | `APP_ORIGIN`                 | Environment's HTTPS origin, with no trailing slash                                                    |
 | Variable | `EMAIL_FROM_ADDRESS`         | Verified sender address, such as `no-reply@your-domain.example`                                       |
@@ -41,6 +45,8 @@ The Worker serves both API and frontend. Production builds use the current brows
 For custom domains, set `APP_ORIGIN` to a hostname in a Cloudflare-managed zone. The generated config declares it as a Worker custom domain. Existing conflicting DNS records must be resolved before deployment. The `workers.dev` endpoint remains enabled.
 
 Use GitHub's Secrets UI or `gh secret set NAME --env dev` (interactive input) to set secrets; never paste them into issues or commit them. Restrict the `dev` environment to the `main` branch and `stg`/`prd` to the release tag pattern your project uses. Production approval is optional if your team wants a deployment gate.
+
+Set the three infrastructure secrets at repository scope (`gh secret set NAME` without `--env`), since PR plans do not enter deployment environments. Bootstrap the state bucket before running PR plans. The R2 credentials need object writes for Terraform lockfiles even when running only a plan. Contributors who can push repository branches are trusted to use these infrastructure credentials; environment restrictions continue to protect application settings and secrets. Missing credentials or backend initialization errors fail the plan job and are shown in its Actions log.
 
 ## Deployment order
 
