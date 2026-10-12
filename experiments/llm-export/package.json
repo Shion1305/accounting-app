@@ -1,0 +1,14 @@
+{
+  "name": "llm-export-evaluation",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test gateway/*.test.ts *.test.ts",
+    "preflight": "python3 preflight.py",
+    "inventory": "node run.ts --mode inventory --experiment inventory",
+    "report": "node report.ts"
+  },
+  "engines": {
+    "node": ">=26"
+  }
+}

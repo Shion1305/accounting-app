@@ -1,0 +1,20 @@
+{
+  "case_id": "ritsumeikan-basic-v1",
+  "synthetic": true,
+  "university": "ritsumeikan",
+  "editable_sheets": ["Sheet1"],
+  "task": "添付した参照ブックの決算報告書に、この合成事例を反映してください。団体、学生担当者、記載日、対象期間、費目別収支、前期繰越、現金・預金別の次期繰越を記入してください。科目ごとに集計し、同じ科目を複数行に分割しないでください。既存の数式、書式、コメントを保持してください。自署や印影を作成しないでください。",
+  "organization": {"name": "合成会計検証会"},
+  "period": {"start": "2025-04-01", "end_inclusive": "2026-03-31"},
+  "profile": {"report_date": "2026-04-03", "has_advisor": false, "advisor_name": null, "student_representative_name": "検証 太郎", "accountant_name": "検証 花子"},
+  "opening_balance_yen": 10000,
+  "closing_balances": {"as_of": "2026-03-31", "cash_yen": 3300, "deposit_yen": 25000, "confirmed": true},
+  "entries": [
+    {"id": "r-01", "direction": "income", "date": "2025-04-10", "category": "会費", "amount_yen": 20000},
+    {"id": "r-02", "direction": "income", "date": "2025-06-10", "category": "寄付金", "amount_yen": 5000},
+    {"id": "r-03", "direction": "expense", "date": "2025-05-01", "category": "印刷費", "amount_yen": 2500},
+    {"id": "r-04", "direction": "expense", "date": "2025-05-02", "category": "消耗品費", "amount_yen": 1200},
+    {"id": "r-05", "direction": "expense", "date": "2025-05-03", "category": "交通費", "amount_yen": 3000}
+  ],
+  "completeness": "期間内の取引は上記5件のみ。未精算取引や残高差異はありません。すべて架空の検証データです。"
+}

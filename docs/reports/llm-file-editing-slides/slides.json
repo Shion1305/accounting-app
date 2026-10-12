@@ -1,0 +1,220 @@
+[
+  {
+    "file": "01-overview",
+    "title": "AIに帳票の解釈と編集を任せる",
+    "notes": "今回のPoCは、AI自身がExcelを調べ、コード実行を繰り返して成果物を生成する方式の検証。Solは固定条件の12試行すべてで静的合格かつ応答完了。未見データ・本番の自動提出の信頼性を保証する結果ではない。",
+    "sources": [
+      {
+        "label": "検証結果",
+        "href": "../llm-file-editing-poc-2026-10-12.md"
+      },
+      {
+        "label": "集計JSON",
+        "href": "../../../experiments/llm-export/results/2026-10-12/summary.json"
+      }
+    ]
+  },
+  {
+    "file": "02-approach",
+    "title": "方針転換で変えたこと",
+    "notes": "従来の大学別Data Frameやセル配置の事前実装を止め、LLMによる実行時の調査・編集を検証した。入力と正しさの基準まで捨てたわけではなく、独立した評価側に保持する。",
+    "sources": [
+      {
+        "label": "検証結果",
+        "href": "../llm-file-editing-poc-2026-10-12.md"
+      },
+      {
+        "label": "集計JSON",
+        "href": "../../../experiments/llm-export/results/2026-10-12/summary.json"
+      }
+    ]
+  },
+  {
+    "file": "03-architecture",
+    "title": "実装の全体構成",
+    "notes": "run.tsが入力準備、Gateway起動、アップロード、Responses呼出し、成果物取得、静的評価、後片付けを担当。gateway/server.tsとledger.tsが認証・予算・単価・usage・履歴を記録する。Code InterpreterはAPIキーやリポジトリを受け取らない。",
+    "sources": [
+      {
+        "label": "ランナー",
+        "href": "../../../experiments/llm-export/run.ts"
+      },
+      {
+        "label": "ゲートウェイ",
+        "href": "../../../experiments/llm-export/gateway/server.ts"
+      },
+      {
+        "label": "ゲートウェイ設計",
+        "href": "../../design/llm-evaluation-gateway.md"
+      }
+    ]
+  },
+  {
+    "file": "04-tool-loop",
+    "title": "AIとツールのやり取り",
+    "notes": "図は概念的な反復。ツールの実行順や回数はモデルが決める。今回ローカル側で複数のResponsesをつないだ対話ループは実装していない。1つのResponsesの内部でCode Interpreter呼出しが反復される。ローカル評価器はファイル取得後に動作する。",
+    "sources": [
+      {
+        "label": "ランナー",
+        "href": "../../../experiments/llm-export/run.ts"
+      },
+      {
+        "label": "共通の指示",
+        "href": "../../../experiments/llm-export/prompt.md"
+      }
+    ]
+  },
+  {
+    "file": "05-real-trace",
+    "title": "実際の反復例：Sol × 学習院",
+    "notes": "Solの学習院初回実行ログから要約。Code Interpreter 11回は、API応答11回やコンテナ11個を意味しない。モデルはLibreOfficeで使い捨てコピーを処理し、確認した計算値を元の構造を保持したXLSXへ戻した。収入の部計30,000円は期首繰越10,000円と当年度収入20,000円の合計。編集した主なパーツは対象シートと計算チェーン。後から実際のExcelでも入力変更・再計算と1ページの印刷を確認した。",
+    "sources": [
+      {
+        "label": "初回の生成Excel",
+        "href": "../../../experiments/llm-export/results/2026-10-12/examples/gakushuin-sol-r1.xlsx"
+      },
+      {
+        "label": "検証結果",
+        "href": "../llm-file-editing-poc-2026-10-12.md"
+      }
+    ]
+  },
+  {
+    "file": "06-cost-gateway",
+    "title": "API費用をゲートウェイで計測",
+    "notes": "Gatewayはloopback限定のHTTP入口と実行用トークンを使い、固定のOpenAI API endpointへ送る。予算予約は送信前にSQLiteへ永続化。未知の費用は0として処理せず予約を保持する。1GBコンテナは専用セッション1個あたり$0.03を保守的に推計する。",
+    "sources": [
+      {
+        "label": "ゲートウェイ設計",
+        "href": "../../design/llm-evaluation-gateway.md"
+      },
+      {
+        "label": "台帳実装",
+        "href": "../../../experiments/llm-export/gateway/ledger.ts"
+      }
+    ]
+  },
+  {
+    "file": "07-experiment",
+    "title": "比較した条件",
+    "notes": "4つとも匿名化した研究用参照コピーと合成取引の基本ケース。正式提出書式や未見データの網羅的な評価ではない。早稲田は会計報告シートのみを編集対象とし他4シートは保持。法政にもともとある参照切れ数式6セルは修正対象外。思考トークンも8,000の出力上限に含む。",
+    "sources": [
+      {
+        "label": "検証結果",
+        "href": "../llm-file-editing-poc-2026-10-12.md"
+      },
+      {
+        "label": "集計JSON",
+        "href": "../../../experiments/llm-export/results/2026-10-12/summary.json"
+      }
+    ]
+  },
+  {
+    "file": "08-evaluation",
+    "title": "合格と完了を分けて確認",
+    "notes": "静的な合格は、Excel互換性・表示・提出品質の完全な保証ではない。応答完了判定は最終説明の全要件を自動採点したものでもない。3つの狭い期待値条件を修正し、結合セル内の非表示入力や名前空間の不備などの見落としも修正した。すべての元成果物と訂正履歴を保持した。",
+    "sources": [
+      {
+        "label": "検証結果",
+        "href": "../llm-file-editing-poc-2026-10-12.md"
+      },
+      {
+        "label": "集計JSON",
+        "href": "../../../experiments/llm-export/results/2026-10-12/summary.json"
+      }
+    ]
+  },
+  {
+    "file": "09-results",
+    "title": "Solが12回すべてで合格・完了",
+    "notes": "各モデル12試行。Solは12ファイル、6 Lunaは2ファイル、5.6 Lunaは12ファイルを取得。6 Lunaの立命館の静的合格は応答途中終了だった。5.6 Lunaは内容だけなら7/12が合格している。比較費用のみを用い、保存対照や追加試行等の費用はこのモデル表へ混ぜない。",
+    "sources": [
+      {
+        "label": "検証結果",
+        "href": "../llm-file-editing-poc-2026-10-12.md"
+      },
+      {
+        "label": "集計JSON",
+        "href": "../../../experiments/llm-export/results/2026-10-12/summary.json"
+      }
+    ]
+  },
+  {
+    "file": "10-failures",
+    "title": "金額が合っていても、帳票は壊れる",
+    "notes": "保存対照では4書式すべてでセル値と等価な数式は保持したが、一部の機能・表現が失われた。6 Lunaの学習院3回目ではC28:D28およびF28:G28の非左上セルへ入力していた。5.6 Lunaの早稲田初回では47セルが削除され、別の47セルが不適切な親行の配下にあった。全ての静的差分を、観察済みの見た目の破損とは扱っていない。",
+    "sources": [
+      {
+        "label": "検証結果",
+        "href": "../llm-file-editing-poc-2026-10-12.md"
+      },
+      {
+        "label": "集計JSON",
+        "href": "../../../experiments/llm-export/results/2026-10-12/summary.json"
+      }
+    ]
+  },
+  {
+    "file": "11-followups",
+    "title": "追加条件でも、課題が残った",
+    "notes": "出力上限を増やす条件と、大学・セル・正解を含まない一般的なXML保持指示を加える条件を分けた。法政の追加試行ではmc:Ignorableが未宣言の名前空間接頭辞を参照していた。OOXML適合性の不備だが、この成果物の実Excel修復は観察していない。早稲田はH2の意味が未確定なのに、別の報告日を複写した。",
+    "sources": [
+      {
+        "label": "検証結果",
+        "href": "../llm-file-editing-poc-2026-10-12.md"
+      },
+      {
+        "label": "集計JSON",
+        "href": "../../../experiments/llm-export/results/2026-10-12/summary.json"
+      }
+    ]
+  },
+  {
+    "file": "12-cost-results",
+    "title": "実験全体の費用は、推計$2.9245",
+    "notes": "正確な合計は$2.924513275。トークン$1.604513275と44コンテナ$1.32。コンテナは1GBの20分セッション相当$0.03を保守的に加算しており、提供元の確定請求額ではない。独立した再計算は台帳と完全一致。44コンテナとアップロード84ファイルを削除した。表の金額は丸めて表示。",
+    "sources": [
+      {
+        "label": "検証結果",
+        "href": "../llm-file-editing-poc-2026-10-12.md"
+      },
+      {
+        "label": "集計JSON",
+        "href": "../../../experiments/llm-export/results/2026-10-12/summary.json"
+      }
+    ]
+  },
+  {
+    "file": "13-artifact-proof",
+    "title": "生成したExcelを、実際のExcelでも確認",
+    "notes": "左は実際のExcelから保存したPDFの1ページを画像化したもの。使い捨てコピーの入力変更を元へ戻して印刷した。Sol初回4書式で入力変更と再計算を確認、PDFの全体確認は立命館と学習院のみ。モデルによるCode Interpreter内の確認とは独立した証拠。",
+    "sources": [
+      {
+        "label": "Excelで保存したPDF",
+        "href": "../../../experiments/llm-export/results/2026-10-12/examples/gakushuin-sol-r1.pdf"
+      },
+      {
+        "label": "モデルの生成Excel",
+        "href": "../../../experiments/llm-export/results/2026-10-12/examples/gakushuin-sol-r1.xlsx"
+      },
+      {
+        "label": "検証結果",
+        "href": "../llm-file-editing-poc-2026-10-12.md"
+      }
+    ]
+  },
+  {
+    "file": "14-next-steps",
+    "title": "次の候補は、Solによる下書き生成",
+    "notes": "同じ4つの小さな合成ケースの反復であり、汎用的な成功率や未見データの信頼性は推定できない。次の検証では評価器を事前固定し、ケースとExcel確認の範囲を広げる。共通ツールに大学別の判断や正解を埋め込まない。人とのチャットによる編集画面は今回の実装範囲に含まれていない。",
+    "sources": [
+      {
+        "label": "検証結果",
+        "href": "../llm-file-editing-poc-2026-10-12.md"
+      },
+      {
+        "label": "集計JSON",
+        "href": "../../../experiments/llm-export/results/2026-10-12/summary.json"
+      }
+    ]
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "case_id": "waseda-basic-v1",
+  "synthetic": true,
+  "university": "waseda",
+  "editable_sheets": ["会計報告書（必須）"],
+  "task": "添付した参照ブックの会計報告書（必須）シートに、この合成事例の2025年度会計報告を反映してください。分類、団体名、記入者、会長への報告日、科目別収支、前年度・次年度繰越を記入してください。今回は会計シート単独の編集能力の検証です。活動実績、補助金状況、領収書貼付用紙、リストを含め、その他のシートは変更しないでください。既存の数式、書式、拡張入力規則を保持してください。全提出書類の完成とは扱わないでください。",
+  "organization": {"name": "合成会計検証会", "classification": "未公認（新規申請含む）"},
+  "fiscal_year": 2025,
+  "period": {"start": "2025-04-01", "end_inclusive": "2026-03-31"},
+  "profile": {"author": {"name": "検証 太郎", "student_number": "00TEST001", "phone": "000-0000-0000", "role": "会計"}, "chair_report": {"status": "reported", "date": "2026-04-03"}},
+  "opening_balance_yen": 10000,
+  "entries": [
+    {"id": "w-01", "direction": "income", "date": "2025-04-10", "category": "サークル会費", "amount_yen": 20000},
+    {"id": "w-02", "direction": "income", "date": "2025-06-10", "category": "OB・OG等寄付金", "amount_yen": 5000},
+    {"id": "w-03", "direction": "expense", "date": "2025-05-01", "category": "印刷製本費", "amount_yen": 2500},
+    {"id": "w-04", "direction": "expense", "date": "2025-05-02", "category": "消耗品費", "amount_yen": 1200},
+    {"id": "w-05", "direction": "expense", "date": "2025-05-03", "category": "交通費", "amount_yen": 3000}
+  ],
+  "completeness": "年度内の取引は上記5件のみ。記載のない収支はありません。プロフィールはすべて架空の検証データです。"
+}

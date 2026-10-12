@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">Solが12回すべてで合格・完了</title><desc id="desc">各モデル12試行。Solは12ファイル、6 Lunaは2ファイル、5.6 Lunaは12ファイルを取得。6 Lunaの立命館の静的合格は応答途中終了だった。5.6 Lunaは内容だけなら7/12が合格している。比較費用のみを用い、保存対照や追加試行等の費用はこのモデル表へ混ぜない。</desc><metadata>{&quot;date&quot;:&quot;2026-10-12&quot;,&quot;sources&quot;:[{&quot;label&quot;:&quot;検証結果&quot;,&quot;href&quot;:&quot;../llm-file-editing-poc-2026-10-12.md&quot;},{&quot;label&quot;:&quot;集計JSON&quot;,&quot;href&quot;:&quot;../../../experiments/llm-export/results/2026-10-12/summary.json&quot;}]}</metadata><style>text{font-family:'Hiragino Sans','Noto Sans CJK JP','Yu Gothic',sans-serif}</style>
+<rect x="0" y="0" width="1600" height="900" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="64" y="51" font-size="20" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="1472">LLMによる会計帳票編集  /  比較結果</text>
+<text x="64" y="122" font-size="48" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">Solが12回すべてで合格・完了</text>
+<text x="64" y="169" font-size="26" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">固定条件の36試行。追加条件の4試行は、この表へ含めない</text>
+<line x1="64" y1="194" x2="1536" y2="194" stroke="#D6DFE8" stroke-width="2"/>
+<rect x="64" y="252" width="1472" height="75" rx="0" fill="#192C40" stroke="none"/>
+<text x="88" y="300" font-size="25" font-weight="600" fill="#FFFFFF" text-anchor="start" data-max-width="370">モデル</text>
+<text x="485" y="300" font-size="25" font-weight="600" fill="#FFFFFF" text-anchor="start" data-max-width="220">静的合格</text>
+<text x="730" y="300" font-size="25" font-weight="600" fill="#FFFFFF" text-anchor="start" data-max-width="244">合格・完了</text>
+<text x="999" y="300" font-size="25" font-weight="600" fill="#FFFFFF" text-anchor="start" data-max-width="226">平均費用／試行</text>
+<text x="1250" y="300" font-size="25" font-weight="600" fill="#FFFFFF" text-anchor="start" data-max-width="262">時間中央値</text>
+<rect x="64" y="327" width="1472" height="112" rx="0" fill="#ECF6F2" stroke="none"/>
+<line x1="64" y1="439" x2="1536" y2="439" stroke="#D6DFE8" stroke-width="2"/>
+<text x="88" y="394" font-size="31" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="370">gpt-6.1-sol</text>
+<text x="485" y="394" font-size="33" font-weight="600" fill="#147968" text-anchor="start" data-max-width="220">12 / 12</text>
+<text x="730" y="394" font-size="38" font-weight="600" fill="#147968" text-anchor="start" data-max-width="244">12 / 12</text>
+<text x="999" y="394" font-size="31" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="226">$0.1354</text>
+<text x="1250" y="394" font-size="31" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="262">77.2秒</text>
+<rect x="64" y="439" width="1472" height="112" rx="0" fill="#FFFFFF" stroke="none"/>
+<line x1="64" y1="551" x2="1536" y2="551" stroke="#D6DFE8" stroke-width="2"/>
+<text x="88" y="506" font-size="31" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="370">gpt-6-luna</text>
+<text x="485" y="506" font-size="33" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="220">1 / 12</text>
+<text x="730" y="506" font-size="38" font-weight="600" fill="#AE3D43" text-anchor="start" data-max-width="244">0 / 12</text>
+<text x="999" y="506" font-size="31" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="226">$0.0373</text>
+<text x="1250" y="506" font-size="31" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="262">97.2秒</text>
+<rect x="64" y="551" width="1472" height="112" rx="0" fill="#F2F5F8" stroke="none"/>
+<line x1="64" y1="663" x2="1536" y2="663" stroke="#D6DFE8" stroke-width="2"/>
+<text x="88" y="618" font-size="31" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="370">gpt-5.6-luna</text>
+<text x="485" y="618" font-size="33" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="220">1 / 12</text>
+<text x="730" y="618" font-size="38" font-weight="600" fill="#AE3D43" text-anchor="start" data-max-width="244">1 / 12</text>
+<text x="999" y="618" font-size="31" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="226">$0.0414</text>
+<text x="1250" y="618" font-size="31" font-weight="500" fill="#192C40" text-anchor="start" data-max-width="262">81.1秒</text>
+<text x="64" y="727" font-size="29" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="1472">失敗分を含む「合格・完了1件」の費用：Sol $0.1354 ／ 5.6 Luna $0.4973</text>
+<text x="64" y="780" font-size="23" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">6 Lunaは合格・完了0件のため単価を算出できない。時間は失敗も含み、後片付けを除く。</text>
+<line x1="64" y1="822" x2="1536" y2="822" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="858" font-size="18" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">2026-10-12  /  会計帳票の直接編集 PoC</text>
+<text x="1536" y="858" font-size="21" font-weight="600" fill="#506176" text-anchor="end" data-max-width="90">09 / 14</text>
+</svg>

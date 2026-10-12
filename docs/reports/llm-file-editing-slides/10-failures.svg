@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">金額が合っていても、帳票は壊れる</title><desc id="desc">保存対照では4書式すべてでセル値と等価な数式は保持したが、一部の機能・表現が失われた。6 Lunaの学習院3回目ではC28:D28およびF28:G28の非左上セルへ入力していた。5.6 Lunaの早稲田初回では47セルが削除され、別の47セルが不適切な親行の配下にあった。全ての静的差分を、観察済みの見た目の破損とは扱っていない。</desc><metadata>{&quot;date&quot;:&quot;2026-10-12&quot;,&quot;sources&quot;:[{&quot;label&quot;:&quot;検証結果&quot;,&quot;href&quot;:&quot;../llm-file-editing-poc-2026-10-12.md&quot;},{&quot;label&quot;:&quot;集計JSON&quot;,&quot;href&quot;:&quot;../../../experiments/llm-export/results/2026-10-12/summary.json&quot;}]}</metadata><style>text{font-family:'Hiragino Sans','Noto Sans CJK JP','Yu Gothic',sans-serif}</style>
+<rect x="0" y="0" width="1600" height="900" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="64" y="51" font-size="20" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="1472">LLMによる会計帳票編集  /  失敗の分析</text>
+<text x="64" y="122" font-size="48" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">金額が合っていても、帳票は壊れる</text>
+<text x="64" y="169" font-size="26" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">保存手法の選択と、見える位置・構造の確認が必要だった</text>
+<line x1="64" y1="194" x2="1536" y2="194" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="268" font-size="30" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">01  保存しただけで図形が消える</text>
+<text x="64" y="318" font-size="27" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">openpyxl対照：4書式で機能・表現の欠落。法政では説明用図形22個が消失。</text>
+<line x1="64" y1="350" x2="1536" y2="350" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="407" font-size="30" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">02  正しい文字列が、表示されない位置に入る</text>
+<rect x="64" y="443" width="606" height="89" rx="2" fill="#F2F5F8" stroke="#D6DFE8"/>
+<line x1="382" y1="443" x2="382" y2="532" stroke="#D6DFE8" stroke-width="2" stroke-dasharray="8 6"/>
+<text x="86" y="474" font-size="19" font-weight="400" fill="#506176" text-anchor="start" data-max-width="284">C28：結合範囲の左上</text>
+<text x="405" y="474" font-size="19" font-weight="400" fill="#AE3D43" text-anchor="start" data-max-width="244">D28：結合の内部</text>
+<text x="86" y="512" font-size="26" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="280">団体コードNO.</text>
+<text x="405" y="512" font-size="28" font-weight="600" fill="#AE3D43" text-anchor="start" data-max-width="244">007</text>
+<text x="730" y="476" font-size="26" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="806">6 Lunaの学習院では、正しいコードをD28へ記入。</text>
+<text x="730" y="517" font-size="26" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="806">結合されたC28:D28では、その値が表示されない。</text>
+<text x="64" y="567" font-size="21" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">模式図。破線は説明用で、Excelで見えるセル境界ではない。</text>
+<line x1="64" y1="596" x2="1536" y2="596" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="655" font-size="30" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">03  XML編集でセルを削除・移動してしまう</text>
+<text x="64" y="705" font-size="27" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">5.6 Lunaの早稲田では、実際のExcelがファイルの修復を要求した。</text>
+<text x="64" y="780" font-size="23" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">図形・コメント・入力規則の保持と、OOXMLの整合性を、金額の検査と分けて確認する。</text>
+<line x1="64" y1="822" x2="1536" y2="822" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="858" font-size="18" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">2026-10-12  /  会計帳票の直接編集 PoC</text>
+<text x="1536" y="858" font-size="21" font-weight="600" fill="#506176" text-anchor="end" data-max-width="90">10 / 14</text>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">API費用をゲートウェイで計測</title><desc id="desc">Gatewayはloopback限定のHTTP入口と実行用トークンを使い、固定のOpenAI API endpointへ送る。予算予約は送信前にSQLiteへ永続化。未知の費用は0として処理せず予約を保持する。1GBコンテナは専用セッション1個あたり$0.03を保守的に推計する。</desc><metadata>{&quot;date&quot;:&quot;2026-10-12&quot;,&quot;sources&quot;:[{&quot;label&quot;:&quot;ゲートウェイ設計&quot;,&quot;href&quot;:&quot;../../design/llm-evaluation-gateway.md&quot;},{&quot;label&quot;:&quot;台帳実装&quot;,&quot;href&quot;:&quot;../../../experiments/llm-export/gateway/ledger.ts&quot;}]}</metadata><style>text{font-family:'Hiragino Sans','Noto Sans CJK JP','Yu Gothic',sans-serif}</style>
+<rect x="0" y="0" width="1600" height="900" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="64" y="51" font-size="20" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="1472">LLMによる会計帳票編集  /  費用計測</text>
+<text x="64" y="122" font-size="48" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">API費用をゲートウェイで計測</text>
+<text x="64" y="169" font-size="26" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">再起動しても同じSQLite台帳と、実験全体の$10予算を引き継ぐ</text>
+<line x1="64" y1="194" x2="1536" y2="194" stroke="#D6DFE8" stroke-width="2"/>
+<rect x="64" y="260" width="326" height="175" rx="8" fill="#EDF3FD" stroke="none"/>
+<text x="88" y="305" font-size="30" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="278">送信前</text>
+<text x="88" y="355" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="278">保守的な金額を予約</text>
+<line x1="401" y1="348" x2="432" y2="348" stroke="#235BC5" stroke-width="3"/>
+<path d="M421.5861698438682 353.96256165412484 L432 348 L421.5861698438682 342.03743834587516" fill="none" stroke="#235BC5" stroke-width="3"/>
+<rect x="446" y="260" width="326" height="175" rx="8" fill="#EDF3FD" stroke="none"/>
+<text x="470" y="305" font-size="30" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="278">呼出し</text>
+<text x="470" y="355" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="278">要求・応答を記録</text>
+<line x1="783" y1="348" x2="814" y2="348" stroke="#235BC5" stroke-width="3"/>
+<path d="M803.5861698438682 353.96256165412484 L814 348 L803.5861698438682 342.03743834587516" fill="none" stroke="#235BC5" stroke-width="3"/>
+<rect x="828" y="260" width="326" height="175" rx="8" fill="#EDF3FD" stroke="none"/>
+<text x="852" y="305" font-size="30" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="278">応答後</text>
+<text x="852" y="355" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="278">usageから推計を精算</text>
+<line x1="1165" y1="348" x2="1196" y2="348" stroke="#235BC5" stroke-width="3"/>
+<path d="M1185.5861698438682 353.96256165412484 L1196 348 L1185.5861698438682 342.03743834587516" fill="none" stroke="#235BC5" stroke-width="3"/>
+<rect x="1210" y="260" width="326" height="175" rx="8" fill="#ECF6F2" stroke="none"/>
+<text x="1234" y="305" font-size="30" font-weight="600" fill="#147968" text-anchor="start" data-max-width="278">終了時</text>
+<text x="1234" y="355" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="278">ファイルと環境を削除</text>
+<text x="64" y="511" font-size="29" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">記録するもの</text>
+<text x="64" y="559" font-size="26" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="690">モデル・設定・入力と指示のハッシュ</text>
+<text x="64" y="606" font-size="26" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="690">入力／出力／キャッシュのトークン数</text>
+<text x="64" y="653" font-size="26" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="690">提供元の識別子・失敗・後片付けの結果</text>
+<line x1="776" y1="490" x2="776" y2="718" stroke="#D6DFE8" stroke-width="2"/>
+<text x="828" y="511" font-size="29" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="700">過小計上を防ぐルール</text>
+<text x="828" y="559" font-size="26" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="708">費用が分からなければ、予約を残す</text>
+<text x="828" y="606" font-size="26" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="708">自動リトライで同じ試行を重ねない</text>
+<text x="828" y="653" font-size="26" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="708">内部ツール回数でコンテナ費用を増やさない</text>
+<text x="64" y="780" font-size="23" font-weight="400" fill="#235BC5" text-anchor="start" data-max-width="1472">usageと固定単価による推計。提供元の確定請求額との照合は別途行う。</text>
+<line x1="64" y1="822" x2="1536" y2="822" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="858" font-size="18" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">2026-10-12  /  会計帳票の直接編集 PoC</text>
+<text x="1536" y="858" font-size="21" font-weight="600" fill="#506176" text-anchor="end" data-max-width="90">06 / 14</text>
+</svg>

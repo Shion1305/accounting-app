@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">実装の全体構成</title><desc id="desc">run.tsが入力準備、Gateway起動、アップロード、Responses呼出し、成果物取得、静的評価、後片付けを担当。gateway/server.tsとledger.tsが認証・予算・単価・usage・履歴を記録する。Code InterpreterはAPIキーやリポジトリを受け取らない。</desc><metadata>{&quot;date&quot;:&quot;2026-10-12&quot;,&quot;sources&quot;:[{&quot;label&quot;:&quot;ランナー&quot;,&quot;href&quot;:&quot;../../../experiments/llm-export/run.ts&quot;},{&quot;label&quot;:&quot;ゲートウェイ&quot;,&quot;href&quot;:&quot;../../../experiments/llm-export/gateway/server.ts&quot;},{&quot;label&quot;:&quot;ゲートウェイ設計&quot;,&quot;href&quot;:&quot;../../design/llm-evaluation-gateway.md&quot;}]}</metadata><style>text{font-family:'Hiragino Sans','Noto Sans CJK JP','Yu Gothic',sans-serif}</style>
+<rect x="0" y="0" width="1600" height="900" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="64" y="51" font-size="20" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="1472">LLMによる会計帳票編集  /  実装</text>
+<text x="64" y="122" font-size="48" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">実装の全体構成</text>
+<text x="64" y="169" font-size="26" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">ローカルの計測と、AIが編集する隔離環境を分ける</text>
+<line x1="64" y1="194" x2="1536" y2="194" stroke="#D6DFE8" stroke-width="2"/>
+<rect x="64" y="238" width="682" height="470" rx="8" fill="#F2F5F8" stroke="none"/>
+<rect x="790" y="238" width="746" height="470" rx="8" fill="#EDF3FD" stroke="none"/>
+<text x="88" y="281" font-size="25" font-weight="600" fill="#506176" text-anchor="start" data-max-width="640">このプロジェクト内</text>
+<text x="814" y="281" font-size="25" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="696">OpenAI側</text>
+<rect x="88" y="314" width="285" height="164" rx="8" fill="#FFFFFF" stroke="none"/>
+<text x="112" y="359" font-size="30" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="237">実行ランナー</text>
+<text x="112" y="409" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="237">Excel・JSON・指示</text>
+<text x="112" y="448" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="237">モデルと条件を指定</text>
+<rect x="425" y="314" width="297" height="164" rx="8" fill="#FFFFFF" stroke="none"/>
+<text x="449" y="359" font-size="30" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="249">ゲートウェイ</text>
+<text x="449" y="409" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="249">予算予約・API呼出し</text>
+<text x="449" y="448" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="249">usage・費用を記録</text>
+<line x1="382" y1="398" x2="415" y2="398" stroke="#235BC5" stroke-width="3"/>
+<path d="M404.5861698438682 403.96256165412484 L415 398 L404.5861698438682 392.03743834587516" fill="none" stroke="#235BC5" stroke-width="3"/>
+<line x1="732" y1="398" x2="810" y2="398" stroke="#235BC5" stroke-width="3"/>
+<path d="M799.5861698438682 403.96256165412484 L810 398 L799.5861698438682 392.03743834587516" fill="none" stroke="#235BC5" stroke-width="3"/>
+<rect x="822" y="314" width="682" height="164" rx="8" fill="#FFFFFF" stroke="none"/>
+<text x="846" y="359" font-size="30" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="634">Responses API の1応答</text>
+<text x="846" y="409" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="634">AIがツール結果を読み、次の処理を選ぶ</text>
+<text x="89" y="535" font-size="25" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="626">APIキーはAIに渡さず、ローカルで管理</text>
+<text x="89" y="578" font-size="25" font-weight="400" fill="#506176" text-anchor="start" data-max-width="626">SQLite台帳とJSONログに実行記録を保存</text>
+<text x="845" y="542" font-size="32" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="130">AI</text>
+<line x1="930" y1="531" x2="1035" y2="531" stroke="#235BC5" stroke-width="3"/>
+<path d="M1024.5861698438682 536.9625616541248 L1035 531 L1024.5861698438682 525.0374383458752" fill="none" stroke="#235BC5" stroke-width="3"/>
+<line x1="1035" y1="565" x2="930" y2="565" stroke="#235BC5" stroke-width="3"/>
+<path d="M940.4138301561318 559.0374383458751 L930 565 L940.4138301561318 570.9625616541248" fill="none" stroke="#235BC5" stroke-width="3"/>
+<text x="1060" y="550" font-size="31" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="410">Code Interpreter</text>
+<text x="822" y="624" font-size="25" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="682">専用1GBコンテナでPythonなどを実行</text>
+<text x="822" y="666" font-size="24" font-weight="400" fill="#506176" text-anchor="start" data-max-width="682">アップロードしたコピーを編集・ネットワーク無効</text>
+<rect x="88" y="627" width="634" height="56" rx="4" fill="#ECF6F2" stroke="none"/>
+<text x="112" y="664" font-size="26" font-weight="600" fill="#147968" text-anchor="start" data-max-width="586">成果物を取得し、独立した評価器で検査</text>
+<line x1="1504" y1="446" x2="1518" y2="446" stroke="#147968" stroke-width="3"/>
+<line x1="1518" y1="446" x2="1518" y2="730" stroke="#147968" stroke-width="3"/>
+<line x1="1518" y1="730" x2="410" y2="730" stroke="#147968" stroke-width="3"/>
+<line x1="410" y1="730" x2="410" y2="691" stroke="#147968" stroke-width="3"/>
+<path d="M415.96256165412484 701.4138301561318 L410 691 L404.03743834587516 701.4138301561318" fill="none" stroke="#147968" stroke-width="3"/>
+<text x="1000" y="758" font-size="20" font-weight="600" fill="#147968" text-anchor="start" data-max-width="450">output.xlsx を取得</text>
+<text x="64" y="780" font-size="23" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">アプリ本体のDB・出力画面への組み込みは未実装。今回は独立した検証用ランナー。</text>
+<line x1="64" y1="822" x2="1536" y2="822" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="858" font-size="18" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">2026-10-12  /  会計帳票の直接編集 PoC</text>
+<text x="1536" y="858" font-size="21" font-weight="600" fill="#506176" text-anchor="end" data-max-width="90">03 / 14</text>
+</svg>

@@ -2,12 +2,21 @@
 
 プロジェクトの要件、現在の構成、設計方針、調査根拠、実装順序の入口。仕様は設計ポイントごとに一か所で管理し、関連文書からリンクする。
 
+現在は、LLMが既存のExcel書式を読み、集計・配置・編集まで行う方式を検証している。大学別Data Frameやセル対応表を先に実装する工程は、PoCの結果が出るまで一時停止する。既存の要件・設計・変換実装は品質基準と比較資料として残し、方式検証後に再開・変更する範囲を判断する。
+
 ## 最初に読む
 
 1. [用語](../CONTEXT.md) — 承認と精算、取引と申請、生成と提出の区別。
 2. [全体構成](design/overview.md) — 現行システムと設計上の境界。
 3. [会計出力の要件](requirements/accounting-export.md) — 対象・成果物・受入条件。
-4. [実装計画](plans/accounting-export.md) — 進捗、小さなPRの順序、未決事項。
+4. [LLM直接編集の検証計画](plans/llm-file-editing-evaluation.md) — 現在の優先作業、比較条件、評価と費用の測り方。
+5. [実装計画](plans/accounting-export.md) — 全体の進捗、従来方式の工程、未決事項。
+
+初回の有料PoCは、合計10米ドルの予算で `gpt-6.1-sol`、`gpt-6-luna`、`gpt-5.6-luna` を比較した。呼び出しと費用は[計測用ゲートウェイ](design/llm-evaluation-gateway.md)に記録し、実測値・失敗原因・採用判断は[PoC結果](reports/llm-file-editing-poc-2026-10-12.md)へまとめる。初回検証は完了し、47応答の使用量からの推計は$2.924513275。Solは固定条件12回すべてで静的合格・応答完了となった。人が確認する下書き生成の次段階へ進める候補であり、本番の自動提出は未検証。
+
+仕組みと結果を図で確認する場合は、[説明スライド（SVG・PDF・HTML）](reports/llm-file-editing-slides/README.md)を参照する。
+
+生成コードの失敗と、成功したSolの手戻りは[原因分析](reports/llm-file-editing-failure-analysis-2026-10-12.md)へまとめた。その後の[追加指示のA/B比較](reports/llm-prompt-improvement-comparison-2026-10-12.md)は24応答を実行し、完了・静的合格は現行版12/12、追加指示版9/12だった。手戻りは減ったが時間・完了1件あたりの費用が増えたため、標準指示への採用は見送る。追加費用推計は$3.3532108、初回PoCを含む累計は$6.277724075。
 
 ## 内容の管理先
 
@@ -17,6 +26,9 @@
 | 基本的な利用者・製品方針                       | [製品方針](../note/方針.md)                                                                                           |
 | 技術構成、認証・テナントの境界                 | [全体構成](design/overview.md)                                                                                        |
 | 会計出力で何を実現するか・完了条件             | [要件](requirements/accounting-export.md)                                                                             |
+| LLM直接編集の比較条件・評価・停止条件          | [LLM検証計画](plans/llm-file-editing-evaluation.md)                                                                   |
+| LLM呼出しの経路・使用量・費用台帳・予算制御    | [計測用ゲートウェイ](design/llm-evaluation-gateway.md)                                                                |
+| LLM方式の実測結果・失敗原因・次の判断          | [PoC結果](reports/llm-file-editing-poc-2026-10-12.md)                                                                 |
 | 何をいつ保存するか、承認時の引継ぎ、既存データ | [会計データ](design/accounting-data.md)                                                                               |
 | DB取得 → 大学別Data Frame → exportの責務・契約 | [出力パイプライン](design/export-pipeline.md)                                                                         |
 | テンプレート、SUM、シート継続、再計算、PDF     | [ファイル生成](design/file-generation.md)                                                                             |

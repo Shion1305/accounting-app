@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">実際の反復例：Sol × 学習院</title><desc id="desc">Solの学習院初回実行ログから要約。Code Interpreter 11回は、API応答11回やコンテナ11個を意味しない。モデルはLibreOfficeで使い捨てコピーを処理し、確認した計算値を元の構造を保持したXLSXへ戻した。収入の部計30,000円は期首繰越10,000円と当年度収入20,000円の合計。編集した主なパーツは対象シートと計算チェーン。後から実際のExcelでも入力変更・再計算と1ページの印刷を確認した。</desc><metadata>{&quot;date&quot;:&quot;2026-10-12&quot;,&quot;sources&quot;:[{&quot;label&quot;:&quot;初回の生成Excel&quot;,&quot;href&quot;:&quot;../../../experiments/llm-export/results/2026-10-12/examples/gakushuin-sol-r1.xlsx&quot;},{&quot;label&quot;:&quot;検証結果&quot;,&quot;href&quot;:&quot;../llm-file-editing-poc-2026-10-12.md&quot;}]}</metadata><style>text{font-family:'Hiragino Sans','Noto Sans CJK JP','Yu Gothic',sans-serif}</style>
+<rect x="0" y="0" width="1600" height="900" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="64" y="51" font-size="20" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="1472">LLMによる会計帳票編集  /  実行ログの例</text>
+<text x="64" y="122" font-size="48" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">実際の反復例：Sol × 学習院</text>
+<text x="64" y="169" font-size="26" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">1回のAPI応答の中でCode Interpreterを11回実行。所要時間104.344秒</text>
+<line x1="64" y1="194" x2="1536" y2="194" stroke="#D6DFE8" stroke-width="2"/>
+<circle cx="88" cy="253" r="21" fill="#235BC5"/>
+<text x="88" y="262" font-size="22" font-weight="600" fill="#FFFFFF" text-anchor="middle" data-max-width="40">1</text>
+<text x="136" y="262" font-size="28" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="290">調べる</text>
+<text x="444" y="262" font-size="26" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="1092">全シート、数式、結合セル、図形、印刷設定を読む</text>
+<line x1="136" y1="293" x2="1536" y2="293" stroke="#D6DFE8" stroke-width="2"/>
+<circle cx="88" cy="328" r="21" fill="#235BC5"/>
+<text x="88" y="337" font-size="22" font-weight="600" fill="#FFFFFF" text-anchor="middle" data-max-width="40">2</text>
+<text x="136" y="337" font-size="28" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="290">編集する</text>
+<text x="444" y="337" font-size="26" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="1092">必要なXMLを部分編集し、小計の数式を6つ追加する</text>
+<line x1="136" y1="368" x2="1536" y2="368" stroke="#D6DFE8" stroke-width="2"/>
+<circle cx="88" cy="403" r="21" fill="#235BC5"/>
+<text x="88" y="412" font-size="22" font-weight="600" fill="#FFFFFF" text-anchor="middle" data-max-width="40">3</text>
+<text x="136" y="412" font-size="28" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="290">結果を確かめる</text>
+<text x="444" y="412" font-size="26" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="1092">使い捨てコピーを再計算するが、保存済みの計算値が0のまま</text>
+<line x1="136" y1="443" x2="1536" y2="443" stroke="#D6DFE8" stroke-width="2"/>
+<circle cx="88" cy="478" r="21" fill="#235BC5"/>
+<text x="88" y="487" font-size="22" font-weight="600" fill="#FFFFFF" text-anchor="middle" data-max-width="40">4</text>
+<text x="136" y="487" font-size="28" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="290">方法を修正する</text>
+<text x="444" y="487" font-size="26" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="1092">計算値を消して再計算を促し、ZIPを書き込む処理も修正する</text>
+<line x1="136" y1="518" x2="1536" y2="518" stroke="#D6DFE8" stroke-width="2"/>
+<circle cx="88" cy="553" r="21" fill="#147968"/>
+<text x="88" y="562" font-size="22" font-weight="600" fill="#FFFFFF" text-anchor="middle" data-max-width="40">5</text>
+<text x="136" y="562" font-size="28" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="290">保存物を読み直す</text>
+<text x="444" y="562" font-size="26" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="1092">計算結果を元の構造へ戻し、値・式・ZIP差分を確認する</text>
+<line x1="136" y1="593" x2="1536" y2="593" stroke="#D6DFE8" stroke-width="2"/>
+<circle cx="88" cy="628" r="21" fill="#147968"/>
+<text x="88" y="637" font-size="22" font-weight="600" fill="#FFFFFF" text-anchor="middle" data-max-width="40">6</text>
+<text x="136" y="637" font-size="28" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="290">成果物を返す</text>
+<text x="444" y="637" font-size="26" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="1092">Excelへのリンクと、変更点・使った環境・未確認事項を返す</text>
+<rect x="64" y="716" width="1472" height="72" rx="6" fill="#ECF6F2" stroke="none"/>
+<text x="89" y="762" font-size="29" font-weight="600" fill="#147968" text-anchor="start" data-max-width="1420">収入の部計 ¥30,000　実支出 ¥5,000　次年度繰越 ¥25,000　／　独立した静的検査に合格</text>
+<line x1="64" y1="822" x2="1536" y2="822" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="858" font-size="18" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">2026-10-12  /  会計帳票の直接編集 PoC</text>
+<text x="1536" y="858" font-size="21" font-weight="600" fill="#506176" text-anchor="end" data-max-width="90">05 / 14</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc"><title id="title">次の候補は、Solによる下書き生成</title><desc id="desc">同じ4つの小さな合成ケースの反復であり、汎用的な成功率や未見データの信頼性は推定できない。次の検証では評価器を事前固定し、ケースとExcel確認の範囲を広げる。共通ツールに大学別の判断や正解を埋め込まない。人とのチャットによる編集画面は今回の実装範囲に含まれていない。</desc><metadata>{&quot;date&quot;:&quot;2026-10-12&quot;,&quot;sources&quot;:[{&quot;label&quot;:&quot;検証結果&quot;,&quot;href&quot;:&quot;../llm-file-editing-poc-2026-10-12.md&quot;},{&quot;label&quot;:&quot;集計JSON&quot;,&quot;href&quot;:&quot;../../../experiments/llm-export/results/2026-10-12/summary.json&quot;}]}</metadata><style>text{font-family:'Hiragino Sans','Noto Sans CJK JP','Yu Gothic',sans-serif}</style>
+<rect x="0" y="0" width="1600" height="900" rx="0" fill="#FFFFFF" stroke="none"/>
+<text x="64" y="51" font-size="20" font-weight="600" fill="#235BC5" text-anchor="start" data-max-width="1472">LLMによる会計帳票編集  /  判断と次の段階</text>
+<text x="64" y="122" font-size="48" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="1472">次の候補は、Solによる下書き生成</text>
+<text x="64" y="169" font-size="26" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">今回の4基本ケースでは、AI自身に帳票の解釈と編集を任せられた</text>
+<line x1="64" y1="194" x2="1536" y2="194" stroke="#D6DFE8" stroke-width="2"/>
+<rect x="64" y="240" width="1472" height="105" rx="6" fill="#ECF6F2" stroke="none"/>
+<text x="89" y="305" font-size="37" font-weight="600" fill="#147968" text-anchor="start" data-max-width="1422">人が差分と未確認事項を確認する運用を、次の検証対象にする</text>
+<circle cx="88" cy="402" r="21" fill="#235BC5"/>
+<text x="88" y="411" font-size="22" font-weight="600" fill="#FFFFFF" text-anchor="middle" data-max-width="40">1</text>
+<text x="135" y="411" font-size="30" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="480">評価を固定して広げる</text>
+<text x="665" y="411" font-size="27" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="871">未見の取引、不足情報、長文、明細枠超過を追加する</text>
+<line x1="135" y1="456" x2="1536" y2="456" stroke="#D6DFE8" stroke-width="2"/>
+<circle cx="88" cy="506" r="21" fill="#235BC5"/>
+<text x="88" y="515" font-size="22" font-weight="600" fill="#FFFFFF" text-anchor="middle" data-max-width="40">2</text>
+<text x="135" y="515" font-size="30" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="480">共通の編集操作を検証する</text>
+<text x="665" y="515" font-size="27" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="871">結合セル・名前空間・ZIPパーツを安全に扱う手段を比べる</text>
+<line x1="135" y1="560" x2="1536" y2="560" stroke="#D6DFE8" stroke-width="2"/>
+<circle cx="88" cy="610" r="21" fill="#235BC5"/>
+<text x="88" y="619" font-size="22" font-weight="600" fill="#FFFFFF" text-anchor="middle" data-max-width="40">3</text>
+<text x="135" y="619" font-size="30" font-weight="600" fill="#192C40" text-anchor="start" data-max-width="480">人との対話を実装する</text>
+<text x="665" y="619" font-size="27" font-weight="400" fill="#192C40" text-anchor="start" data-max-width="871">質問、変更案の確認、追加指示による再編集を設計する</text>
+<text x="64" y="751" font-size="24" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">今回まだ作っていないもの：利用者向け会話画面、DB連携、アプリの出力API、自動提出。</text>
+<line x1="64" y1="822" x2="1536" y2="822" stroke="#D6DFE8" stroke-width="2"/>
+<text x="64" y="858" font-size="18" font-weight="400" fill="#506176" text-anchor="start" data-max-width="1472">2026-10-12  /  会計帳票の直接編集 PoC</text>
+<text x="1536" y="858" font-size="21" font-weight="600" fill="#506176" text-anchor="end" data-max-width="90">14 / 14</text>
+</svg>
