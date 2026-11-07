@@ -1,0 +1,1027 @@
+{
+  "schema_version": 1,
+  "purpose": "Independent local evaluation oracle. Never send this file to the model. Amounts are fixed synthetic truths; source cell locations were read independently from the reference XML.",
+  "scope": "Basic accounting-sheet edits only. Static arithmetic is not native spreadsheet recalculation. Visual and submission readiness remain unverified.",
+  "cases": {
+    "hosei": {
+      "source": "docs/references/hosei.synthetic.reference.xlsx",
+      "editable_sheets": ["費目詳細"],
+      "evidence": "docs/universities/hosei.md and independently inspected source worksheet labels/merged anchors",
+      "mutable_text_ranges": [
+        {
+          "sheet": "費目詳細",
+          "range": "B101",
+          "reason": "User-added example expense category, not a fixed template label; docs/universities/hosei.md documents these additional category slots."
+        },
+        {
+          "sheet": "費目詳細",
+          "range": "B104",
+          "reason": "User-added example expense category, not a fixed template label; docs/universities/hosei.md documents these additional category slots."
+        },
+        {
+          "sheet": "費目詳細",
+          "range": "G46:H46",
+          "reason": "Old sample transaction must be cleared."
+        },
+        {
+          "sheet": "費目詳細",
+          "range": "G104:H104",
+          "reason": "Old sample transaction must be cleared."
+        }
+      ],
+      "cells": [
+        {
+          "sheet": "費目詳細",
+          "cell": "D1",
+          "kind": "text",
+          "expected": "合成会計検証会"
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E6",
+          "kind": "number",
+          "expected": 2000
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E9",
+          "kind": "number",
+          "expected": 2500
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E15",
+          "kind": "number",
+          "expected": 5000
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E107",
+          "kind": "number",
+          "expected": 9500
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E12",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E18",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E21",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E24",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E27",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E30",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E33",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E36",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E39",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E42",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E45",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E88",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E91",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E94",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E97",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E100",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E103",
+          "kind": "number",
+          "expected": 0
+        },
+        {
+          "sheet": "費目詳細",
+          "cell": "E106",
+          "kind": "number",
+          "expected": 0
+        }
+      ],
+      "regions": [],
+      "rows": [
+        {
+          "sheet": "費目詳細",
+          "first_row": 4,
+          "last_row": 5,
+          "fields": {
+            "D": {
+              "kind": "text",
+              "expected": "1"
+            },
+            "E": {
+              "kind": "number",
+              "expected": 1200
+            },
+            "F": {
+              "kind": "date",
+              "expected": "2025-04-10"
+            },
+            "G": {
+              "kind": "text",
+              "expected": "ホワイトボードマーカー"
+            },
+            "H": {
+              "kind": "text",
+              "expected": "新入生向け勉強会"
+            }
+          }
+        },
+        {
+          "sheet": "費目詳細",
+          "first_row": 4,
+          "last_row": 5,
+          "fields": {
+            "D": {
+              "kind": "text",
+              "expected": "2"
+            },
+            "E": {
+              "kind": "number",
+              "expected": 800
+            },
+            "F": {
+              "kind": "date",
+              "expected": "2025-04-11"
+            },
+            "G": {
+              "kind": "text",
+              "expected": "付箋"
+            },
+            "H": {
+              "kind": "text",
+              "expected": "研究発表の準備"
+            }
+          }
+        },
+        {
+          "sheet": "費目詳細",
+          "first_row": 7,
+          "last_row": 8,
+          "fields": {
+            "D": {
+              "kind": "text",
+              "expected": "規模1"
+            },
+            "E": {
+              "kind": "number",
+              "expected": 2500
+            },
+            "F": {
+              "kind": "date",
+              "expected": "2025-05-12"
+            },
+            "G": {
+              "kind": "text",
+              "expected": "活動報告冊子の印刷"
+            },
+            "H": {
+              "kind": "text",
+              "expected": "学内成果報告会"
+            }
+          }
+        },
+        {
+          "sheet": "費目詳細",
+          "first_row": 13,
+          "last_row": 14,
+          "fields": {
+            "D": {
+              "kind": "text",
+              "expected": "正課外1"
+            },
+            "E": {
+              "kind": "number",
+              "expected": 5000
+            },
+            "F": {
+              "kind": "date",
+              "expected": "2025-06-13"
+            },
+            "G": {
+              "kind": "text",
+              "expected": "外付けキーボード"
+            },
+            "H": {
+              "kind": "text",
+              "expected": "プログラミング演習"
+            }
+          }
+        }
+      ],
+      "label_amounts": []
+    },
+    "gakushuin": {
+      "source": "docs/references/gakushuin.reference.xlsx",
+      "editable_sheets": ["書式"],
+      "evidence": "docs/universities/gakushuin.md and independently inspected source worksheet labels/merged anchors",
+      "mutable_text_ranges": [
+        {
+          "sheet": "書式",
+          "range": "B2",
+          "reason": "Year and organization title placeholder."
+        },
+        {
+          "sheet": "書式",
+          "range": "D29:H29",
+          "reason": "Author profile placeholder."
+        }
+      ],
+      "fiscal_year_fields": [
+        {
+          "sheet": "書式",
+          "cell": "B2",
+          "expected": 2025,
+          "evidence": "cases/gakushuin/basic.json fiscal_year"
+        }
+      ],
+      "fixed_label_value_suffixes": [
+        {
+          "sheet": "書式",
+          "cell": "C28",
+          "expected_suffix": "007",
+          "reason": "The merged C28:D28 input may retain its 団体コードNO. label and append the confirmed organization code; docs/universities/gakushuin.md maps this field to C28."
+        },
+        {
+          "sheet": "書式",
+          "cell": "F28",
+          "expected_suffix": "合成会計検証部",
+          "reason": "The merged F28:G28 input may retain its 団体名 label and append the confirmed organization name; the documented field spans F28:H28."
+        }
+      ],
+      "cells": [
+        {
+          "sheet": "書式",
+          "cell": "C5",
+          "kind": "number",
+          "expected": 10000
+        },
+        {
+          "sheet": "書式",
+          "cell": "C17",
+          "kind": "number",
+          "expected": 20000
+        },
+        {
+          "sheet": "書式",
+          "cell": "G5",
+          "kind": "number",
+          "expected": 3000
+        },
+        {
+          "sheet": "書式",
+          "cell": "G6",
+          "kind": "number",
+          "expected": 1200
+        },
+        {
+          "sheet": "書式",
+          "cell": "G8",
+          "kind": "number",
+          "expected": 1200
+        },
+        {
+          "sheet": "書式",
+          "cell": "G23",
+          "kind": "number",
+          "expected": 800
+        },
+        {
+          "sheet": "書式",
+          "cell": "C26",
+          "kind": "number",
+          "expected": 30000
+        },
+        {
+          "sheet": "書式",
+          "cell": "G25",
+          "kind": "number",
+          "expected": 25000
+        },
+        {
+          "sheet": "書式",
+          "cell": "G26",
+          "kind": "number",
+          "expected": 30000
+        },
+        {
+          "sheet": "書式",
+          "cell": "C6",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "書式",
+          "cell": "C7",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "書式",
+          "cell": "C20",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "書式",
+          "cell": "C24",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "書式",
+          "cell": "C25",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "書式",
+          "cell": "G7",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "書式",
+          "cell": "G9",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "書式",
+          "cell": "G10",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "書式",
+          "cell": "G11",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "書式",
+          "cell": "G12",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "書式",
+          "cell": "G13",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "書式",
+          "cell": "G19",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "書式",
+          "cell": "G24",
+          "kind": "blank_or_zero",
+          "expected": 0
+        }
+      ],
+      "regions": [
+        {
+          "sheet": "書式",
+          "range": "C28:H28",
+          "contains": ["007", "合成会計検証部"]
+        },
+        {
+          "sheet": "書式",
+          "range": "D29:H29",
+          "contains": ["検証花子", "文学部", "史学科", "2"]
+        },
+        {
+          "sheet": "書式",
+          "range": "C30:H30",
+          "contains": ["000-0000-0000"]
+        },
+        {
+          "sheet": "書式",
+          "range": "B2:H2",
+          "contains": ["合成会計検証部"]
+        }
+      ],
+      "rows": [],
+      "label_amounts": [
+        {
+          "sheet": "書式",
+          "label_column": "B",
+          "amount_column": "C",
+          "first_row": 18,
+          "last_row": 19,
+          "label": "4月徴収",
+          "expected": 10000
+        },
+        {
+          "sheet": "書式",
+          "label_column": "B",
+          "amount_column": "C",
+          "first_row": 18,
+          "last_row": 19,
+          "label": "10月徴収",
+          "expected": 10000
+        }
+      ]
+    },
+    "waseda": {
+      "source": "docs/references/waseda-2025.reference.xlsx",
+      "editable_sheets": ["会計報告書（必須）"],
+      "evidence": "docs/universities/waseda.md and independently inspected source worksheet labels/merged anchors",
+      "blankable_placeholders": [
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "H2",
+          "original_text": "yyyy/mm/dd",
+          "reason": "docs/universities/waseda.md:59 identifies date-format guidance with unresolved date meaning. The case provides no H2 date; retain the exact placeholder or leave it blank without inventing a date."
+        }
+      ],
+      "mutable_text_ranges": [
+        {
+          "sheet": "会計報告書（必須）",
+          "range": "B7",
+          "reason": "Classification/name selection placeholder may be replaced after selection."
+        }
+      ],
+      "cells": [
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G5",
+          "kind": "text",
+          "expected": "未公認（新規申請含む）"
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "E7",
+          "kind": "text",
+          "expected": "合成会計検証会"
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "D9",
+          "kind": "text",
+          "expected": "00TEST001"
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "D10",
+          "kind": "text",
+          "expected": "検証 太郎"
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "D11",
+          "kind": "text",
+          "expected": "000-0000-0000"
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "D12",
+          "kind": "text",
+          "expected": "会計"
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C47",
+          "kind": "date",
+          "expected": "2026-04-03"
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C18",
+          "kind": "number",
+          "expected": 10000
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C19",
+          "kind": "number",
+          "expected": 20000
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C20",
+          "kind": "number",
+          "expected": 5000
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G18",
+          "kind": "number",
+          "expected": 2500
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G19",
+          "kind": "number",
+          "expected": 1200
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G26",
+          "kind": "number",
+          "expected": 3000
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G44",
+          "kind": "number",
+          "expected": 28300
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C45",
+          "kind": "number",
+          "expected": 35000
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G45",
+          "kind": "number",
+          "expected": 35000
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C21",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C22",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C23",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C24",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C25",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C26",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C27",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C28",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C29",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C30",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C31",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C32",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C33",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C34",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C35",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C36",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C37",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C38",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C39",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C40",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C41",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C42",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C43",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "C44",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G20",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G21",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G22",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G23",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G24",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G25",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G27",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G28",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G29",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G30",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G31",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G32",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G33",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G34",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G35",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G36",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G37",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G38",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G39",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G40",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G41",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G42",
+          "kind": "blank_or_zero",
+          "expected": 0
+        },
+        {
+          "sheet": "会計報告書（必須）",
+          "cell": "G43",
+          "kind": "blank_or_zero",
+          "expected": 0
+        }
+      ],
+      "regions": [],
+      "rows": [],
+      "label_amounts": []
+    },
+    "ritsumeikan": {
+      "source": "docs/references/ritsumeikan.reference.xlsx",
+      "editable_sheets": ["Sheet1"],
+      "evidence": "docs/universities/ritsumeikan.md and independently inspected source worksheet labels/merged anchors",
+      "cells": [
+        {
+          "sheet": "Sheet1",
+          "cell": "E3",
+          "kind": "text",
+          "expected": "合成会計検証会"
+        },
+        {
+          "sheet": "Sheet1",
+          "cell": "E5",
+          "kind": "text",
+          "expected": "検証 太郎"
+        },
+        {
+          "sheet": "Sheet1",
+          "cell": "E6",
+          "kind": "text",
+          "expected": "検証 花子"
+        },
+        {
+          "sheet": "Sheet1",
+          "cell": "J1",
+          "kind": "date",
+          "expected": "2026-04-03"
+        },
+        {
+          "sheet": "Sheet1",
+          "cell": "B8",
+          "kind": "date",
+          "expected": "2025-04-01"
+        },
+        {
+          "sheet": "Sheet1",
+          "cell": "H8",
+          "kind": "date",
+          "expected": "2026-03-31"
+        },
+        {
+          "sheet": "Sheet1",
+          "cell": "E11",
+          "kind": "number",
+          "expected": 10000
+        },
+        {
+          "sheet": "Sheet1",
+          "cell": "L25",
+          "kind": "number",
+          "expected": 3300
+        },
+        {
+          "sheet": "Sheet1",
+          "cell": "L26",
+          "kind": "number",
+          "expected": 25000
+        },
+        {
+          "sheet": "Sheet1",
+          "cell": "C27",
+          "kind": "number",
+          "expected": 35000
+        },
+        {
+          "sheet": "Sheet1",
+          "cell": "J27",
+          "kind": "number",
+          "expected": 35000
+        }
+      ],
+      "regions": [],
+      "rows": [],
+      "label_amounts": [
+        {
+          "sheet": "Sheet1",
+          "label_column": "A",
+          "amount_column": "E",
+          "first_row": 12,
+          "last_row": 26,
+          "label": "会費",
+          "expected": 20000
+        },
+        {
+          "sheet": "Sheet1",
+          "label_column": "A",
+          "amount_column": "E",
+          "first_row": 12,
+          "last_row": 26,
+          "label": "寄付金",
+          "expected": 5000
+        },
+        {
+          "sheet": "Sheet1",
+          "label_column": "H",
+          "amount_column": "L",
+          "first_row": 11,
+          "last_row": 24,
+          "label": "印刷費",
+          "expected": 2500
+        },
+        {
+          "sheet": "Sheet1",
+          "label_column": "H",
+          "amount_column": "L",
+          "first_row": 11,
+          "last_row": 24,
+          "label": "消耗品費",
+          "expected": 1200
+        },
+        {
+          "sheet": "Sheet1",
+          "label_column": "H",
+          "amount_column": "L",
+          "first_row": 11,
+          "last_row": 24,
+          "label": "交通費",
+          "expected": 3000
+        }
+      ]
+    }
+  }
+}

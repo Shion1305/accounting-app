@@ -6,10 +6,13 @@
     "dev": "turbo run dev",
     "deploy": "turbo run deploy",
     "lint": "turbo run lint",
+    "test:llm-export": "node --test experiments/llm-export/gateway/*.test.ts experiments/llm-export/*.test.ts && python3 -m unittest discover -s experiments/llm-export -p 'test_*.py'",
+    "check:llm-export": "tsc -p experiments/llm-export/tsconfig.json && pnpm test:llm-export && python3 experiments/llm-export/preflight.py",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "@types/node": "^26.2.0",
     "prettier": "^3.7.4",
     "turbo": "^2.10.6",
     "typescript": "5.9.2"

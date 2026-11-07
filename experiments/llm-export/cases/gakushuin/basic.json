@@ -1,0 +1,19 @@
+{
+  "case_id": "gakushuin-basic-v1",
+  "synthetic": true,
+  "university": "gakushuin",
+  "editable_sheets": ["書式"],
+  "task": "添付した参照ブックの書式シートに、この合成事例の年度会計報告書を作成してください。年度、団体、記載責任者、科目別収支、内訳、前年度・次年度繰越を反映してください。内訳と費目合計を二重加算しないでください。既存の数式、書式、図形、見本シートを保持してください。",
+  "organization": {"name": "合成会計検証部", "code": "007"},
+  "fiscal_year": 2025,
+  "profile": {"author": {"name": "検証 花子", "faculty": "文学部", "department": "史学科", "grade": 2, "phone": "000-0000-0000"}},
+  "opening_balance_yen": 10000,
+  "entries": [
+    {"id": "g-01", "direction": "income", "date": "2025-04-10", "category": "部費", "detail": "4月徴収", "amount_yen": 10000},
+    {"id": "g-02", "direction": "income", "date": "2025-10-10", "category": "部費", "detail": "10月徴収", "amount_yen": 10000},
+    {"id": "g-03", "direction": "expense", "date": "2025-05-01", "category": "備品費", "description": "収納棚", "amount_yen": 3000},
+    {"id": "g-04", "direction": "expense", "date": "2025-05-02", "category": "消耗品費", "detail": "筆記用具", "description": "マーカー", "amount_yen": 1200},
+    {"id": "g-05", "direction": "expense", "date": "2025-05-03", "category": "印刷費", "description": "活動資料", "amount_yen": 800}
+  ],
+  "completeness": "年度内の取引は上記5件のみ。記載のない費目に取引はありません。氏名・電話番号を含め、すべて架空の検証データです。"
+}
