@@ -1,0 +1,33 @@
+{
+  "name": "@repo/accounting-export",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./contracts": {
+      "types": "./dist/contracts.d.ts",
+      "default": "./dist/contracts.js"
+    },
+    "./dataframe": {
+      "types": "./dist/dataframe/index.d.ts",
+      "default": "./dist/dataframe/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint --max-warnings 0",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "26.2.0",
+    "typescript": "5.9.2",
+    "vite": "8.1.5",
+    "vitest": "4.1.11"
+  }
+}
