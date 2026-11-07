@@ -8,7 +8,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Read [docs/README.md](docs/README.md) before architectural changes. It maps each topic to its authoritative document: [CONTEXT.md](CONTEXT.md) for domain terms, [note/方針.md](note/方針.md) for core product policy, and `docs/design/` for design boundaries. Keep current specifications in those documents; use `docs/adr/` for the reasons behind significant decisions and `docs/plans/` for progress and open questions. Update the relevant document with an implementation change; do not copy specifications into multiple files.
 
-**Not yet implemented**: the final intro/landing page copy and real subscription billing (Square / GMOあおぞら仮想口座). Until billing is built, every circle's `subscriptions` row is created with `status: "active"` at circle-creation time and nothing should gate features on payment state. Auth, the DB schema/bindings, circle onboarding, the public reimbursement submission flow, and the admin screens (approval, income/expense, summary — below) are implemented. University Excel/PDF export is planned in [the export requirements](docs/requirements/accounting-export.md); track its implementation in [the plan](docs/plans/accounting-export.md). Do not infer completion from design documents. CSV export and summary date-range filtering are not added by that plan.
+**Not yet implemented**: the final intro/landing page copy and real subscription billing (Square / GMOあおぞら仮想口座). Until billing is built, every circle's `subscriptions` row is created with `status: "active"` at circle-creation time and nothing should gate features on payment state. Auth, the DB schema/bindings, circle onboarding, the public reimbursement submission flow, and the admin screens (approval, income/expense, summary — below) are implemented. AI-assisted accounting drafts support uploaded forms and existing ledger data; see [the draft-generation design](docs/design/ai-accounting-drafts.md) and [requirements](docs/requirements/accounting-export.md). University-specific mapping and document-quality validation are outside that feature. Do not infer completion from design documents. CSV export and summary date-range filtering are not added by that plan.
 
 ## Commands
 
@@ -33,7 +33,7 @@ pnpm exec turbo build --filter=web
 
 Or run a package's own script directly: `pnpm --filter web add <pkg>` / `pnpm --filter server add -D <pkg>`.
 
-There are no test scripts configured anywhere in the repo yet.
+`pnpm --filter server test` runs offline accounting-draft tests against SQLite and a mocked provider. `pnpm check:llm-export` checks the separate experiment harness.
 
 ## Architecture
 

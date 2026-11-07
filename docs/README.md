@@ -2,30 +2,33 @@
 
 要件、設計、大学書式の調査、実装計画をまとめたドキュメントの入口。各仕様を管理する文書を決め、関連するページからリンクする。
 
-会計出力では、LLMに既存のExcel書式を読ませ、集計から記入・保存まで任せる方法を検証している。初回実験と追加指示の比較は完了した。次はSolで下書きを作り、人が確認して使う用途を検証する。大学別Data Frameやセル対応表を使う従来方式の本実装は保留し、既存の設計と変換コードは比較用に残している。
+会計書類の作成では、利用者がアップロードした大学書式をAIが読み、既存の収支データで記入できる部分を埋める。[現在の仕様と実装](design/ai-accounting-drafts.md)を参照する。大学別のセル配置表や採点器は本体には持たず、生成ファイルを下書きとして返す。
 
 ## 最初に読む
 
 1. [用語](../CONTEXT.md) — 承認と精算、取引と申請、生成と提出の区別。
 2. [全体構成](design/overview.md) — 現行システムと設計上の境界。
 3. [会計出力の要件](requirements/accounting-export.md) — 対象・成果物・受入条件。
-4. [LLM直接編集の検証計画](plans/llm-file-editing-evaluation.md) — 現在の優先作業、比較条件、評価と費用の測り方。
+4. [LLM直接編集の検証計画](plans/llm-file-editing-evaluation.md) — 初回PoCの比較条件、評価と費用の測り方。
 5. [実装計画](plans/accounting-export.md) — 全体の進捗、従来方式の工程、未決事項。
 
 実験の条件とモデルごとの結果は[初回PoCの報告](reports/llm-file-editing-poc-2026-10-12.md)、編集途中の問題は[失敗・手戻りの分析](reports/llm-file-editing-failure-analysis-2026-10-12.md)を参照する。APIの呼び出しと費用の記録方法は[ゲートウェイ設計](design/llm-evaluation-gateway.md)にまとめた。
 
-[追加指示の比較](reports/llm-prompt-improvement-comparison-2026-10-12.md)では、ツール呼び出しは減ったものの、完了率が下がり、時間と費用も増えたため採用を見送った。標準プロンプトは現行版を維持する。アプリへの組み込みや自動提出は未実装である。
+[追加指示の比較](reports/llm-prompt-improvement-comparison-2026-10-12.md)では、ツール呼び出しは減ったものの、完了率が下がり、時間と費用も増えたため採用を見送った。標準プロンプトは現行版を維持する。本体の下書き作成に現行指示を採用し、自動提出は行わない。
+
+現在の本体機能の設計は[AIによる下書き作成](design/ai-accounting-drafts.md)で管理する。以下のパイプライン・ファイル生成・実行処理は従来方式の設計記録も含む。
 
 ## 内容の管理先
 
 | 変更・確認したいこと                           | 正本                                                                                                                  |
 | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| 本体の会計書類の作成・API・一時ファイル | [AIによる下書き作成](design/ai-accounting-drafts.md) |
 | 用語の意味                                     | [CONTEXT.md](../CONTEXT.md)                                                                                           |
 | 基本的な利用者・製品方針                       | [製品方針](../note/方針.md)                                                                                           |
 | 技術構成、認証・テナントの境界                 | [全体構成](design/overview.md)                                                                                        |
 | 会計出力で何を実現するか・完了条件             | [要件](requirements/accounting-export.md)                                                                             |
 | LLM直接編集の比較条件・評価・停止条件          | [LLM検証計画](plans/llm-file-editing-evaluation.md)                                                                   |
-| LLM呼出しの経路・使用量・費用台帳・予算制御    | [計測用ゲートウェイ](design/llm-evaluation-gateway.md)                                                                |
+| 実験用LLMの経路・使用量・費用台帳・予算制御    | [計測用ゲートウェイ](design/llm-evaluation-gateway.md)                                                                |
 | LLM方式の実測結果・失敗原因・次の判断          | [PoC結果](reports/llm-file-editing-poc-2026-10-12.md)                                                                 |
 | 何をいつ保存するか、承認時の引継ぎ、既存データ | [会計データ](design/accounting-data.md)                                                                               |
 | DB取得 → 大学別Data Frame → exportの責務・契約 | [出力パイプライン](design/export-pipeline.md)                                                                         |

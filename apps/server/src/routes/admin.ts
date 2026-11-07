@@ -5,6 +5,7 @@ import { z } from "zod";
 import { and, desc, eq, sum } from "drizzle-orm";
 import { getSession } from "../auth";
 import { createDb, schema } from "../db";
+import { createAccountingApp } from "./accounting";
 import {
   RECEIPT_BODY_LIMIT_BYTES,
   putReceipt,
@@ -63,6 +64,7 @@ export const adminApp = new Hono<{ Bindings: Env; Variables: Variables }>()
     c.set("circleId", membership.circleId);
     await next();
   })
+  .route("/accounting", createAccountingApp())
   // --- 立替申請の承認/却下 ---
   .get("/reimbursements", async (c) => {
     const circleId = c.get("circleId");

@@ -7,6 +7,7 @@
   "observability": {
     "enabled": true
   },
+  "triggers": { "crons": ["0 * * * *"] },
   // ▼ ここから下の TODO は、このプロジェクトを引き継いだ人が自分の
   //   Cloudflareアカウントの値に差し替える必要がある。手順は README.md を参照。
 
@@ -25,6 +26,7 @@
   // 同名キーが優先されるため、wrangler dev では localhost の値が使われる。
   // assets でフロントも同じWorkerから配信するので、3つとも同一オリジンになる。
   "vars": {
+    "ACCOUNTING_MODEL": "gpt-6.1-sol",
     // デプロイ後に発行される https://<worker名>.<サブドメイン>.workers.dev、
     // または独自ドメインを割り当てたならそのURL。末尾にスラッシュを付けないこと。
     "WEB_ORIGIN": "https://TODO-your-worker.workers.dev",

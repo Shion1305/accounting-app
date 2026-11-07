@@ -122,12 +122,12 @@ export function DashboardSummaryPage() {
               </div>
           </div>
           <Link
-            to="#"
+            to="/dashboard/accounting-export"
             className="border-green-500 border-2 rounded-xl px-4 py-2 bg-white flex items-center gap-2 m-2"
           >
             <img src={formatTemplateIcon}></img>
-            <p className="font-bold text-sm">会計出力（未実装）</p>
-            <p className="text-xs">登録した大学書式</p>
+            <p className="font-bold text-sm">会計書類の作成</p>
+            <p className="text-xs">大学書式にAIで記入</p>
             <p className="text-brand-green font-bold text-xl"> &gt;</p>
           </Link>
           <div className="grid gap-2 grid-cols-2">

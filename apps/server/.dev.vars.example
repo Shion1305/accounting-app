@@ -4,6 +4,9 @@
 # node -e "console.log(require('crypto').randomBytes(32).toString('base64'))" などで生成する
 BETTER_AUTH_SECRET=
 
+# AIによる会計書類の生成に使用する。未設定でも他の機能は動作する。
+OPENAI_API_KEY=
+
 # wrangler.jsonc の vars には本番URLが入っているため、ローカル開発ではここで上書きする
 WEB_ORIGIN=http://localhost:3000
 BETTER_AUTH_URL=http://localhost:8787

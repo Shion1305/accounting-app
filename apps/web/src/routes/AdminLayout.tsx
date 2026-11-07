@@ -32,6 +32,7 @@ export function AdminLayout() {
         { label: "収入登録", to: "/dashboard/income" },
         { label: "支出登録", to: "/dashboard/expenses" },
         {label:"収支一覧",to:"/dashboard/transactions"},
+        { label: "会計書類の作成", to: "/dashboard/accounting-export" },
         { label: "設定", to: "/dashboard/setting" },
         { label: "サブスク管理", to: "/dashboard/subscription" },
         { label: "ログアウト", onClick: handleSignOut },

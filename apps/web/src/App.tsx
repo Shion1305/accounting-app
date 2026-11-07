@@ -2,6 +2,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import { RequireAuth } from "@/components/RequireAuth";
 import Wrapper from "@/components/Wrapper";
 import { AdminLayout } from "@/routes/AdminLayout";
+import { AccountingExportPage } from "@/routes/AccountingExportPage";
 import { DashboardSummaryPage } from "@/routes/DashboardSummaryPage";
 import { ExpenseAdminPage } from "@/routes/ExpenseAdminPage";
 import { ForgotPasswordPage } from "@/routes/ForgotPasswordPage";
@@ -63,6 +64,7 @@ export function App() {
           }
         >
           <Route index element={<DashboardSummaryPage />} />
+          <Route path="accounting-export" element={<AccountingExportPage />} />
           <Route path="reimbursements" element={<ReimbursementsAdminPage />} />
           <Route path="income" element={<IncomeAdminPage />} />
           <Route path="expenses" element={<ExpenseAdminPage />} />

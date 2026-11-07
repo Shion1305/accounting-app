@@ -17,6 +17,29 @@ const updatedAt = () =>
     .notNull()
     .default(sql`(unixepoch())`);
 
+// Draft files live at the provider temporarily; this table holds execution metadata only.
+export const accountingExports = sqliteTable("accounting_exports", {
+  id: text("id").primaryKey(),
+  circleId: text("circle_id").notNull().references(() => circles.id),
+  actorId: text("actor_id").notNull().references(() => user.id),
+  status: text("status").notNull(),
+  createdAt: integer("created_at").notNull(),
+  finishedAt: integer("finished_at"),
+  expiresAt: integer("expires_at").notNull(),
+  periodFrom: text("period_from").notNull().default(""),
+  periodTo: text("period_to").notNull().default(""),
+  model: text("model").notNull(),
+  responseId: text("response_id"),
+  inputIds: text("input_ids").notNull().default("[]"),
+  containerIds: text("container_ids").notNull().default("[]"),
+  files: text("files").notNull().default("[]"),
+  message: text("message").notNull().default(""),
+  error: text("error"),
+  usage: text("usage"),
+  cleanedAt: integer("cleaned_at"),
+}, table => [index("accounting_exports_circle_idx").on(table.circleId, table.createdAt),
+  index("accounting_exports_cleanup_idx").on(table.cleanedAt, table.expiresAt)]);
+
 // サークル（テナントルート）
 export const circles = sqliteTable(
   "circles",

@@ -6,7 +6,7 @@ export default [
   ...config,
   {
     // scripts/ はWorkers上ではなくローカルのNode.jsで実行するツール
-    files: ["scripts/**/*.mjs"],
+    files: ["scripts/**/*.mjs", "tests/**/*.mjs"],
     languageOptions: {
       globals: globals.node,
     },
