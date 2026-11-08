@@ -88,11 +88,14 @@ PR を閉じるかマージすると、次の順に削除する。
 | リポジトリ | Secret   | `PREVIEW_AUTH_SECRET`                                   | PR ごとの認証シークレットを生成する元の鍵   |
 | リポジトリ | Secret   | `DEBUG_EMAIL_DISCORD_WEBHOOK`                           | dev・stg・PR のテストメール通知             |
 | 各恒久環境 | Secret   | `BETTER_AUTH_SECRET`                                    | 環境固有の認証用の鍵                        |
+| 各恒久環境 | Secret   | `OPENAI_API_KEY`                                        | AI による会計書類の下書き生成               |
 | 各恒久環境 | Variable | `APP_ORIGIN`                                            | 末尾の `/` を含まない HTTPS のオリジン      |
 | 各恒久環境 | Variable | `EMAIL_MODE`                                            | 現在は dev/stg が `log`、prd が `disabled`  |
 | 各恒久環境 | Variable | `EMAIL_FROM_ADDRESS`                                    | `cloudflare` モードで使用する検証済み送信元 |
 
 Worker の Secrets は `--secrets-file` で渡し、一時ファイルをジョブ終了時に削除する。Terraform state には含めない。認証用の鍵を変更すると既存のセッションやトークンに影響するため、理由なく再生成しない。
+
+`OPENAI_API_KEY` は dev・stg・prd の GitHub Environment に登録する。Deploy workflow は、登録されている場合に対象 Worker へ反映する。キーの更新後は対象環境を再デプロイする。PR プレビューにはこのキーを渡さない。未設定の環境では AI による下書き生成を利用できないが、既存の会計管理は利用できる。
 
 ## デプロイの順序と管理範囲
 
