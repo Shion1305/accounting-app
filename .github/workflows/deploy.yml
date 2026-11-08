@@ -106,15 +106,33 @@ jobs:
         run: |
           printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > apps/web/dist/_headers
       - name: Initialize the environment state
-        run: >-
-          node scripts/retry.mjs 3 5000 30000 terraform -chdir=infra/cloudflare init -input=false -lockfile=readonly
-          -backend-config="key=accounting-app/${TF_VAR_environment}/terraform.tfstate"
+        run: |
+          for attempt in 1 2 3; do
+            if terraform -chdir=infra/cloudflare init -input=false -lockfile=readonly \
+                -backend-config="key=accounting-app/${TF_VAR_environment}/terraform.tfstate"; then
+              exit 0
+            fi
+            [ "$attempt" -lt 3 ] || exit 1
+            wait_seconds=$((5 * 2 ** (attempt - 1)))
+            [ "$wait_seconds" -le 30 ] || wait_seconds=30
+            echo "Attempt $attempt failed; retrying after $wait_seconds seconds"
+            sleep "$((wait_seconds + RANDOM % 3))"
+          done
+
       - name: Plan and apply infrastructure with recovery
         run: |
-          node scripts/retry.mjs 3 10000 60000 bash -c '
-            terraform -chdir=infra/cloudflare plan -lock-timeout=5m -out=deploy.tfplan &&
-            terraform -chdir=infra/cloudflare apply -lock-timeout=5m deploy.tfplan
-          '
+          for attempt in 1 2 3; do
+            if terraform -chdir=infra/cloudflare plan -lock-timeout=5m -out=deploy.tfplan &&
+                terraform -chdir=infra/cloudflare apply -lock-timeout=5m deploy.tfplan; then
+              exit 0
+            fi
+            [ "$attempt" -lt 3 ] || exit 1
+            wait_seconds=$((10 * 2 ** (attempt - 1)))
+            [ "$wait_seconds" -le 60 ] || wait_seconds=60
+            echo "Attempt $attempt failed; retrying after $wait_seconds seconds"
+            sleep "$((wait_seconds + RANDOM % 3))"
+          done
+
       - name: Generate Wrangler configuration from Terraform outputs
         run: |
           terraform -chdir=infra/cloudflare output -json deployment > "$RUNNER_TEMP/deployment.json"
@@ -122,7 +140,18 @@ jobs:
       - name: Validate Worker bundle before migrations
         run: pnpm --filter server exec wrangler deploy --config wrangler.generated.json --dry-run
       - name: Apply pending D1 migrations
-        run: node scripts/retry.mjs 3 5000 30000 pnpm --filter server exec wrangler d1 migrations apply DB --config wrangler.generated.json --remote
+        run: |
+          for attempt in 1 2 3; do
+            if pnpm --filter server exec wrangler d1 migrations apply DB --config wrangler.generated.json --remote; then
+              exit 0
+            fi
+            [ "$attempt" -lt 3 ] || exit 1
+            wait_seconds=$((5 * 2 ** (attempt - 1)))
+            [ "$wait_seconds" -le 30 ] || wait_seconds=30
+            echo "Attempt $attempt failed; retrying after $wait_seconds seconds"
+            sleep "$((wait_seconds + RANDOM % 3))"
+          done
+
       - name: Prepare Worker secrets
         env:
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
@@ -131,9 +160,19 @@ jobs:
           umask 077
           jq -n '{BETTER_AUTH_SECRET: env.BETTER_AUTH_SECRET} + (if env.DEBUG_EMAIL_DISCORD_WEBHOOK != "" then {DEBUG_EMAIL_DISCORD_WEBHOOK: env.DEBUG_EMAIL_DISCORD_WEBHOOK} else {} end)' > "$RUNNER_TEMP/worker-secrets.json"
       - name: Deploy Worker and frontend with secrets
-        run: >-
-          node scripts/retry.mjs 3 5000 30000 pnpm --filter server exec wrangler deploy --config wrangler.generated.json
-          --secrets-file "$RUNNER_TEMP/worker-secrets.json"
+        run: |
+          for attempt in 1 2 3; do
+            if pnpm --filter server exec wrangler deploy --config wrangler.generated.json \
+                --secrets-file "$RUNNER_TEMP/worker-secrets.json"; then
+              exit 0
+            fi
+            [ "$attempt" -lt 3 ] || exit 1
+            wait_seconds=$((5 * 2 ** (attempt - 1)))
+            [ "$wait_seconds" -le 30 ] || wait_seconds=30
+            echo "Attempt $attempt failed; retrying after $wait_seconds seconds"
+            sleep "$((wait_seconds + RANDOM % 3))"
+          done
+
       - name: Smoke test API and frontend
         run: |
           curl_options=(--fail --silent --show-error --retry 11 --retry-all-errors --retry-delay 5 --max-time 10)

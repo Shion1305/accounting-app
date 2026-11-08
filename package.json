@@ -10,7 +10,7 @@
     "check:llm-export": "tsc -p experiments/llm-export/tsconfig.json && pnpm test:llm-export && python3 experiments/llm-export/preflight.py",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "test:deployment": "node --test scripts/*.test.mjs",
+    "test:deployment": "node --test scripts/*.test.mjs && python3 scripts/test-cleanup.py",
     "test:migrations": "pnpm --filter server test:migrations"
   },
   "devDependencies": {

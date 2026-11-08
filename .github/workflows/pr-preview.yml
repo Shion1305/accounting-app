@@ -69,21 +69,50 @@ jobs:
         run: |
           printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > apps/web/dist/_headers
       - name: Initialize isolated preview state
-        run: >-
-          node scripts/retry.mjs 3 5000 30000 terraform -chdir=infra/preview init -input=false -lockfile=readonly
-          -backend-config="key=accounting-app/${TF_VAR_environment}/terraform.tfstate"
+        run: |
+          for attempt in 1 2 3; do
+            if terraform -chdir=infra/preview init -input=false -lockfile=readonly \
+                -backend-config="key=accounting-app/${TF_VAR_environment}/terraform.tfstate"; then
+              exit 0
+            fi
+            [ "$attempt" -lt 3 ] || exit 1
+            wait_seconds=$((5 * 2 ** (attempt - 1)))
+            [ "$wait_seconds" -le 30 ] || wait_seconds=30
+            echo "Attempt $attempt failed; retrying after $wait_seconds seconds"
+            sleep "$((wait_seconds + RANDOM % 3))"
+          done
+
       - name: Plan and apply preview infrastructure with recovery
         run: |
-          node scripts/retry.mjs 3 10000 60000 bash -c '
-            terraform -chdir=infra/preview plan -lock-timeout=5m -out=deploy.tfplan &&
-            terraform -chdir=infra/preview apply -lock-timeout=5m deploy.tfplan
-          '
+          for attempt in 1 2 3; do
+            if terraform -chdir=infra/preview plan -lock-timeout=5m -out=deploy.tfplan &&
+                terraform -chdir=infra/preview apply -lock-timeout=5m deploy.tfplan; then
+              exit 0
+            fi
+            [ "$attempt" -lt 3 ] || exit 1
+            wait_seconds=$((10 * 2 ** (attempt - 1)))
+            [ "$wait_seconds" -le 60 ] || wait_seconds=60
+            echo "Attempt $attempt failed; retrying after $wait_seconds seconds"
+            sleep "$((wait_seconds + RANDOM % 3))"
+          done
+
       - name: Generate preview configuration
         run: |
           terraform -chdir=infra/preview output -json deployment > "$RUNNER_TEMP/deployment.json"
           node scripts/deployment-config.mjs "$RUNNER_TEMP/deployment.json"
       - run: pnpm --filter server exec wrangler deploy --config wrangler.generated.json --dry-run
-      - run: node scripts/retry.mjs 3 5000 30000 pnpm --filter server exec wrangler d1 migrations apply DB --config wrangler.generated.json --remote
+      - name: Apply pending D1 migrations
+        run: |
+          for attempt in 1 2 3; do
+            if pnpm --filter server exec wrangler d1 migrations apply DB --config wrangler.generated.json --remote; then
+              exit 0
+            fi
+            [ "$attempt" -lt 3 ] || exit 1
+            wait_seconds=$((5 * 2 ** (attempt - 1)))
+            [ "$wait_seconds" -le 30 ] || wait_seconds=30
+            echo "Attempt $attempt failed; retrying after $wait_seconds seconds"
+            sleep "$((wait_seconds + RANDOM % 3))"
+          done
       - name: Derive a stable authentication secret for this preview
         env:
           PREVIEW_AUTH_SECRET: ${{ secrets.PREVIEW_AUTH_SECRET }}
@@ -99,9 +128,19 @@ jobs:
           writeFileSync(`${process.env.RUNNER_TEMP}/worker-secrets.json`, JSON.stringify({ BETTER_AUTH_SECRET: secret, ...(process.env.DEBUG_EMAIL_DISCORD_WEBHOOK ? { DEBUG_EMAIL_DISCORD_WEBHOOK: process.env.DEBUG_EMAIL_DISCORD_WEBHOOK } : {}) }));
           JS
       - name: Deploy preview
-        run: >-
-          node scripts/retry.mjs 3 5000 30000 pnpm --filter server exec wrangler deploy --config wrangler.generated.json
-          --secrets-file "$RUNNER_TEMP/worker-secrets.json"
+        run: |
+          for attempt in 1 2 3; do
+            if pnpm --filter server exec wrangler deploy --config wrangler.generated.json \
+                --secrets-file "$RUNNER_TEMP/worker-secrets.json"; then
+              exit 0
+            fi
+            [ "$attempt" -lt 3 ] || exit 1
+            wait_seconds=$((5 * 2 ** (attempt - 1)))
+            [ "$wait_seconds" -le 30 ] || wait_seconds=30
+            echo "Attempt $attempt failed; retrying after $wait_seconds seconds"
+            sleep "$((wait_seconds + RANDOM % 3))"
+          done
+
       - name: Smoke test preview
         run: |
           curl --fail --silent --show-error --retry 11 --retry-all-errors --retry-delay 5 --max-time 10 "$APP_ORIGIN/api/health" | jq -e '.status == "ok"'
@@ -131,24 +170,39 @@ jobs:
         with:
           ref: ${{ github.event.repository.default_branch }}
           persist-credentials: false
-      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
-        with:
-          node-version: 24
       - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
         with:
           terraform_version: 1.14.9
           terraform_wrapper: false
       - name: Initialize the closed preview's state
-        run: >-
-          node scripts/retry.mjs 5 15000 120000 terraform -chdir=infra/preview init -input=false -lockfile=readonly
-          -backend-config="key=accounting-app/${TF_VAR_environment}/terraform.tfstate"
+        run: |
+          for attempt in 1 2 3 4 5; do
+            if terraform -chdir=infra/preview init -input=false -lockfile=readonly \
+                -backend-config="key=accounting-app/${TF_VAR_environment}/terraform.tfstate"; then
+              exit 0
+            fi
+            [ "$attempt" -lt 5 ] || exit 1
+            wait_seconds=$((15 * 2 ** (attempt - 1)))
+            [ "$wait_seconds" -le 120 ] || wait_seconds=120
+            echo "Attempt $attempt failed; retrying after $wait_seconds seconds"
+            sleep "$((wait_seconds + RANDOM % 3))"
+          done
+
       - name: Clean up the closed preview with extended recovery
         run: |
-          node scripts/retry.mjs 5 15000 120000 bash -c '
-            node scripts/cleanup-preview.mjs &&
-            terraform -chdir=infra/preview plan -destroy -lock-timeout=5m -out=destroy.tfplan &&
-            terraform -chdir=infra/preview apply -lock-timeout=5m destroy.tfplan
-          '
+          for attempt in 1 2 3 4 5; do
+            if bash scripts/cleanup-preview.sh &&
+                terraform -chdir=infra/preview plan -destroy -lock-timeout=5m -out=destroy.tfplan &&
+                terraform -chdir=infra/preview apply -lock-timeout=5m destroy.tfplan; then
+              exit 0
+            fi
+            [ "$attempt" -lt 5 ] || exit 1
+            wait_seconds=$((15 * 2 ** (attempt - 1)))
+            [ "$wait_seconds" -le 120 ] || wait_seconds=120
+            echo "Attempt $attempt failed; retrying after $wait_seconds seconds"
+            sleep "$((wait_seconds + RANDOM % 3))"
+          done
+
       - name: Remove the saved destroy plan
         if: always()
         run: rm -f infra/preview/destroy.tfplan

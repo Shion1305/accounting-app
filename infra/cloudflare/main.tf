@@ -6,6 +6,9 @@ resource "cloudflare_d1_database" "app" {
   account_id            = var.account_id
   name                  = "${local.worker_name}-d1"
   primary_location_hint = "apac"
+  read_replication = {
+    mode = "disabled"
+  }
 
   lifecycle {
     prevent_destroy = true
