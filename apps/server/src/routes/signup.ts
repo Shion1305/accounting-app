@@ -5,6 +5,7 @@ import { APIError } from "better-auth/api";
 import { eq } from "drizzle-orm";
 import { createAuth } from "../auth";
 import { createDb, schema } from "../db";
+import { emailDeliveryAvailable } from "../lib/email";
 
 // 会員登録は「ユーザー作成」と「サークル作成」を1画面で受け付ける。
 // better-authのsignUp.emailはユーザーしか作れないため、クライアントからは
@@ -22,8 +23,24 @@ export const signupApp = new Hono<{ Bindings: Env }>().post(
   "/",
   zValidator("json", signupSchema),
   async (c) => {
-    const { circleName, universityName, representativeName, phoneNumber, email, password } =
-      c.req.valid("json");
+    if (!emailDeliveryAvailable(c.env)) {
+      return c.json(
+        {
+          code: "EMAIL_UNAVAILABLE",
+          message:
+            "現在、アカウント機能の準備中です。しばらくしてからお試しください。",
+        },
+        503,
+      );
+    }
+    const {
+      circleName,
+      universityName,
+      representativeName,
+      phoneNumber,
+      email,
+      password,
+    } = c.req.valid("json");
 
     const auth = createAuth(c.env);
 

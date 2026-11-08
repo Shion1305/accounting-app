@@ -1,0 +1,145 @@
+name: PR preview
+
+on:
+  pull_request:
+    branches: [dev]
+    types: [opened, synchronize, reopened, ready_for_review]
+  pull_request_target:
+    branches: [dev]
+    types: [closed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    if: >-
+      github.event_name == 'pull_request' && !github.event.pull_request.draft &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.actor != 'dependabot[bot]'
+    uses: ./.github/workflows/ci.yml
+
+  deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: pr-${{ github.event.pull_request.number }}
+      url: https://accounting-app-pr-${{ github.event.pull_request.number }}.university-accountant-project.workers.dev
+    env:
+      TF_IN_AUTOMATION: "true"
+      TF_INPUT: "false"
+      TF_VAR_environment: pr-${{ github.event.pull_request.number }}
+      CLOUDFLARE_ACCOUNT_ID: "0350bf22d3fd4ab2fd9283c6ce8b91dd"
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_SECRET_ACCESS_KEY }}
+      APP_ORIGIN: https://accounting-app-pr-${{ github.event.pull_request.number }}.university-accountant-project.workers.dev
+      EMAIL_MODE: log
+      VITE_API_URL: ""
+      WRANGLER_SEND_METRICS: "false"
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Reject closed or superseded pull requests
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" > "$RUNNER_TEMP/pr.json"
+          jq -e --arg sha "$EXPECTED_HEAD" '.state == "open" and .head.sha == $sha' "$RUNNER_TEMP/pr.json"
+      - uses: pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa # v4
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          cache: pnpm
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
+        with:
+          terraform_version: 1.14.9
+          terraform_wrapper: false
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Exclude the preview from search indexes
+        run: |
+          printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > apps/web/dist/_headers
+      - name: Initialize isolated preview state
+        run: >-
+          terraform -chdir=infra/preview init -input=false -lockfile=readonly
+          -backend-config="key=accounting-app/${TF_VAR_environment}/terraform.tfstate"
+      - run: terraform -chdir=infra/preview plan -lock-timeout=5m -out=deploy.tfplan
+      - run: terraform -chdir=infra/preview apply -lock-timeout=5m deploy.tfplan
+      - name: Generate preview configuration
+        run: |
+          terraform -chdir=infra/preview output -json deployment > "$RUNNER_TEMP/deployment.json"
+          node scripts/deployment-config.mjs "$RUNNER_TEMP/deployment.json"
+      - run: pnpm --filter server exec wrangler deploy --config wrangler.generated.json --dry-run
+      - run: pnpm --filter server exec wrangler d1 migrations apply DB --config wrangler.generated.json --remote
+      - name: Derive a stable authentication secret for this preview
+        env:
+          PREVIEW_AUTH_SECRET: ${{ secrets.PREVIEW_AUTH_SECRET }}
+        run: |
+          umask 077
+          node --input-type=module <<'JS'
+          import { createHmac } from 'node:crypto';
+          import { writeFileSync } from 'node:fs';
+          const seed = process.env.PREVIEW_AUTH_SECRET;
+          if (!seed || seed.length < 32) throw new Error('Set repository secret PREVIEW_AUTH_SECRET');
+          const secret = createHmac('sha256', seed).update(process.env.TF_VAR_environment).digest('hex');
+          writeFileSync(`${process.env.RUNNER_TEMP}/worker-secrets.json`, JSON.stringify({ BETTER_AUTH_SECRET: secret }));
+          JS
+      - name: Deploy preview
+        run: >-
+          pnpm --filter server exec wrangler deploy --config wrangler.generated.json
+          --secrets-file "$RUNNER_TEMP/worker-secrets.json"
+      - name: Smoke test preview
+        run: |
+          curl --fail --silent --show-error --retry 11 --retry-all-errors --retry-delay 5 --max-time 10 "$APP_ORIGIN/api/health" | jq -e '.status == "ok"'
+          curl --fail --silent --show-error "$APP_ORIGIN" | grep 'id="root"'
+      - name: Remove temporary secrets and plans
+        if: always()
+        run: rm -f "$RUNNER_TEMP/worker-secrets.json" "$RUNNER_TEMP/deployment.json" infra/preview/deploy.tfplan
+
+  cleanup:
+    if: >-
+      github.event_name == 'pull_request_target' && github.event.action == 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TF_IN_AUTOMATION: "true"
+      TF_INPUT: "false"
+      TF_VAR_environment: pr-${{ github.event.pull_request.number }}
+      CLOUDFLARE_ACCOUNT_ID: "0350bf22d3fd4ab2fd9283c6ce8b91dd"
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_SECRET_ACCESS_KEY }}
+    steps:
+      # pull_request_target only runs cleanup from the trusted base branch.
+      # Never check out or execute the closed pull request's head here.
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+      - uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3
+        with:
+          terraform_version: 1.14.9
+          terraform_wrapper: false
+      - name: Remove preview Worker and receipt objects
+        run: node scripts/cleanup-preview.mjs
+      - name: Initialize the closed preview's state
+        run: >-
+          terraform -chdir=infra/preview init -input=false -lockfile=readonly
+          -backend-config="key=accounting-app/${TF_VAR_environment}/terraform.tfstate"
+      - name: Destroy only the closed preview's database and bucket
+        run: |
+          terraform -chdir=infra/preview plan -destroy -lock-timeout=5m -out=destroy.tfplan
+          terraform -chdir=infra/preview apply -lock-timeout=5m destroy.tfplan

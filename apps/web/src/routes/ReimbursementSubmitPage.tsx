@@ -65,7 +65,7 @@ export function ReimbursementSubmitPage() {
     formData.set("receipt", receipt);
 
     const res = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/public/circles/${token}/reimbursements`,
+      `${import.meta.env.VITE_API_URL || ""}/api/public/circles/${token}/reimbursements`,
       { method: "POST", body: formData },
     );
 

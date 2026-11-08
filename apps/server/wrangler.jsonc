@@ -1,70 +1,40 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "accounting-app-server",
+  "name": "accounting-app-local",
+  "account_id": "0350bf22d3fd4ab2fd9283c6ce8b91dd",
   "main": "src/index.ts",
   "compatibility_date": "2026-07-21",
   "compatibility_flags": ["nodejs_compat"],
   "observability": {
-    "enabled": true
+    "enabled": true,
   },
   "triggers": { "crons": ["0 * * * *"] },
-  // ▼ ここから下の TODO は、このプロジェクトを引き継いだ人が自分の
-  //   Cloudflareアカウントの値に差し替える必要がある。手順は README.md を参照。
-
-  // Cloudflareダッシュボード右下、または `wrangler whoami` で確認できるAccount ID。
-  // 複数アカウントを使い分けている環境では、これが無いと wrangler が
-  // node_modules/.cache/wrangler/ に残った別アカウントを掴んで認証エラーになる。
-  //
-  // 【重要】この値は本番デプロイだけでなく `pnpm dev` にも必要。下の send_email が
-  // remote:true で、ローカル開発でもメール送信だけはCloudflare経由で行うため、
-  // wrangler dev の起動時にリモート接続を張りにいく。TODOのままだと
-  // 「Failed to start the remote proxy session」で起動に失敗する。
-  // メール送信を諦めてローカルだけ動かしたい場合は send_email を remote:false にする。
-  "account_id": "TODO_CLOUDFLARE_ACCOUNT_ID",
-
-  // ここは「デプロイ時に適用される本番の値」。ローカル開発では .dev.vars の
-  // 同名キーが優先されるため、wrangler dev では localhost の値が使われる。
-  // assets でフロントも同じWorkerから配信するので、3つとも同一オリジンになる。
   "vars": {
     "ACCOUNTING_MODEL": "gpt-6.1-sol",
-    // デプロイ後に発行される https://<worker名>.<サブドメイン>.workers.dev、
-    // または独自ドメインを割り当てたならそのURL。末尾にスラッシュを付けないこと。
-    "WEB_ORIGIN": "https://TODO-your-worker.workers.dev",
-    "BETTER_AUTH_URL": "https://TODO-your-worker.workers.dev",
-    // 送信元アドレス。ドメインがCloudflareのEmail Routingで検証済みでないと
-    // E_SENDER_NOT_VERIFIED で送信に失敗する。
-    "EMAIL_FROM_ADDRESS": "no-reply@TODO-your-domain.example"
-  },
-  "assets": {
-    "binding": "ASSETS",
-    "directory": "../web/dist",
-    "not_found_handling": "single-page-application",
-    "run_worker_first":[
-      "/api/*",
-      "/auth/*"
-    ]
+    "APP_ENV": "local",
+    "EMAIL_MODE": "log",
+    "WEB_ORIGIN": "http://localhost:3000",
+    "BETTER_AUTH_URL": "http://localhost:8787",
+    "EMAIL_FROM_ADDRESS": "no-reply@example.com",
   },
   "d1_databases": [
-    { 
+    {
       "binding": "DB",
       "database_name": "accounting-app-d1",
-      // `wrangler d1 create accounting-app-d1` の出力に表示されるID。
-      // ローカル開発だけならこのままでも動くが、--remote を使うと失敗する。
-      "database_id": "TODO_D1_DATABASE_ID",
+      "database_id": "00000000-0000-0000-0000-000000000000",
       "migrations_dir": "./drizzle",
-      "remote": false
-    }
+    },
   ],
   "r2_buckets": [
     {
       "binding": "R2",
-      "bucket_name": "accounting-app-r2"
-    }
+      "bucket_name": "accounting-app-r2",
+    },
   ],
   "send_email": [
     {
-      "name":"EMAIL",
-      "remote": true
-    }
-  ]
+      "name": "EMAIL",
+      "remote": false,
+    },
+  ],
 }

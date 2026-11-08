@@ -50,7 +50,9 @@ export function SignUpPage() {
     setIsSubmitting(false);
 
     if (!res.ok) {
-      setError("登録に失敗しました。入力内容をご確認ください。");
+      setError(res.status === 503
+        ? "現在、アカウント機能の準備中です。しばらくしてからお試しください。"
+        : "登録に失敗しました。入力内容をご確認ください。");
       return;
     }
 

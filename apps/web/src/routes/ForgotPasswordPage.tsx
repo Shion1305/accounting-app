@@ -12,12 +12,19 @@ export function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSent, setIsSent] = useState(false);
+  const [unavailable, setUnavailable] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSubmitting(true);
+    setUnavailable(false);
 
-    await authClient.requestPasswordReset({ email });
+    const result = await authClient.requestPasswordReset({ email });
+    if (result.error?.status === 503) {
+      setIsSubmitting(false);
+      setUnavailable(true);
+      return;
+    }
 
     // サーバーはメールアドレスが登録済みかどうかを秘匿するため、
     // 存在しないアドレスでも同じ成功レスポンスを返す。
@@ -57,6 +64,11 @@ export function ForgotPasswordPage() {
         ご登録のメールアドレス宛に、再設定用のリンクを送信します
       </p>
       <form className="mt-8" onSubmit={handleSubmit}>
+        {unavailable && (
+          <p className="mb-4 text-sm text-destructive">
+            現在、アカウント機能の準備中です。しばらくしてからお試しください。
+          </p>
+        )}
         <div>
           <Label htmlFor="email">
             メールアドレス <span className="ml-1 text-xs text-primary">必須</span>
