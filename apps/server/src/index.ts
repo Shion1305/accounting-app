@@ -5,6 +5,7 @@ import { adminApp } from "./routes/admin";
 import { circlesApp } from "./routes/circles";
 import { reimbursementsApp } from "./routes/reimbursements";
 import { signupApp } from "./routes/signup";
+import { accountingService } from "./routes/accounting";
 
 // apps/web はこの app をビルド後の dist/index.d.ts 経由で型参照する(RPC用)。
 // skipLibCheck によりビルド成果物内のアンビエント型(Env/D1Database等)への
@@ -27,4 +28,9 @@ const app = new Hono<{ Bindings: Env }>()
 
 export type AppType = typeof app;
 
-export default app;
+export default {
+  fetch: app.fetch,
+  async scheduled(_event: ScheduledController, env: Env) {
+    if (env.OPENAI_API_KEY) await accountingService(env).sweep();
+  },
+};

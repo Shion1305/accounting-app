@@ -30,6 +30,8 @@ jobs:
         run: pnpm check-types
       - name: Lint
         run: pnpm lint
+      - name: Test app accounting drafts
+        run: pnpm --filter server test
       - name: Build
         run: pnpm build
 

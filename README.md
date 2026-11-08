@@ -115,3 +115,13 @@ runtime型は既存の`@cloudflare/workers-types`を使い、生成対象は設�
 
 GitHub Actionsでは`dev`・`main`向けPRと、それらのブランチへのpushで、
 型チェック・lint・buildを実行する。LLM編集の検証コードは、別のNode.js 26・Python 3.12ジョブで `pnpm check:llm-export` を実行する。実API呼出し・デプロイは行わない。
+
+## AIによる会計書類の作成
+
+ダッシュボードの「会計書類の作成」から、大学の書式をアップロードし、登録済みの収支で記入できる部分を埋めた下書きを生成できる。アップロードはPDF、Excel、Word、PowerPoint、CSV（`.pdf`、`.xlsx`、`.doc`、`.docx`、`.pptx`、`.csv`）に対応する。
+
+ローカルでは `apps/server/.dev.vars` に `OPENAI_API_KEY` を設定する。本番では `pnpm --filter server exec wrangler secret put OPENAI_API_KEY` で設定する。キーがなくても既存の会計管理は動作する。モデルは `wrangler.jsonc` の `ACCOUNTING_MODEL` で指定する。
+
+既存DBには `apps/server/drizzle/0005_unusual_junta.sql` を追加適用する。全マイグレーションを流す `db:apply-local` は空のDB専用なので、既存DBには実行しない。`apps/server` から `pnpm exec wrangler d1 execute accounting-app-d1 --local --file=drizzle/0005_unusual_junta.sql` を実行する。本番は対象を確認したうえで `--remote` を指定する。
+
+`pnpm --filter server test` でモックAPIとSQLiteによるテストを実行する。生成ファイルは一時的に取得でき、終了操作と毎時の清掃で削除する。仕様と保持期間は[下書き生成の設計](docs/design/ai-accounting-drafts.md)を参照する。
