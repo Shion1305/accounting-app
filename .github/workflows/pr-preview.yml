@@ -70,19 +70,24 @@ jobs:
           printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > apps/web/dist/_headers
       - name: Initialize isolated preview state
         run: >-
-          terraform -chdir=infra/preview init -input=false -lockfile=readonly
+          node scripts/retry.mjs 3 5000 30000 terraform -chdir=infra/preview init -input=false -lockfile=readonly
           -backend-config="key=accounting-app/${TF_VAR_environment}/terraform.tfstate"
-      - run: terraform -chdir=infra/preview plan -lock-timeout=5m -out=deploy.tfplan
-      - run: terraform -chdir=infra/preview apply -lock-timeout=5m deploy.tfplan
+      - name: Plan and apply preview infrastructure with recovery
+        run: |
+          node scripts/retry.mjs 3 10000 60000 bash -c '
+            terraform -chdir=infra/preview plan -lock-timeout=5m -out=deploy.tfplan &&
+            terraform -chdir=infra/preview apply -lock-timeout=5m deploy.tfplan
+          '
       - name: Generate preview configuration
         run: |
           terraform -chdir=infra/preview output -json deployment > "$RUNNER_TEMP/deployment.json"
           node scripts/deployment-config.mjs "$RUNNER_TEMP/deployment.json"
       - run: pnpm --filter server exec wrangler deploy --config wrangler.generated.json --dry-run
-      - run: pnpm --filter server exec wrangler d1 migrations apply DB --config wrangler.generated.json --remote
+      - run: node scripts/retry.mjs 3 5000 30000 pnpm --filter server exec wrangler d1 migrations apply DB --config wrangler.generated.json --remote
       - name: Derive a stable authentication secret for this preview
         env:
           PREVIEW_AUTH_SECRET: ${{ secrets.PREVIEW_AUTH_SECRET }}
+          DEBUG_EMAIL_DISCORD_WEBHOOK: ${{ secrets.DEBUG_EMAIL_DISCORD_WEBHOOK }}
         run: |
           umask 077
           node --input-type=module <<'JS'
@@ -91,11 +96,11 @@ jobs:
           const seed = process.env.PREVIEW_AUTH_SECRET;
           if (!seed || seed.length < 32) throw new Error('Set repository secret PREVIEW_AUTH_SECRET');
           const secret = createHmac('sha256', seed).update(process.env.TF_VAR_environment).digest('hex');
-          writeFileSync(`${process.env.RUNNER_TEMP}/worker-secrets.json`, JSON.stringify({ BETTER_AUTH_SECRET: secret }));
+          writeFileSync(`${process.env.RUNNER_TEMP}/worker-secrets.json`, JSON.stringify({ BETTER_AUTH_SECRET: secret, ...(process.env.DEBUG_EMAIL_DISCORD_WEBHOOK ? { DEBUG_EMAIL_DISCORD_WEBHOOK: process.env.DEBUG_EMAIL_DISCORD_WEBHOOK } : {}) }));
           JS
       - name: Deploy preview
         run: >-
-          pnpm --filter server exec wrangler deploy --config wrangler.generated.json
+          node scripts/retry.mjs 3 5000 30000 pnpm --filter server exec wrangler deploy --config wrangler.generated.json
           --secrets-file "$RUNNER_TEMP/worker-secrets.json"
       - name: Smoke test preview
         run: |
@@ -110,7 +115,7 @@ jobs:
       github.event_name == 'pull_request_target' && github.event.action == 'closed' &&
       github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     env:
       TF_IN_AUTOMATION: "true"
       TF_INPUT: "false"
@@ -133,13 +138,17 @@ jobs:
         with:
           terraform_version: 1.14.9
           terraform_wrapper: false
-      - name: Remove preview Worker and receipt objects
-        run: node scripts/cleanup-preview.mjs
       - name: Initialize the closed preview's state
         run: >-
-          terraform -chdir=infra/preview init -input=false -lockfile=readonly
+          node scripts/retry.mjs 5 15000 120000 terraform -chdir=infra/preview init -input=false -lockfile=readonly
           -backend-config="key=accounting-app/${TF_VAR_environment}/terraform.tfstate"
-      - name: Destroy only the closed preview's database and bucket
+      - name: Clean up the closed preview with extended recovery
         run: |
-          terraform -chdir=infra/preview plan -destroy -lock-timeout=5m -out=destroy.tfplan
-          terraform -chdir=infra/preview apply -lock-timeout=5m destroy.tfplan
+          node scripts/retry.mjs 5 15000 120000 bash -c '
+            node scripts/cleanup-preview.mjs &&
+            terraform -chdir=infra/preview plan -destroy -lock-timeout=5m -out=destroy.tfplan &&
+            terraform -chdir=infra/preview apply -lock-timeout=5m destroy.tfplan
+          '
+      - name: Remove the saved destroy plan
+        if: always()
+        run: rm -f infra/preview/destroy.tfplan

@@ -107,12 +107,14 @@ jobs:
           printf '/*\n  X-Robots-Tag: noindex, nofollow\n' > apps/web/dist/_headers
       - name: Initialize the environment state
         run: >-
-          terraform -chdir=infra/cloudflare init -input=false -lockfile=readonly
+          node scripts/retry.mjs 3 5000 30000 terraform -chdir=infra/cloudflare init -input=false -lockfile=readonly
           -backend-config="key=accounting-app/${TF_VAR_environment}/terraform.tfstate"
-      - name: Plan infrastructure
-        run: terraform -chdir=infra/cloudflare plan -lock-timeout=5m -out=deploy.tfplan
-      - name: Apply the saved infrastructure plan
-        run: terraform -chdir=infra/cloudflare apply -lock-timeout=5m deploy.tfplan
+      - name: Plan and apply infrastructure with recovery
+        run: |
+          node scripts/retry.mjs 3 10000 60000 bash -c '
+            terraform -chdir=infra/cloudflare plan -lock-timeout=5m -out=deploy.tfplan &&
+            terraform -chdir=infra/cloudflare apply -lock-timeout=5m deploy.tfplan
+          '
       - name: Generate Wrangler configuration from Terraform outputs
         run: |
           terraform -chdir=infra/cloudflare output -json deployment > "$RUNNER_TEMP/deployment.json"
@@ -120,16 +122,17 @@ jobs:
       - name: Validate Worker bundle before migrations
         run: pnpm --filter server exec wrangler deploy --config wrangler.generated.json --dry-run
       - name: Apply pending D1 migrations
-        run: pnpm --filter server exec wrangler d1 migrations apply DB --config wrangler.generated.json --remote
+        run: node scripts/retry.mjs 3 5000 30000 pnpm --filter server exec wrangler d1 migrations apply DB --config wrangler.generated.json --remote
       - name: Prepare Worker secrets
         env:
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+          DEBUG_EMAIL_DISCORD_WEBHOOK: ${{ needs.target.outputs.environment != 'prd' && secrets.DEBUG_EMAIL_DISCORD_WEBHOOK || '' }}
         run: |
           umask 077
-          jq -n '{BETTER_AUTH_SECRET: env.BETTER_AUTH_SECRET}' > "$RUNNER_TEMP/worker-secrets.json"
+          jq -n '{BETTER_AUTH_SECRET: env.BETTER_AUTH_SECRET} + (if env.DEBUG_EMAIL_DISCORD_WEBHOOK != "" then {DEBUG_EMAIL_DISCORD_WEBHOOK: env.DEBUG_EMAIL_DISCORD_WEBHOOK} else {} end)' > "$RUNNER_TEMP/worker-secrets.json"
       - name: Deploy Worker and frontend with secrets
         run: >-
-          pnpm --filter server exec wrangler deploy --config wrangler.generated.json
+          node scripts/retry.mjs 3 5000 30000 pnpm --filter server exec wrangler deploy --config wrangler.generated.json
           --secrets-file "$RUNNER_TEMP/worker-secrets.json"
       - name: Smoke test API and frontend
         run: |

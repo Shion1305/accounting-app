@@ -6,5 +6,6 @@ declare global {
     BETTER_AUTH_SECRET: string;
     OPENAI_API_KEY?: string;
     ACCOUNTING_MODEL?: string;
+    DEBUG_EMAIL_DISCORD_WEBHOOK?: string;
   }
 }

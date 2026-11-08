@@ -62,3 +62,66 @@ test("disabled delivery fails closed and configured delivery uses the provider",
   assert.deepEqual(send.mock.calls[0].arguments, [message]);
   assert.equal(log.mock.callCount(), 0);
 });
+
+test("test messages also reach Discord without allowing mentions", async (t) => {
+  t.mock.method(console, "info", () => {});
+  const calls = [];
+  await sendAppEmail(
+    {
+      APP_ENV: "dev",
+      EMAIL_MODE: "log",
+      DEBUG_EMAIL_DISCORD_WEBHOOK:
+        "https://discord.com/api/webhooks/123/test-token",
+    },
+    message,
+    async (url, init) => {
+      calls.push({ url, payload: JSON.parse(init.body) });
+      return new Response(null, { status: 204 });
+    },
+  );
+  assert.equal(calls.length, 1);
+  assert.match(calls[0].url, /wait=true$/);
+  assert.deepEqual(calls[0].payload.allowed_mentions, { parse: [] });
+  assert.equal(calls[0].payload.embeds[0].description, message.text);
+  assert.match(calls[0].payload.embeds[0].title, /^\[dev\]/);
+});
+
+test("Discord rate limits retry, permanent failures retain logs, and production never notifies", async (t) => {
+  const info = t.mock.method(console, "info", () => {});
+  const error = t.mock.method(console, "error", () => {});
+  const env = {
+    APP_ENV: "stg",
+    EMAIL_MODE: "log",
+    DEBUG_EMAIL_DISCORD_WEBHOOK:
+      "https://discord.com/api/webhooks/123/test-token",
+  };
+  let attempts = 0;
+  await sendAppEmail(env, message, async () => {
+    attempts++;
+    return attempts === 1
+      ? Response.json({ retry_after: 0 }, { status: 429 })
+      : new Response(null, { status: 204 });
+  });
+  assert.equal(attempts, 2);
+  assert.ok(
+    info.mock.calls.some(
+      ({ arguments: args }) => JSON.parse(args[0]).event === "test_email",
+    ),
+  );
+  await sendAppEmail(
+    env,
+    message,
+    async () => new Response(null, { status: 403 }),
+  );
+  assert.equal(error.mock.callCount(), 1);
+  assert.ok(
+    error.mock.calls.every(
+      ({ arguments: args }) => !args.join(" ").includes("test-token"),
+    ),
+  );
+  await assert.rejects(
+    sendAppEmail({ ...env, APP_ENV: "prd" }, message, () =>
+      assert.fail("Production must not send debug notifications"),
+    ),
+  );
+});
