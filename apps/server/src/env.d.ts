@@ -1,10 +1,11 @@
 export {};
 
 declare global {
-  // Secret values are provided at runtime; type checking also works without .dev.vars.
+  // Secrets are injected at runtime and are not required for local type generation.
   interface Env {
     BETTER_AUTH_SECRET: string;
     OPENAI_API_KEY?: string;
     ACCOUNTING_MODEL?: string;
+    DEBUG_EMAIL_DISCORD_WEBHOOK?: string;
   }
 }

@@ -38,7 +38,7 @@
 | 大学固有項目の根拠、サンプルの制約             | [大学別調査](universities/README.md)                                                                                  |
 | 将来変えにくい判断の理由・比較した選択肢       | [3段階の分離](adr/0001-separate-export-stages.md)、[履歴と成果物の保存](adr/0002-export-history-without-artifacts.md) |
 | PRの順序・進捗、未決事項と解消条件             | [実装計画](plans/accounting-export.md)                                                                                |
-| 起動・環境設定・デプロイ操作                   | [ルートREADME](../README.md)                                                                                          |
+| 起動・環境設定・デプロイ操作                   | [ルートREADME](../README.md)、[デプロイ構成](deployment.md)                                                                                          |
 
 要件PDFと4大学の参照コピーを同梱している。法政は実取引を合成例へ置換し領収書画像を除去、学習院はZIP構造を修復し、各参照コピーから識別メタデータを除去した。処理内容・確認結果・ハッシュは[参照資料の管理](references/README.md)に記録する。大学別ページから書式の根拠を確認できるが、参照コピーを最新版の正式テンプレートとして採用済みとは扱わない。
 

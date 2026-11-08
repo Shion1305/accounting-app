@@ -6,6 +6,7 @@ import { circlesApp } from "./routes/circles";
 import { reimbursementsApp } from "./routes/reimbursements";
 import { signupApp } from "./routes/signup";
 import { accountingService } from "./routes/accounting";
+import { emailDeliveryAvailable } from "./lib/email";
 
 // apps/web はこの app をビルド後の dist/index.d.ts 経由で型参照する(RPC用)。
 // skipLibCheck によりビルド成果物内のアンビエント型(Env/D1Database等)への
@@ -19,8 +20,26 @@ const app = new Hono<{ Bindings: Env }>()
       credentials: true,
     }),
   )
+  .use("*", async (c, next) => {
+    if (c.env.APP_ENV !== "prd") {
+      c.header("X-Robots-Tag", "noindex, nofollow");
+    }
+    if (!emailDeliveryAvailable(c.env) && c.req.path.startsWith("/api/auth/")) {
+      return c.json(
+        {
+          code: "EMAIL_UNAVAILABLE",
+          message:
+            "現在、アカウント機能の準備中です。しばらくしてからお試しください。",
+        },
+        503,
+      );
+    }
+    await next();
+  })
   .get("/api/health", (c) => c.json({ status: "ok" }))
-  .on(["GET", "POST"], "/api/auth/*", (c) => createAuth(c.env).handler(c.req.raw))
+  .on(["GET", "POST"], "/api/auth/*", (c) =>
+    createAuth(c.env).handler(c.req.raw),
+  )
   .route("/api/signup", signupApp)
   .route("/api/circles", circlesApp)
   .route("/api/public", reimbursementsApp)

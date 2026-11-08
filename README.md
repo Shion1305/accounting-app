@@ -16,51 +16,6 @@ pnpm workspace + turborepo によるモノレポ。
 
 認証（better-auth）、DB（Cloudflare D1 + drizzle）、R2への画像アップロードはいずれも実装済み。
 
-## 引き継いだ人が最初にやること
-
-このリポジトリには**前任者のCloudflareアカウント固有の値が含まれていない**。
-`TODO_` / `TODO-` で始まる値が残っているうちは本番デプロイができないので、自分のアカウントの値に差し替える。
-
-なお `wrangler.jsonc` の `account_id` は**ローカル開発（`pnpm dev`）にも必要**。
-`send_email` バインディングが `remote: true` で、ローカルでもメール送信だけはCloudflare経由になるため、
-`wrangler dev` が起動時にリモート接続を張りにいく。TODOのままだと
-`Failed to start the remote proxy session` で起動に失敗する。
-まずはメール無しで動かしたいなら、`send_email` を一時的に `remote: false` にすれば起動はできる。
-
-### 1. Cloudflare側のリソースを作る
-
-```sh
-pnpm dlx wrangler login
-pnpm dlx wrangler d1 create accounting-app-d1     # 出力される database_id を控える
-pnpm dlx wrangler r2 bucket create accounting-app-r2
-```
-
-送信元ドメインをCloudflareのEmail Routingに登録し、検証を済ませておく。
-検証していないドメインを使うと、確認メールの送信が `E_SENDER_NOT_VERIFIED` で失敗する。
-
-### 2. 設定ファイルの TODO を埋める
-
-| ファイル | 項目 | 入れる値 |
-| --- | --- | --- |
-| `apps/server/wrangler.jsonc` | `account_id` | `wrangler whoami` で表示されるAccount ID |
-| `apps/server/wrangler.jsonc` | `d1_databases[0].database_id` | 手順1で控えた database_id |
-| `apps/server/wrangler.jsonc` | `vars.WEB_ORIGIN` / `vars.BETTER_AUTH_URL` | デプロイ後に発行されるWorkerのURL |
-| `apps/server/wrangler.jsonc` | `vars.EMAIL_FROM_ADDRESS` | 検証済みドメインの送信元アドレス |
-| `apps/web/.env.production` | `VITE_API_URL` | `WEB_ORIGIN` と同じURL |
-
-WorkerのURLは初回デプロイまで確定しない。先に一度デプロイして払い出されたURLを確認し、
-上の4箇所に反映してから、もう一度デプロイするとよい。
-
-### 3. 本番のシークレットとDBを用意する
-
-```sh
-pnpm dlx wrangler secret put BETTER_AUTH_SECRET   # node -e "console.log(require('crypto').randomBytes(32).toString('base64'))" などで生成
-pnpm dlx wrangler d1 execute accounting-app-d1 --remote --file=apps/server/drizzle/0000_heavy_fantastic_four.sql
-```
-
-マイグレーションは `apps/server/drizzle/` のSQLを**番号順に1ファイルずつ**当てる。
-適用済みかを記録する仕組みは無いので、どこまで当てたかは自分で管理する。
-
 ## セットアップ（ローカル開発）
 
 Node.js 22.22.0以上（推奨: 24系）と、`packageManager`で指定したpnpm 9.0.0を使用する。
@@ -73,7 +28,7 @@ pnpm install --frozen-lockfile
 `WEB_ORIGIN` と `BETTER_AUTH_URL` はexampleのlocalhostのままでよい。
 
 ```sh
-pnpm --filter server db:apply-local   # ローカルD1にマイグレーションを適用（空のDBにのみ使える）
+pnpm --filter server db:apply-local   # ローカルD1にマイグレーションを適用（未適用のSQLだけを適用）
 ```
 
 フロントの `VITE_API_URL` は `apps/web/.env.development` がコミット済みなので用意するものはない。
@@ -89,13 +44,22 @@ pnpm dev
 
 個別に起動する場合は `turbo dev --filter=web` / `turbo dev --filter=server` のようにフィルタを使う。
 
-## デプロイ
+## デプロイ・Terraform
 
-```sh
-pnpm run deploy
-```
+| 操作                                       | 反映先               |
+| ------------------------------------------ | -------------------- |
+| `dev` への push                            | 開発環境 (`dev`)     |
+| GitHub prerelease の公開                   | ステージング (`stg`) |
+| 正式 release の公開・prerelease からの昇格 | 本番 (`prd`)         |
+| Deploy workflow の手動実行                 | 選択した環境         |
 
-フロントのビルド → `wrangler deploy` の順に走る。同じWorkerが `apps/web/dist` を配信するため、この順番である必要がある。
+CI の成功後、Terraform plan/apply → D1 の未適用マイグレーション → Worker・フロントの配信 → 疎通確認を実行する。
+D1・非公開 R2 バケット・Terraform state・認証シークレットを環境ごとに分離する。
+Worker は同一オリジンで API とフロントを配信する。
+詳細は[デプロイ構成](docs/deployment.md)と[インフラ構成](infra/README.md)を参照。
+
+ローカルの `wrangler.jsonc` は Cloudflare の実リソースやメール送信に接続しない。
+過去に SQL を直接適用したローカル DB は移行履歴がないため、スキーマを確認して履歴を整備するか、不要なローカルデータに限りリセットしてから移行する。
 
 ## その他のコマンド
 
@@ -114,14 +78,14 @@ Turboを介さずserverのコマンドを直接実行する場合は、先に`pn
 runtime型は既存の`@cloudflare/workers-types`を使い、生成対象は設定から得られるbinding型に限定する。
 
 GitHub Actionsでは`dev`・`main`向けPRと、それらのブランチへのpushで、
-型チェック・lint・buildを実行する。LLM編集の検証コードは、別のNode.js 26・Python 3.12ジョブで `pnpm check:llm-export` を実行する。実API呼出し・デプロイは行わない。
+型チェック・lint・build・デプロイ設定・D1マイグレーション・Terraformを検証する。LLM編集の検証コードは、別のNode.js 26・Python 3.12ジョブで `pnpm check:llm-export` を実行する。この検証ジョブでは実API呼出しを行わない。
 
 ## AIによる会計書類の作成
 
 ダッシュボードの「会計書類の作成」から、大学の書式をアップロードし、登録済みの収支で記入できる部分を埋めた下書きを生成できる。アップロードはPDF、Excel、Word、PowerPoint、CSV（`.pdf`、`.xlsx`、`.doc`、`.docx`、`.pptx`、`.csv`）に対応する。
 
-ローカルでは `apps/server/.dev.vars` に `OPENAI_API_KEY` を設定する。本番では `pnpm --filter server exec wrangler secret put OPENAI_API_KEY` で設定する。キーがなくても既存の会計管理は動作する。モデルは `wrangler.jsonc` の `ACCOUNTING_MODEL` で指定する。
+ローカルでは `apps/server/.dev.vars` に `OPENAI_API_KEY` を設定する。デプロイ先では、対象環境の設定を生成したうえで `pnpm --filter server exec wrangler secret put OPENAI_API_KEY --config wrangler.generated.json` で設定する。キーがなくても既存の会計管理は動作する。モデルは `wrangler.jsonc` の `ACCOUNTING_MODEL` で指定する。
 
-既存DBには `apps/server/drizzle/0005_unusual_junta.sql` を追加適用する。全マイグレーションを流す `db:apply-local` は空のDB専用なので、既存DBには実行しない。`apps/server` から `pnpm exec wrangler d1 execute accounting-app-d1 --local --file=drizzle/0005_unusual_junta.sql` を実行する。本番は対象を確認したうえで `--remote` を指定する。
+会計書類の実行履歴テーブルもマイグレーションで作成する。ローカルでは `pnpm --filter server db:apply-local` を実行し、デプロイ先ではパイプラインが未適用の SQL を適用する。
 
 `pnpm --filter server test` でモックAPIとSQLiteによるテストを実行する。生成ファイルは一時的に取得でき、終了操作と毎時の清掃で削除する。仕様と保持期間は[下書き生成の設計](docs/design/ai-accounting-drafts.md)を参照する。

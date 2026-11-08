@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { userAdditionalFields } from "./auth-fields";
 import { createDb, schema } from "./db";
+import { sendAppEmail } from "./lib/email";
 
 // Cloudflare Workersはbinding(env)がリクエスト単位でしか取得できないため、
 // better-authのインスタンスはモジュールスコープでシングルトン化せず、
@@ -23,7 +24,7 @@ export function createAuth(env: Env) {
       changeEmail: {
         enabled: true,
         sendChangeEmailConfirmation: async ({ user, newEmail, url }) => {
-          await env.EMAIL.send({
+          await sendAppEmail(env, {
             to: user.email,
             from: env.EMAIL_FROM_ADDRESS,
             subject: "【サークル会計アプリ】メールアドレス変更の確認",
@@ -47,7 +48,7 @@ export function createAuth(env: Env) {
         // 自前で組めばハッシュ内に入れられるうえ、URLフラグメントはサーバーに
         // 送信されないためアクセスログやRefererにトークンが残らない。
         const url = `${env.WEB_ORIGIN}/#/reset-password?token=${token}`;
-        await env.EMAIL.send({
+        await sendAppEmail(env, {
           to: user.email,
           from: env.EMAIL_FROM_ADDRESS,
           subject: "【サークル会計アプリ】パスワードの再設定",
@@ -60,7 +61,7 @@ export function createAuth(env: Env) {
       sendOnSignUp: true,
       autoSignInAfterVerification: true,
       sendVerificationEmail: async ({ user, url }) => {
-        await env.EMAIL.send({
+        await sendAppEmail(env, {
           to: user.email,
           from: env.EMAIL_FROM_ADDRESS,
           subject: "【サークル会計アプリ】メールアドレスの確認",
