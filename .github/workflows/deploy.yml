@@ -155,10 +155,13 @@ jobs:
       - name: Prepare Worker secrets
         env:
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           DEBUG_EMAIL_DISCORD_WEBHOOK: ${{ needs.target.outputs.environment != 'prd' && secrets.DEBUG_EMAIL_DISCORD_WEBHOOK || '' }}
         run: |
           umask 077
-          jq -n '{BETTER_AUTH_SECRET: env.BETTER_AUTH_SECRET} + (if env.DEBUG_EMAIL_DISCORD_WEBHOOK != "" then {DEBUG_EMAIL_DISCORD_WEBHOOK: env.DEBUG_EMAIL_DISCORD_WEBHOOK} else {} end)' > "$RUNNER_TEMP/worker-secrets.json"
+          jq -n '{BETTER_AUTH_SECRET: env.BETTER_AUTH_SECRET}
+            + (if env.OPENAI_API_KEY != "" then {OPENAI_API_KEY: env.OPENAI_API_KEY} else {} end)
+            + (if env.DEBUG_EMAIL_DISCORD_WEBHOOK != "" then {DEBUG_EMAIL_DISCORD_WEBHOOK: env.DEBUG_EMAIL_DISCORD_WEBHOOK} else {} end)' > "$RUNNER_TEMP/worker-secrets.json"
       - name: Deploy Worker and frontend with secrets
         run: |
           for attempt in 1 2 3; do

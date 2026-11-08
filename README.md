@@ -84,7 +84,7 @@ GitHub Actionsでは`dev`・`main`向けPRと、それらのブランチへのpu
 
 ダッシュボードの「会計書類の作成」から、大学の書式をアップロードし、登録済みの収支で記入できる部分を埋めた下書きを生成できる。アップロードはPDF、Excel、Word、PowerPoint、CSV（`.pdf`、`.xlsx`、`.doc`、`.docx`、`.pptx`、`.csv`）に対応する。
 
-ローカルでは `apps/server/.dev.vars` に `OPENAI_API_KEY` を設定する。デプロイ先では、対象環境の設定を生成したうえで `pnpm --filter server exec wrangler secret put OPENAI_API_KEY --config wrangler.generated.json` で設定する。キーがなくても既存の会計管理は動作する。モデルは `wrangler.jsonc` の `ACCOUNTING_MODEL` で指定する。
+ローカルでは `apps/server/.dev.vars` に `OPENAI_API_KEY` を設定する。デプロイ先では、GitHub Environment の dev・stg・prd にそれぞれ同名の Secret を登録して再デプロイすると、対象 Worker に反映される。キーがなくても既存の会計管理は動作する。モデルは `wrangler.jsonc` の `ACCOUNTING_MODEL` で指定する。
 
 会計書類の実行履歴テーブルもマイグレーションで作成する。ローカルでは `pnpm --filter server db:apply-local` を実行し、デプロイ先ではパイプラインが未適用の SQL を適用する。
 
